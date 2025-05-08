@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sony WH-1000XM3 - Étape 2</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .progress-bar {
+      background-color: #e0e0e0;
+      height: 10px;
+      position: relative;
+    }
+    .progress {
+      height: 100%;
+      width: 66.66%;
+      background-color: #00c853;
+    }
+    .step-label {
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
+      color: #555;
+    }
+    .container {
+      max-width: 480px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .product-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .product-description {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    .price {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .price del {
+      color: #888;
+      margin-right: 10px;
+    }
+    .countdown {
+      font-size: 18px;
+      color: #d10000;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 14px;
+      text-align: left;
+      margin: 20px 0;
+    }
+    .features div::before {
+      content: "✔️";
+      margin-right: 8px;
+      color: green;
+    }
+    .stars {
+      font-size: 18px;
+      color: #ffb400;
+      margin: 10px 0;
+    }
+    .btn-order {
+      background-color: #d50000;
+      color: white;
+      padding: 16px;
+      border: none;
+      font-size: 18px;
+      width: 100%;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .urgency {
+      color: #d50000;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .trust {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #444;
+    }
+    .trust img {
+      height: 20px;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+  </style>
+  <!-- TikTok Pixel Placeholder -->
+  <!-- Replace 'YOUR_PIXEL_ID' with your real pixel ID once available -->
+  <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject = t;
+      var ttq = w[t] = w[t] || [];
+      ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"],
+      ttq.setAndDefer = function (t, e) {
+        t[e] = function () {
+          t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+        }
+      };
+      for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+      ttq.instance = function (t) {
+        for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++
+        )ttq.setAndDefer(e, ttq.methods[n]);
+        return e
+      };
+      ttq.load = function (e, n) {
+        var i = "https://analytics.tiktok.com/i18n/pixel/events.js";
+        ttq._i = ttq._i || {},
+        ttq._i[e] = [],
+        ttq._i[e]._u = i,
+        ttq._t = ttq._t || {},
+        ttq._t[e] = +new Date,
+        ttq._o = ttq._o || {},
+        ttq._o[e] = n || {};
+        var o = document.createElement("script");
+        o.type = "text/javascript",
+        o.async = !0,
+        o.src = i + "?sdkid=" + e + "&lib=" + t;
+        var a = document.getElementsByTagName("script")[0];
+        a.parentNode.insertBefore(o, a)
+      };
+
+      ttq.load('YOUR_PIXEL_ID');
+      ttq.page();
+    }(window, document, 'ttq');
+  </script>
+
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress"></div></div>
+<div class="step-label">Étape 2 sur 3 : Ajout au panier</div>
+
+<div class="container">
+  <div class="product-title">Sony WH-1000XM3 - Édition Limitée</div>
+  <p class="product-description">Casque audio sans fil avec réduction active du bruit, son haute résolution et autonomie de 30h.</p>
+  
+  <img src="https://i.postimg.cc/0ydpxQjj/file-00000000ed4461f8974d9559526c6df7.png" alt="Casque Sony" width="100">
+
+  <div class="price">
+    <del>85€</del> <strong style="color: green;">9,99€</strong>
+  </div>
+
+  <div class="countdown" id="countdown">Temps restant : 1h 30min</div>
+
+  <div class="stars">4.9 ★★★★★</div>
+
+  <div class="features" style="text-align:center; font-size: 10px;"> 
+    <div>Réduction active du bruit</div>
+    <div>Audio spatial immersif</div>
+    <div>Confort longue durée</div>
+    <div>Livraison gratuite en 2 à 5 jours</div>
+  </div>
+
+  <button class="btn-order" onclick="window.location.href='https://www.google.com/'">Commander maintenant</button>
+  <div class="urgency">+500 commandes aujourd'hui</div>
+
+  <div class="trust">
+    <p>
+      <img src="https://i.postimg.cc/qMKsbQd8/file-00000000ffc461f89d5de6215a6cd5e3.png" alt="Paiement sécurisé">
+      Paiement sécurisé via Visa
+    </p>
+    <p>
+      <img src="https://i.postimg.cc/fRhx6Xw1/file-00000000423c61f89e3858242f83cbfd.png" alt="Livraison">
+      Livraison gratuite en 2 à 5 jours
+    </p>
+  </div>
+</div>
+
+<script>
+  let countdownTime = 90 * 60;
+  const countdownEl = document.getElementById("countdown");
+
+  function updateCountdown() {
+    const minutes = Math.floor(countdownTime / 60);
+    const seconds = countdownTime % 60;
+    countdownEl.innerText = `Temps restant avant expiration de l'offre  : ${minutes}m ${seconds < 10 ? '0' + seconds : seconds}s`;
+
+    if (countdownTime > 0) {
+      countdownTime--;
+      setTimeout(updateCountdown, 1000);
+    } else {
+      countdownEl.innerText = "L'offre a expiré.";
+    }
+  }
+
+  updateCountdown();
+</script>
+
+</body>
+</html>
