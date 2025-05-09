@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -140,13 +139,17 @@
         a.parentNode.insertBefore(o, a)
       };
 
-      ttq.load('YOUR_PIXEL_ID');
+      ttq.load('D0F3TCRC7U4144099HG');
       ttq.page();
     }(window, document, 'ttq');
   </script>
-
 </head>
 <body>
+
+<script>
+  // Track AddToCart when user lands on the page
+  ttq.track('AddToCart');
+</script>
 
 <div class="progress-bar"><div class="progress"></div></div>
 <div class="step-label">Étape 2 sur 3 : Ajout au panier</div>
@@ -172,7 +175,7 @@
     <div>Livraison gratuite en 2 à 5 jours</div>
   </div>
 
-  <button class="btn-order" onclick="window.location.href='https://www.google.com/'">Commander maintenant</button>
+  <button class="btn-order" onclick="ttq.track('PlaceOrder', { value: 9.99, currency: 'EUR' }); window.location.href='https://ttgn.tracktimegenius.com/aff_c?offer_id=85898&aff_id=1931&source=Sony+WH-1000XM3___https://store.sony.co.nz/dw/image/v2/ABBC_PRD/on/demandware.static/-/Sites-sony-master-catalog/default/dw4b01044c/images/WH1000XM3B/WH1000XM3B.png'">Commander maintenant</button>
   <div class="urgency">+500 commandes aujourd'hui</div>
 
   <div class="trust">
@@ -209,3 +212,4 @@
 
 </body>
 </html>
+
