@@ -105,7 +105,6 @@
     }
   </style>
   <!-- TikTok Pixel Placeholder -->
-  <!-- Replace 'YOUR_PIXEL_ID' with your real pixel ID once available -->
   <script>
     !function (w, d, t) {
       w.TiktokAnalyticsObject = t;
@@ -118,8 +117,7 @@
       };
       for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
       ttq.instance = function (t) {
-        for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++
-        )ttq.setAndDefer(e, ttq.methods[n]);
+        for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++) ttq.setAndDefer(e, ttq.methods[n]);
         return e
       };
       ttq.load = function (e, n) {
@@ -147,8 +145,13 @@
 <body>
 
 <script>
-  // Track AddToCart when user lands on the page
-  ttq.track('AddToCart');
+  // Track AddToCart with content_id
+  ttq.track('AddToCart', {
+    content_id: 'sony-wh-1000xm3',
+    content_type: 'product',
+    value: 9.99,
+    currency: 'EUR'
+  });
 </script>
 
 <div class="progress-bar"><div class="progress"></div></div>
@@ -175,7 +178,7 @@
     <div>Livraison gratuite en 2 à 5 jours</div>
   </div>
 
-  <button class="btn-order" onclick="ttq.track('PlaceOrder', { value: 9.99, currency: 'EUR' }); window.location.href='https://ttgn.tracktimegenius.com/aff_c?offer_id=85898&aff_id=1931&source=Sony+WH-1000XM3___https://store.sony.co.nz/dw/image/v2/ABBC_PRD/on/demandware.static/-/Sites-sony-master-catalog/default/dw4b01044c/images/WH1000XM3B/WH1000XM3B.png'">Commander maintenant</button>
+  <button class="btn-order" onclick="ttq.track('PlaceOrder', { content_id: 'sony-wh-1000xm3', content_type: 'product', value: 9.99, currency: 'EUR' }); window.location.href='https://ttgn.tracktimegenius.com/aff_c?offer_id=85898&aff_id=1931&source=Sony+WH-1000XM3___https://store.sony.co.nz/dw/image/v2/ABBC_PRD/on/demandware.static/-/Sites-sony-master-catalog/default/dw4b01044c/images/WH1000XM3B/WH1000XM3B.png'">Commander maintenant</button>
   <div class="urgency">+500 commandes aujourd'hui</div>
 
   <div class="trust">
