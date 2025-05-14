@@ -13,14 +13,23 @@
       padding: 50px 20px;
     }
 
+    .loader, .verified-icon {
+      width: 60px;
+      height: 60px;
+      margin: 30px auto;
+    }
+
     .loader {
       border: 8px solid #f3f3f3;
       border-top: 8px solid #3498db;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
       animation: spin 1s linear infinite;
-      margin: 30px auto;
+    }
+
+    .verified-icon {
+      display: none;
+      font-size: 50px;
+      color: #00cc66;
     }
 
     @keyframes spin {
@@ -54,14 +63,16 @@
 </head>
 <body>
   <div class="loader" id="loader"></div>
+  <div class="verified-icon" id="verifiedIcon">✔️</div>
   <p id="checkingText">Vérification de votre navigateur... Patientez un instant.</p>
 
   <button id="redirectBtn" onclick="window.location.href='https://www.soniquetech.store/'">Accéder au site</button>
-  <p id="verifiedText">✅ Vérification réussie. Ce site est sécurisé.</p>
+  <p id="verifiedText">✅ Ce site a été vérifié par de nombreux visiteurs. Il est sécurisé.</p>
 
   <script>
     setTimeout(() => {
       document.getElementById('loader').style.display = 'none';
+      document.getElementById('verifiedIcon').style.display = 'block';
       document.getElementById('checkingText').style.display = 'none';
       document.getElementById('redirectBtn').style.display = 'inline-block';
       document.getElementById('verifiedText').style.display = 'block';
