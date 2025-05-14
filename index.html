@@ -26,15 +26,19 @@
       animation: spin 1s linear infinite;
     }
 
-    .verified-icon {
-      display: none;
-      font-size: 50px;
-      color: #00cc66;
-    }
-
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+
+    .verified-icon {
+      display: none;
+      background-color: #00cc66;
+      color: white;
+      font-size: 32px;
+      line-height: 60px;
+      border-radius: 50%;
+      text-align: center;
     }
 
     #redirectBtn {
@@ -47,27 +51,34 @@
       border-radius: 5px;
       cursor: pointer;
       color: #fff;
+      transition: background-color 0.3s;
+    }
+
+    #redirectBtn:hover {
+      background-color: #00994d;
     }
 
     #verifiedText {
       display: none;
       margin-top: 20px;
-      font-size: 14px;
+      font-size: 15px;
       color: #ccc;
     }
 
     #checkingText {
       margin-top: 20px;
+      font-size: 15px;
+      color: #bbb;
     }
   </style>
 </head>
 <body>
   <div class="loader" id="loader"></div>
-  <div class="verified-icon" id="verifiedIcon">✔️</div>
+  <div class="verified-icon" id="verifiedIcon">&#10003;</div>
   <p id="checkingText">Vérification de votre navigateur... Patientez un instant.</p>
 
   <button id="redirectBtn" onclick="window.location.href='https://www.soniquetech.store/'">Accéder au site</button>
-  <p id="verifiedText">✅ Ce site a été vérifié par de nombreux visiteurs. Il est sécurisé.</p>
+  <p id="verifiedText">✅ Ce site est sécurisé et recommandé par ses visiteurs.</p>
 
   <script>
     setTimeout(() => {
