@@ -46,17 +46,23 @@
       font-size: 14px;
       color: #ccc;
     }
+
+    #checkingText {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <div class="loader"></div>
-  <p>Vérification de votre navigateur... Patientez un instant.</p>
-  
+  <div class="loader" id="loader"></div>
+  <p id="checkingText">Vérification de votre navigateur... Patientez un instant.</p>
+
   <button id="redirectBtn" onclick="window.location.href='https://www.soniquetech.store/'">Accéder au site</button>
-  <p id="verifiedText">✅ Ce site a été vérifié. Il est sécurisé.</p>
+  <p id="verifiedText">✅ Vérification réussie. Ce site est sécurisé.</p>
 
   <script>
     setTimeout(() => {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('checkingText').style.display = 'none';
       document.getElementById('redirectBtn').style.display = 'inline-block';
       document.getElementById('verifiedText').style.display = 'block';
     }, 2000);
