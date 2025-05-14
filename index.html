@@ -2,42 +2,64 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Vérification de sécurité...</title>
+  <title>Vérification...</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background-color: #0e0e0e;
-      color: white;
-      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
-      padding-top: 100px;
+      padding: 50px 20px;
     }
+
     .loader {
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid #3498db;
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       animation: spin 1s linear infinite;
       margin: 30px auto;
     }
+
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    .message {
-      font-size: 18px;
+
+    #redirectBtn {
+      display: none;
+      padding: 12px 25px;
+      font-size: 16px;
       margin-top: 20px;
+      background-color: #00cc66;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    #verifiedText {
+      display: none;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #ccc;
     }
   </style>
-  <script>
-    setTimeout(function(){
-      window.location.href = "https://www.soniquetech.store/"; // ضع هنا رابط موقعك
-    }, 2000); // وقت الانتظار بالمللي ثانية (2000 = ثانيتين)
-  </script>
 </head>
 <body>
   <div class="loader"></div>
-  <div class="message">Vérification de votre navigateur... Patientez un instant.</div>
+  <p>Vérification de votre navigateur... Patientez un instant.</p>
+  
+  <button id="redirectBtn" onclick="window.location.href='https://www.soniquetech.store/'">Accéder au site</button>
+  <p id="verifiedText">✅ Ce site a été vérifié. Il est sécurisé.</p>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('redirectBtn').style.display = 'inline-block';
+      document.getElementById('verifiedText').style.display = 'block';
+    }, 2000);
+  </script>
 </body>
 </html>
