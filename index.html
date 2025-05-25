@@ -1,168 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirPods Pro 2 - Offre Exclusive</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background: #fff; color: #111; }
-        .image-shadow { box-shadow: 0 8px 30px rgba(0,0,0,0.10); border-radius: 1.5rem; }
-        .cart-bar { display:none;position:fixed;top:90px;left:50%;transform:translateX(-50%);
-            background:#fff;border:2px solid #2563eb;min-width:300px;padding:14px 20px;
-            border-radius:14px;z-index:1000;box-shadow:0 4px 20px rgba(59,130,246,0.10);
-            align-items:center; font-weight:500;font-size:1rem;gap:10px;}
-        .show-cart-bar { display:flex!important; }
-        .modal { display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;
-            background:rgba(0,0,0,0.40);align-items:center;justify-content:center;z-index:10001;}
-        .modal-content {background:#fff;border-radius:18px;padding:30px 20px 20px 20px;
-            box-shadow:0 8px 40px rgba(0,0,0,0.14);width:100%;max-width:370px;text-align:center;position:relative;}
-        .close-btn {position:absolute;right:18px;top:16px;font-size:1.5rem;color:#bdbdbd;cursor:pointer;}
-        .close-btn:hover {color:#2563eb;}
-        .select-color label { cursor:pointer;display:flex;flex-direction:column;align-items:center;}
-        .select-color input[type="radio"] {position:absolute;opacity:0;width:0;height:0;}
-        .select-color input[type="radio"]:checked + div { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb90; }
-        .select-color .color-option-display {border:2px solid #e5e7eb;border-radius:0.75rem;padding:0.5rem;
-            transition:all 0.2s;display:flex;flex-direction:column;align-items:center;background:#fafbff;}
-        .select-color img { width:56px; height:56px; object-fit:contain; margin-bottom:0.25rem; }
-        .quantity-input {width:48px;text-align:center;border:1px solid #d1d5db;
-            border-radius:0.375rem;background:#f3f4f6;font-weight:700;padding:0.25rem 0;}
-        .animate-spin {animation:spin 1s linear infinite;} @keyframes spin { to{transform:rotate(360deg);} }
-        /* إزالة الفراغ بين صور المزايا */
-        .features-img {display:block;width:100%;margin:0;padding:0;border-radius:0;}
-        .details-btn {display:block;width:100%;margin:0 auto 24px auto;}
-        /* Modal Pages */
-        .policy-modal {display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:20000;background:rgba(0,0,0,0.40);align-items:center;justify-content:center;}
-        .policy-content {background:#fff;border-radius:16px;padding:28px;max-width:450px;width:95%;box-shadow:0 8px 40px rgba(0,0,0,0.13);}
-    </style>
-</head>
-<body class="bg-white text-gray-800">
-
-    <!-- Cart Bar -->
-    <div id="cartBar" class="cart-bar">
-        <img id="cartBarAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200">
-        <span>🛒 Produit ajouté au panier</span>
-    </div>
-
-    <!-- Header -->
-    <header class="w-full py-5 px-4 flex flex-col items-center bg-white sticky top-0 z-40">
-        <img src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo Airpods" class="w-14 h-14 object-contain mb-2">
-        <span class="text-3xl font-extrabold text-gray-900 tracking-tight mb-1" style="letter-spacing:-1px;">AirPods Pro 2</span>
-    </header>
-
-    <!-- Hero/Main Section -->
-    <section class="container mx-auto px-4 py-7 flex flex-col items-center">
-        <h1 class="text-4xl sm:text-5xl font-extrabold text-center leading-tight text-gray-900 mb-3">Offre exclusive sur AirPods Pro 2 !</h1>
-        <p class="text-lg text-gray-600 text-center max-w-xl mb-2">
-            Profitez d'une remise incroyable sur les AirPods Pro 2 – confort, qualité sonore, et style à prix magique.
-        </p>
-        <div class="flex items-end space-x-4 mx-auto mb-2">
-            <span class="text-4xl font-bold text-blue-600">9,99€</span>
-            <span class="text-lg line-through text-gray-400">249€</span>
-        </div>
-        <div class="text-red-600 font-semibold mb-1 text-center">Offre se termine dans : <span id="timer" class="ml-2">02:30:00</span></div>
-        <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2 mb-4 w-full sm:w-auto">Commander maintenant</button>
-        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods Pro 2 blanc" class="max-w-xs w-full mb-2 image-shadow" style="margin-bottom:12px;">
-        <button id="detailsBtn" class="details-btn border-2 border-blue-600 rounded-2xl py-3 px-6 text-blue-700 text-lg font-semibold bg-white hover:bg-blue-50">Voir détails et infos produit ↓</button>
-    </section>
-
-    <!-- Modal (Order/Cart) -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span id="closeModal" class="close-btn">&times;</span>
-            <div class="flex justify-center items-center mb-2">
-                <span style="font-size:2rem; margin-right:8px;">🛒</span>
-                <img id="popupAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200 mx-1">
-                <span class="bg-blue-600 text-white text-xs sm:text-sm rounded-full px-2 py-0.5 ml-1 font-bold">1</span>
-            </div>
-            <h2 class="text-xl font-bold mb-1 text-gray-800">Produit ajouté au panier !</h2>
-            <p class="mb-4 text-gray-600 text-sm sm:text-base">Votre AirPods Pro 2 a été réservé. Finalisez la commande dans les 10 prochaines minutes pour profiter de l'offre.</p>
-            <div class="select-color text-left mb-4">
-                <label class="block text-gray-700 font-semibold mb-2 text-center">Choisissez la couleur :</label>
-                <div class="flex gap-3 justify-center">
-                    <label>
-                        <input type="radio" name="color" value="blanc" class="hidden" checked>
-                        <div class="color-option-display">
-                            <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="Blanc">
-                            <span class="mt-1 font-medium text-sm">Blanc</span>
-                        </div>
-                    </label>
-                    <label>
-                        <input type="radio" name="color" value="noir" class="hidden">
-                        <div class="color-option-display">
-                            <img src="https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg" alt="Noir">
-                            <span class="mt-1 font-medium text-sm">Noir</span>
-                        </div>
-                    </label>
-                </div>
-            </div>
-            <div class="mb-5">
-                <label class="block text-gray-700 font-semibold mb-1 text-center">Quantité :</label>
-                <div class="flex flex-col items-center gap-2">
-                    <input type="number" class="quantity-input" value="1" readonly>
-                    <span class="text-xs text-gray-500">Quantité limitée : une seule pièce par commande.</span>
-                </div>
-            </div>
-            <button id="finalizeBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow-md transition hover:shadow-lg text-base sm:text-lg">Finaliser la commande</button>
-        </div>
-    </div>
-
-    <!-- Loading Popup -->
-    <div id="loadingPopup" class="modal">
-        <div class="modal-content flex flex-col items-center justify-center">
-            <div class="mb-4">
-                <div class="animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 w-12 h-12 mx-auto"></div>
-            </div>
-            <h3 class="text-lg font-bold text-gray-800 mb-2">Redirection vers la passerelle de paiement...</h3>
-            <p class="text-gray-600 text-sm mb-2">Vous allez être redirigé(e) vers notre passerelle de paiement sécurisée VISA.<br>
-            <span class="text-blue-700 font-semibold">Site vérifié et 100% sécurisé.</span></p>
-            <p class="text-xs text-gray-500 mb-3">En raison d’un trafic élevé sur notre site, la redirection prend quelques secondes. Merci pour votre patience !</p>
-            <div class="flex items-center gap-2 mt-2">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="h-7" style="background:#fff; border-radius:6px;">
-                <span style="font-size:1.2rem; color:#15803d;">🔒</span>
-                <span class="text-green-700 text-xs font-medium">Paiement sécurisé</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Section images features -->
-    <section id="features-section" class="container mx-auto px-2 pb-12 pt-2">
-        <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="features-img" alt="feature1">
-        <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="features-img" alt="feature2">
-        <img src="https://i.ibb.co/KdSv3vr/98cf4677-c95c-4b4e-bdf3-78c6012f2cad-PT0-V1.jpg" class="features-img" alt="feature3">
-        <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="features-img" alt="feature4">
-        <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="features-img" alt="feature5">
-        <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="features-img" alt="feature6">
-    </section>
-
-    <!-- Footer & Policy Links -->
-    <footer class="bg-gray-900 text-gray-300 py-8 mt-4">
-        <div class="container mx-auto px-4 text-center">
-            <div class="mb-3 space-x-4">
-                <a href="#" id="privacy-link" class="hover:text-white">Politique de Confidentialité</a>
-                <a href="#" id="terms-link" class="hover:text-white">Conditions</a>
-                <a href="#" id="support-link" class="hover:text-white">Support</a>
-            </div>
-            <div class="text-xs opacity-60 mb-1">&copy; <span id="currentYear"></span> AirPods Pro 2. Tous droits réservés.</div>
-        </div>
-    </footer>
-    <!-- Modal Pages -->
-    <div id="privacy-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-        <h2 class="font-bold text-xl mb-2">Politique de Confidentialité</h2>
-        <p>Ce site respecte votre vie privée. Les informations recueillies sont utilisées uniquement pour le traitement de votre commande AirPods Pro 2. Nous ne partageons pas vos données à des tiers sauf pour la livraison et le paiement.</p>
-    </div></div>
-    <div id="terms-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-        <h2 class="font-bold text-xl mb-2">Conditions Générales</h2>
-        <p>PromoMagique agit en tant que revendeur indépendant d’AirPods Pro 2. Toutes les offres sont limitées et sous réserve de disponibilité. Le site a pour but de partager de vraies promotions et offres à la communauté.</p>
-    </div></div>
-    <div id="support-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-        <h2 class="font-bold text-xl mb-2">Support</h2>
-        <p>Pour toute question, veuillez nous contacter via le formulaire de contact ou sur nos réseaux sociaux. Nous sommes là pour vous aider concernant vos commandes AirPods Pro 2.</p>
-    </div></div>
-
-    <!-- Script Section -->
-    <script>
+<script>
     // المؤقت
     let totalSeconds = (2 * 60 * 60) + (30 * 60);
     const timerDisplay = document.getElementById('timer');
@@ -193,6 +29,7 @@
         blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
         noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
     };
+
     if (orderBtn && mainModal && cartBar && cartBarAirpodsImg) {
         orderBtn.onclick = function() {
             mainModal.style.display = "flex";
@@ -208,4 +45,39 @@
     if (finalizeBtn && mainModal && loadingPopup) {
         finalizeBtn.onclick = function() {
             mainModal.style.display = "none";
-            loadingPopup.style.display = "flex
+            loadingPopup.style.display = "flex";
+            setTimeout(() => {
+                window.location.href = "https://www.google.com";
+            }, 3000);
+        };
+    }
+    if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
+        colorRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const selectedValue = this.value;
+                popupAirpodsImg.src = colorImageSources[selectedValue];
+                cartBarAirpodsImg.src = colorImageSources[selectedValue];
+            });
+        });
+    }
+    // زر Voir les détails
+    document.getElementById('detailsBtn').onclick = function() {
+        document.getElementById('features-section').scrollIntoView({behavior:'smooth'});
+    };
+
+    // Modal صفحات السياسة
+    document.getElementById('privacy-link').onclick = function(e){e.preventDefault();document.getElementById('privacy-page').style.display='flex';};
+    document.getElementById('terms-link').onclick = function(e){e.preventDefault();document.getElementById('terms-page').style.display='flex';};
+    document.getElementById('support-link').onclick = function(e){e.preventDefault();document.getElementById('support-page').style.display='flex';};
+
+    // إغلاق modals عند الضغط خارجها
+    document.querySelectorAll('.policy-modal').forEach(modal=>{
+        modal.onclick = function(e){if(e.target===modal){modal.style.display='none';}}
+    });
+
+    // السنة الحالية للفوتر
+    const currentYearSpan = document.getElementById('currentYear');
+    if (currentYearSpan) { currentYearSpan.textContent = new Date().getFullYear(); }
+</script>
+</body>
+</html>
