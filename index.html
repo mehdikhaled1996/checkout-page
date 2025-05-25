@@ -79,5 +79,96 @@
     const currentYearSpan = document.getElementById('currentYear');
     if (currentYearSpan) { currentYearSpan.textContent = new Date().getFullYear(); }
 </script>
+<script>
+// --- المؤقت ---
+let totalSeconds = (2 * 60 * 60) + (30 * 60);
+const timerDisplay = document.getElementById('timer');
+function updateTimer() {
+    if (timerDisplay) {
+        let h = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+        let m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+        let s = String(totalSeconds % 60).padStart(2, "0");
+        timerDisplay.textContent = `${h}:${m}:${s}`;
+    }
+    if (totalSeconds > 0) { totalSeconds--; }
+}
+if (timerDisplay) {
+    updateTimer();
+    setInterval(updateTimer, 1000);
+}
+
+// --- الزر والبوب أب ---
+const orderBtn = document.getElementById('orderBtn');
+const mainModal = document.getElementById('modal');
+const closeModalBtn = document.getElementById('closeModal');
+const cartBar = document.getElementById('cartBar');
+const cartBarAirpodsImg = document.getElementById('cartBarAirpodsImg');
+const finalizeBtn = document.getElementById('finalizeBtn');
+const colorRadios = document.querySelectorAll('input[name="color"]');
+const popupAirpodsImg = document.getElementById('popupAirpodsImg');
+const loadingPopup = document.getElementById('loadingPopup');
+const colorImageSources = {
+    blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
+    noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
+};
+
+if (orderBtn && mainModal && cartBar && cartBarAirpodsImg) {
+    orderBtn.onclick = function() {
+        mainModal.style.display = "flex";
+        cartBar.classList.add("show-cart-bar");
+        const selectedColor = document.querySelector('input[name="color"]:checked').value;
+        cartBarAirpodsImg.src = colorImageSources[selectedColor];
+        popupAirpodsImg.src = colorImageSources[selectedColor];
+    };
+}
+if (closeModalBtn && mainModal) {
+    closeModalBtn.onclick = function() { mainModal.style.display = "none"; };
+}
+if (finalizeBtn && mainModal && loadingPopup) {
+    finalizeBtn.onclick = function() {
+        mainModal.style.display = "none";
+        loadingPopup.style.display = "flex";
+        setTimeout(() => {
+            window.location.href = "https://www.google.com";
+        }, 3000);
+    };
+}
+if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
+    colorRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            const selectedValue = this.value;
+            popupAirpodsImg.src = colorImageSources[selectedValue];
+            cartBarAirpodsImg.src = colorImageSources[selectedValue];
+        });
+    });
+}
+if (mainModal) {
+    window.addEventListener('click', function(event){
+        if(event.target === mainModal) { mainModal.style.display = "none"; }
+    });
+}
+const currentYearSpan = document.getElementById('currentYear');
+if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
+
+// زر Voir les détails ينقلك للصور
+const detailsBtn = document.getElementById('detailsBtn');
+if(detailsBtn){
+    detailsBtn.onclick = function() {
+        document.getElementById('features-section').scrollIntoView({behavior:'smooth'});
+    }
+}
+
+// الروابط الخاصة بالسياسات
+document.getElementById("privacy-link").onclick = function(e){e.preventDefault();document.getElementById("privacy-page").style.display='flex';};
+document.getElementById("terms-link").onclick = function(e){e.preventDefault();document.getElementById("terms-page").style.display='flex';};
+document.getElementById("support-link").onclick = function(e){e.preventDefault();document.getElementById("support-page").style.display='flex';};
+
+// إغلاق نافذة السياسة عند الضغط بالخارج
+document.querySelectorAll('.policy-modal').forEach(modal=>{
+    modal.onclick = function(e){if(e.target===modal){modal.style.display='none';}}
+});
+</script>
+
 </body>
 </html>
+
