@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #fff; color: #1f2937; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #1f2937;}
         .image-shadow { box-shadow: 0 8px 30px rgba(0,0,0,0.10); border-radius: 1.5rem; }
         .cart-bar { display: none; position: fixed; top: 85px; left: 50%; transform: translateX(-50%);
             background: #fff; border: 2px solid #007BFF; color: #1f2937; min-width: 300px;
@@ -19,7 +19,6 @@
         @keyframes fadeInModal { from { opacity: 0; transform: translateY(-20px) scale(0.95);} to { opacity: 1; transform: translateY(0) scale(1);} }
         .close-btn { position: absolute; right: 18px; top: 18px; font-size: 1.5rem; color: #9ca3af; cursor: pointer; line-height: 1; }
         .close-btn:hover { color: #007BFF; }
-        .header-logo-img { border-radius: 0.5rem; width: 56px; height: 56px; object-fit: contain; }
         .select-color label { cursor: pointer; display: flex; flex-direction: column; align-items: center;}
         .select-color input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0;}
         .select-color input[type="radio"]:checked + div { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(59,130,246,0.4);}
@@ -29,16 +28,23 @@
         .quantity-input { width: 48px; text-align: center; border: 1px solid #d1d5db; border-radius: 0.375rem; background: #f3f4f6; font-weight: 600; padding: 0.25rem 0;}
         .animate-spin { animation: spin 1s linear infinite;}
         @keyframes spin { to { transform: rotate(360deg); } }
-        /* images collées sans espace */
-        .feature-img-list img { margin-bottom: 0; display: block; width: 100%; }
-        .feature-img-list { margin: 0; padding: 0; }
+        /* center header logo and name */
+        .header-centered { display: flex; flex-direction: column; align-items: center; justify-content: center;}
+        /* organization for features images */
+        .feature-img-list { margin: 0 auto; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 0; }
+        .feature-img-list img { width: 100%; max-width: 430px; border-radius: 1.4rem; margin: 0; margin-bottom: 0; display: block; }
+        @media (max-width: 500px) {
+            .feature-img-list img { max-width: 98vw;}
+        }
     </style>
 </head>
 <body class="bg-white text-gray-800">
 
-    <header class="w-full py-5 px-4 border-b border-gray-100 flex items-center bg-white sticky top-0 z-40">
-        <img src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo Airpods" class="header-logo-img mr-4">
-        <span class="text-2xl font-extrabold text-gray-900 tracking-tight">Airpod Pro</span>
+    <header class="w-full py-5 px-4 border-b border-gray-100 bg-white sticky top-0 z-40">
+        <div class="header-centered">
+            <img src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo Airpods" class="w-14 h-14 mb-2 object-contain">
+            <span class="text-2xl font-extrabold text-gray-900 tracking-tight">Airpod Pro</span>
+        </div>
     </header>
 
     <div id="cartBar" class="cart-bar">
@@ -65,13 +71,13 @@
         <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2 mx-auto md:mx-0">
             Commander maintenant
         </button>
-        <button onclick="window.scrollTo({top:document.getElementById('features-section').offsetTop-24,behavior:'smooth'})"
-            class="mt-4 px-6 py-3 border-2 border-blue-500 text-blue-700 rounded-2xl font-semibold hover:bg-blue-50 transition">
-            Voir détails et infos produit ↓
-        </button>
         <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg"
             alt="AirPods Pro 2"
             class="max-w-xs w-full image-shadow object-contain mt-7">
+        <button onclick="window.scrollTo({top:document.getElementById('features-section').offsetTop-24,behavior:'smooth'})"
+            class="mt-6 px-6 py-3 border-2 border-blue-500 text-blue-700 rounded-2xl font-semibold hover:bg-blue-50 transition">
+            Voir détails et infos produit ↓
+        </button>
     </section>
 
     <div id="modal" class="modal" style="z-index: 9998;">
@@ -134,8 +140,8 @@
         </div>
     </div>
 
-    <!-- Détails produit (صور الميزات) ملتصقة بدون فراغ -->
-    <section id="features-section" class="container mx-auto px-4 py-8">
+    <!-- Détails produit (صور الميزات) -->
+    <section id="features-section" class="container mx-auto px-2 py-8">
         <h2 class="text-3xl font-bold text-center mb-6 text-gray-900">Découvrez ses Atouts</h2>
         <div class="feature-img-list">
             <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" alt="détail 1">
@@ -172,7 +178,6 @@
             if (totalSeconds > 0) totalSeconds--;
         }
         if (timerDisplay) { updateTimer(); setInterval(updateTimer, 1000); }
-
         // Cart + Modal Logic
         const orderBtn = document.getElementById('orderBtn');
         const mainModal = document.getElementById('modal');
@@ -208,13 +213,3 @@
             colorRadios.forEach(radio => {
                 radio.addEventListener('change', function() {
                     const selectedValue = this.value;
-                    popupAirpodsImg.src = colorImageSources[selectedValue];
-                    if (cartBar.classList.contains('show-cart-bar')) {
-                        cartBarAirpodsImg.src = colorImageSources[selectedValue];
-                    }
-                });
-            });
-        }
-        if (mainModal) {
-            window.addEventListener('click', function(event){
-                if(event.target === mainModal) { mainModal.style.display =
