@@ -1,93 +1,43 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Vérification...</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      padding: 50px 20px;
-    }
+<div class="bg-white rounded-2xl p-6 shadow text-center flex flex-col items-center">
+                    <img src="https://i.ibb.co/XrkLfFnR/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="w-20 h-20 rounded-full mb-4 object-cover border image-shadow" alt="Review 3">
+                    <div class="flex mb-2">
+                        <span class="text-yellow-400 text-xl">★</span><span class="text-yellow-400 text-xl">★</span><span class="text-yellow-400 text-xl">★</span><span class="text-yellow-400 text-xl">★</span><span class="text-yellow-400 text-xl">★</span>
+                    </div>
+                    <p class="italic text-gray-700 mb-2">"Très confortable, parfait pour le sport et la musique."</p>
+                    <p class="text-gray-800 font-bold">David B.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    .loader, .verified-icon {
-      width: 60px;
-      height: 60px;
-      margin: 30px auto;
-    }
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-3 space-x-4">
+                <a href="#" class="hover:text-white">Politique de Confidentialité</a>
+                <a href="#" class="hover:text-white">Conditions</a>
+                <a href="#" class="hover:text-white">Support</a>
+            </div>
+            <div class="text-xs opacity-60 mb-1">&copy; 2025 AirPods Pro 2. Tous droits réservés.</div>
+            <div class="text-xs opacity-70">Ce site est une démo, aucun produit n’est réellement vendu.</div>
+        </div>
+    </footer>
 
-    .loader {
-      border: 8px solid #f3f3f3;
-      border-top: 8px solid #3498db;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
+    <script>
+        // Timer
+        let totalSeconds = 2*60*60 + 30*60;
+        function updateTimer() {
+            let h = String(Math.floor(totalSeconds/3600)).padStart(2, "0");
+            let m = String(Math.floor((totalSeconds%3600)/60)).padStart(2, "0");
+            let s = String(totalSeconds%60).padStart(2, "0");
+            document.getElementById('timer').textContent = ${h}:${m}:${s};
+            if (totalSeconds > 0) totalSeconds--;
+        }
+        setInterval(updateTimer, 1000);
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .verified-icon {
-      display: none;
-      background-color: #00cc66;
-      color: white;
-      font-size: 32px;
-      line-height: 60px;
-      border-radius: 50%;
-      text-align: center;
-    }
-
-    #redirectBtn {
-      display: none;
-      padding: 12px 25px;
-      font-size: 16px;
-      margin-top: 20px;
-      background-color: #00cc66;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      color: #fff;
-      transition: background-color 0.3s;
-    }
-
-    #redirectBtn:hover {
-      background-color: #00994d;
-    }
-
-    #verifiedText {
-      display: none;
-      margin-top: 20px;
-      font-size: 15px;
-      color: #ccc;
-    }
-
-    #checkingText {
-      margin-top: 20px;
-      font-size: 15px;
-      color: #bbb;
-    }
-  </style>
-</head>
-<body>
-  <div class="loader" id="loader"></div>
-  <div class="verified-icon" id="verifiedIcon">&#10003;</div>
-  <p id="checkingText">Vérification de votre navigateur... Patientez un instant.</p>
-
-  <button id="redirectBtn" onclick="window.location.href='https://www.soniquetech.store/'">Accéder au site</button>
-  <p id="verifiedText">✅ Ce site est sécurisé et recommandé par ses visiteurs.</p>
-
-  <script>
-    setTimeout(() => {
-      document.getElementById('loader').style.display = 'none';
-      document.getElementById('verifiedIcon').style.display = 'block';
-      document.getElementById('checkingText').style.display = 'none';
-      document.getElementById('redirectBtn').style.display = 'inline-block';
-      document.getElementById('verifiedText').style.display = 'block';
-    }, 2000);
-  </script>
-</body>
-</html>
+        // Cart + Modal
+        const orderBtn = document.getElementById('orderBtn');
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('closeModal');
+        const cartBar = document.getElementById('cartBar');
+        const finalizeBtn = document.getElementById('finalizeBtn
