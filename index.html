@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirPods Pro 2 - Offre Exclusive</title>
+    <title>PromoMagique - Offre Exclusive</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -77,14 +77,15 @@
             width: 100%;
             max-width: 420px;
             margin: 0 auto;
-            border-radius: 2rem;
-            box-shadow: 0 4px 32px rgba(0,0,0,0.10);
-            background: #fff;
+            border-radius: 0;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.08);
             display: block;
             object-fit: contain;
+            margin-bottom: 0;
         }
+        .flex-col.items-center { align-items: stretch !important; }
         @media (max-width: 640px) {
-            .feature-img { max-width: 98vw; border-radius: 1.2rem;}
+            .feature-img { max-width: 98vw; }
         }
     </style>
 </head>
@@ -97,17 +98,17 @@
 
     <!-- Header -->
     <header class="w-full py-5 px-4 border-b border-gray-100 flex items-center bg-white sticky top-0 z-40 justify-center">
-        <img src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo Airpods" class="w-12 h-12 object-cover rounded-lg mr-4 image-shadow">
-        <span class="text-2xl font-extrabold text-gray-900 tracking-tight">AirPods Pro 2</span>
+        <img src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo PromoMagique" class="w-12 h-12 object-cover rounded-lg mr-4 image-shadow">
+        <span class="text-2xl font-extrabold text-gray-900 tracking-tight">PromoMagique</span>
     </header>
 
     <!-- Hero Section -->
     <section class="container mx-auto px-4 pt-10 pb-2 flex flex-col items-center justify-center text-center">
         <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight text-gray-900 mb-3">
-            Offre exclusive AirPods Pro 2 !
+            Offre exclusive sur AirPods Pro 2 !
         </h1>
         <p class="text-lg text-gray-600 mb-4">
-            Plongez dans une expérience sonore exceptionnelle avec réduction de bruit, autonomie prolongée et confort ultime.
+            Profitez d'une remise incroyable sur les AirPods Pro 2 – confort, qualité sonore, et style à prix magique.
         </p>
         <div class="flex items-end space-x-4 justify-center mb-2">
             <span class="text-4xl font-bold text-blue-600">9,99€</span>
@@ -191,24 +192,24 @@
     <!-- Features Images Section -->
     <section id="features-section" class="container mx-auto px-2 py-10">
         <h2 class="text-3xl font-bold text-center mb-10 text-gray-900">Découvrez ses Atouts</h2>
-        <div class="flex flex-col items-center gap-7">
-            <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 1">
-            <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 2">
-            <img src="https://i.ibb.co/KdSv3vr/98cf4677-c95c-4b4e-bdf3-78c6012f2cad-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 3">
-            <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 4">
-            <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 5">
-            <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 6">
+        <div class="flex flex-col items-center">
+            <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="feature-img" alt="Atout 1">
+            <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="feature-img" alt="Atout 2">
+            <img src="https://i.ibb.co/KdSv3vr/98cf4677-c95c-4b4e-bdf3-78c6012f2cad-PT0-V1.jpg" class="feature-img" alt="Atout 3">
+            <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="feature-img" alt="Atout 4">
+            <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="feature-img" alt="Atout 5">
+            <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="feature-img" alt="Atout 6">
         </div>
     </section>
 
     <footer class="bg-gray-900 text-gray-300 py-8 mt-8">
         <div class="container mx-auto px-4 text-center">
             <div class="mb-3 space-x-4">
-                <a href="#" class="hover:text-white">Politique de Confidentialité</a>
-                <a href="#" class="hover:text-white">Conditions</a>
+                <a href="privacy-policy.html" class="hover:text-white">Politique de Confidentialité</a>
+                <a href="terms.html" class="hover:text-white">Conditions</a>
                 <a href="#" class="hover:text-white">Support</a>
             </div>
-            <div class="text-xs opacity-60 mb-1">&copy; 2025 AirPods Pro 2. Tous droits réservés.</div>
+            <div class="text-xs opacity-60 mb-1">&copy; 2025 PromoMagique. Tous droits réservés.</div>
             <div class="text-xs opacity-70">Ce site est une démo, aucun produit n’est réellement vendu.</div>
         </div>
     </footer>
