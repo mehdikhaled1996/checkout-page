@@ -46,7 +46,7 @@
     </header>
 
     <div id="cartBar" class="cart-bar">
-        <img id="cartBarAirpodsImg" src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" 
+        <img id="cartBarAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg"
             alt="AirPods" 
             class="w-10 h-10 object-contain rounded-lg border border-gray-200">
         <span>🛒 Produit ajouté au panier</span>
@@ -69,11 +69,13 @@
         <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2 mx-auto md:mx-0">
             Commander maintenant
         </button>
-        <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg"
-            alt="AirPods Pro 2"
-            class="max-w-xs w-full image-shadow object-contain mt-7">
+        <!-- صورة الأيربودز الأبيض تظهر هنا فقط مرة واحدة -->
+        <img id="mainAirpodImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg"
+            alt="AirPods Pro 2 Blanc"
+            class="max-w-xs w-full image-shadow object-contain mt-7 mb-5">
+        <!-- زر التفاصيل مباشرة بعد الصورة -->
         <button onclick="window.scrollTo({top:document.getElementById('features-section').offsetTop-24,behavior:'smooth'})"
-            class="mt-6 px-6 py-3 border-2 border-blue-500 text-blue-700 rounded-2xl font-semibold hover:bg-blue-50 transition">
+            class="px-6 py-3 border-2 border-blue-500 text-blue-700 rounded-2xl font-semibold hover:bg-blue-50 transition">
             Voir détails et infos produit ↓
         </button>
     </section>
@@ -83,7 +85,7 @@
             <span id="closeModal" class="close-btn">&times;</span>
             <div class="flex justify-center items-center mb-3">
                 <span style="font-size:2.1rem; margin-right:8px;">🛒</span>
-                <img id="popupAirpodsImg" src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" 
+                <img id="popupAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" 
                     alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200 mx-1">
                 <span class="bg-blue-600 text-white text-xs sm:text-sm rounded-full px-2 py-0.5 ml-1 font-bold">1</span>
             </div>
@@ -142,10 +144,10 @@
         <h2 class="text-3xl font-bold text-center mb-6 text-gray-900">Découvrez ses Atouts</h2>
         <div class="feature-img-list">
             <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" alt="détail 1">
-            <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" alt="détail 2">
-            <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" alt="détail 3">
-            <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" alt="détail 4">
-            <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" alt="détail 5">
+            <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" alt="détail 2">
+            <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" alt="détail 3">
+            <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" alt="détail 4">
+            <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" alt="détail 5">
         </div>
     </section>
 
@@ -190,11 +192,13 @@
             blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
             noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
         };
+        // Default images
+        let currentColor = "blanc";
         if (orderBtn && mainModal && cartBar && cartBarAirpodsImg) {
             orderBtn.onclick = function() {
                 mainModal.style.display = "flex";
                 cartBar.classList.add("show-cart-bar");
-                cartBarAirpodsImg.src = colorImageSources['blanc'];
+                cartBarAirpodsImg.src = colorImageSources[currentColor];
             };
         }
         if (closeModalBtn && mainModal) {
@@ -210,11 +214,9 @@
         if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
             colorRadios.forEach(radio => {
                 radio.addEventListener('change', function() {
-                    const selectedValue = this.value;
-                    popupAirpodsImg.src = colorImageSources[selectedValue];
-                    if (cartBar.classList.contains('show-cart-bar')) {
-                        cartBarAirpodsImg.src = colorImageSources[selectedValue];
-                    }
+                    currentColor = this.value;
+                    popupAirpodsImg.src = colorImageSources[currentColor];
+                    cartBarAirpodsImg.src = colorImageSources[currentColor];
                 });
             });
         }
@@ -224,9 +226,4 @@
             });
         }
         const currentYearSpan = document.getElementById('currentYear');
-        if (currentYearSpan) {
-            currentYearSpan.textContent = new Date().getFullYear();
-        }
-    </script>
-</body>
-</html>
+        if (
