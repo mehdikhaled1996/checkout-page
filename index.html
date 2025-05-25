@@ -3,177 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PromoMagique - Offre Exclusive</title>
+    <title>AirPod Pro - Offre Exclusive</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fff;
-        }
-        .image-shadow {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.10);
-            border-radius: 1.5rem;
-        }
-        .cart-bar {
-            display: none;
-            position: fixed;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #fff;
-            border: 2px solid #007BFF;
-            color: #1f2937;
-            min-width: 320px;
-            padding: 14px 24px;
-            border-radius: 18px;
-            z-index: 9999;
-            box-shadow: 0 2px 15px rgba(0,123,255,0.1);
-            align-items: center;
-            font-weight: 500;
-            font-size: 1.1rem;
-            gap: 12px;
-        }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #1f2937; }
+        .image-shadow { box-shadow: 0 8px 30px rgba(0,0,0,0.10); border-radius: 1.5rem; }
+        .cart-bar { display: none; position: fixed; top: 85px; left: 50%; transform: translateX(-50%);
+            background: #fff; border: 2px solid #007BFF; color: #1f2937; min-width: 300px;
+            padding: 12px 20px; border-radius: 12px; z-index: 1000; box-shadow: 0 4px 20px rgba(0,123,255,0.15);
+            align-items: center; font-weight: 500; font-size: 1rem; gap: 10px;}
         .show-cart-bar { display: flex !important; }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 9998;
-            left: 0; top: 0; width: 100vw; height: 100vh;
-            background-color: rgba(0,0,0,0.55);
-            align-items: center; justify-content: center;
-        }
-        .modal-content {
-            background-color: #fff;
-            border-radius: 16px;
-            padding: 32px 22px 25px 22px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.14);
-            width: 100%; max-width: 380px; text-align: center; position: relative;
-        }
-        .close-btn { position: absolute; right: 18px; top: 18px; font-size: 1.4rem; color: #bbb; cursor: pointer;}
+        .modal { display: none; position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.55); align-items: center; justify-content: center; padding: 20px; }
+        #modal .modal-content, #loadingPopup .modal-content { background: #fff; border-radius: 16px; padding: 28px 26px; box-shadow: 0 8px 40px rgba(0,0,0,0.14); width: 100%; max-width: 390px; text-align: center; position: relative; animation: fadeInModal 0.3s ease-out; }
+        @keyframes fadeInModal { from { opacity: 0; transform: translateY(-20px) scale(0.95);} to { opacity: 1; transform: translateY(0) scale(1);} }
+        .close-btn { position: absolute; right: 18px; top: 18px; font-size: 1.5rem; color: #9ca3af; cursor: pointer; line-height: 1; }
         .close-btn:hover { color: #007BFF; }
-        .select-color label { cursor: pointer; }
-        .select-color input:checked + div {
-            border-color: #2563eb; box-shadow: 0 0 0 2px #2563eb33;
-        }
-        .select-color img { width: 48px; height: 48px; }
-        .animate-spin { animation: spin 1s linear infinite; }
+        .header-logo-img { border-radius: 0.5rem; width: 56px; height: 56px; object-fit: contain; }
+        .select-color label { cursor: pointer; display: flex; flex-direction: column; align-items: center;}
+        .select-color input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0;}
+        .select-color input[type="radio"]:checked + div { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(59,130,246,0.4);}
+        .select-color .color-option-display { border: 2px solid #e5e7eb; border-radius: 0.75rem; padding: 0.5rem; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; background: #f9fafb;}
+        .select-color .color-option-display:hover { border-color: #9ca3af;}
+        .select-color img { width: 48px; height: 48px; object-fit: contain; margin-bottom: 0.25rem;}
+        .quantity-input { width: 48px; text-align: center; border: 1px solid #d1d5db; border-radius: 0.375rem; background: #f3f4f6; font-weight: 600; padding: 0.25rem 0;}
+        .animate-spin { animation: spin 1s linear infinite;}
         @keyframes spin { to { transform: rotate(360deg); } }
-        .scroll-btn {
-            background: #f3f4f6;
-            color: #1d4ed8;
-            border-radius: 9999px;
-            border: 2px solid #3b82f6;
-            font-weight: 600;
-            padding: 0.55rem 1.6rem;
-            transition: all .2s;
-        }
-        .scroll-btn:active, .scroll-btn:hover {
-            background: #e0e7ef;
-            border-color: #2563eb;
-            color: #2563eb;
-        }
-        .feature-img {
-            width: 100%;
-            max-width: 420px;
-            margin: 0 auto;
-            border-radius: 0;
-            box-shadow: 0 4px 32px rgba(0,0,0,0.08);
-            display: block;
-            object-fit: contain;
-            margin-bottom: 0;
-        }
-        .flex-col.items-center { align-items: stretch !important; }
-        @media (max-width: 640px) {
-            .feature-img { max-width: 98vw; }
-        }
+        /* images collées sans espace */
+        .feature-img-list img { margin-bottom: 0; display: block; width: 100%; }
+        .feature-img-list { margin: 0; padding: 0; }
     </style>
 </head>
 <body class="bg-white text-gray-800">
 
+    <header class="w-full py-5 px-4 border-b border-gray-100 flex items-center bg-white sticky top-0 z-40">
+        <img src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo Airpods" class="header-logo-img mr-4">
+        <span class="text-2xl font-extrabold text-gray-900 tracking-tight">Airpod Pro</span>
+    </header>
+
     <div id="cartBar" class="cart-bar">
-        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 rounded-xl mr-3 border border-gray-200">
+        <img id="cartBarAirpodsImg" src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" 
+            alt="AirPods" 
+            class="w-10 h-10 object-contain rounded-lg border border-gray-200">
         <span>🛒 Produit ajouté au panier</span>
     </div>
 
-    <!-- Header -->
-    <header class="w-full py-5 px-4 border-b border-gray-100 flex items-center bg-white sticky top-0 z-40 justify-center">
-        <img src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo PromoMagique" class="w-12 h-12 object-cover rounded-lg mr-4 image-shadow">
-        <span class="text-2xl font-extrabold text-gray-900 tracking-tight">PromoMagique</span>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="container mx-auto px-4 pt-10 pb-2 flex flex-col items-center justify-center text-center">
-        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight text-gray-900 mb-3">
+    <section class="container mx-auto px-4 py-10 flex flex-col items-center justify-center">
+        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight text-gray-900 mb-3 text-center">
             Offre exclusive sur AirPods Pro 2 !
         </h1>
-        <p class="text-lg text-gray-600 mb-4">
+        <p class="text-lg text-gray-600 text-center mb-3">
             Profitez d'une remise incroyable sur les AirPods Pro 2 – confort, qualité sonore, et style à prix magique.
         </p>
-        <div class="flex items-end space-x-4 justify-center mb-2">
+        <div class="flex items-end space-x-4 mx-auto md:mx-0">
             <span class="text-4xl font-bold text-blue-600">9,99€</span>
             <span class="text-lg line-through text-gray-400">249€</span>
         </div>
-        <div class="text-red-600 font-semibold mb-4">
+        <div class="text-red-600 font-semibold mb-2 mx-auto md:mx-0">
             Offre se termine dans : <span id="timer" class="ml-2">02:30:00</span>
         </div>
-        <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2 mb-4">
+        <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2 mx-auto md:mx-0">
             Commander maintenant
         </button>
-        <button class="scroll-btn mt-2 mb-3" onclick="document.getElementById('features-section').scrollIntoView({behavior:'smooth'});">
+        <button onclick="window.scrollTo({top:document.getElementById('features-section').offsetTop-24,behavior:'smooth'})"
+            class="mt-4 px-6 py-3 border-2 border-blue-500 text-blue-700 rounded-2xl font-semibold hover:bg-blue-50 transition">
             Voir détails et infos produit ↓
         </button>
-        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods Pro 2" class="w-56 sm:w-64 image-shadow mx-auto mb-1 mt-2">
+        <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg"
+            alt="AirPods Pro 2"
+            class="max-w-xs w-full image-shadow object-contain mt-7">
     </section>
 
-    <!-- Modal Confirm Order -->
-    <div id="modal" class="modal">
+    <div id="modal" class="modal" style="z-index: 9998;">
         <div class="modal-content">
             <span id="closeModal" class="close-btn">&times;</span>
             <div class="flex justify-center items-center mb-3">
                 <span style="font-size:2.1rem; margin-right:8px;">🛒</span>
-                <img id="popupAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 rounded-lg border border-gray-200 mx-1">
-                <span class="bg-blue-600 text-white text-base rounded-full px-2 py-0.5 ml-1 font-bold">1</span>
+                <img id="popupAirpodsImg" src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" 
+                    alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200 mx-1">
+                <span class="bg-blue-600 text-white text-xs sm:text-sm rounded-full px-2 py-0.5 ml-1 font-bold">1</span>
             </div>
-            <h2 class="text-xl font-bold mb-1">Produit ajouté au panier !</h2>
-            <p class="mb-3 text-gray-600">Votre AirPods Pro 2 a été réservé. Finalisez la commande dans les 10 prochaines minutes pour profiter de l'offre.</p>
-            
-            <!-- Sélection couleur -->
-            <div class="select-color text-left mb-3">
-                <label class="block text-gray-700 font-semibold mb-1">Choisissez la couleur :</label>
-                <div class="flex gap-4 justify-center">
+            <h2 class="text-xl font-bold mb-1 text-gray-800">Produit ajouté au panier !</h2>
+            <p class="mb-4 text-gray-600 text-sm sm:text-base">Votre AirPods Pro 2 a été réservé. Finalisez la commande dans les 10 prochaines minutes pour profiter de l'offre.</p>
+            <div class="select-color text-left mb-4">
+                <label class="block text-gray-700 font-semibold mb-2 text-center sm:text-left">Choisissez la couleur :</label>
+                <div class="flex gap-3 sm:gap-4 justify-center">
                     <label>
                         <input type="radio" name="color" value="blanc" class="hidden" checked>
-                        <div class="flex flex-col items-center border-2 border-gray-200 rounded-lg p-2 transition-all cursor-pointer">
+                        <div class="color-option-display">
                             <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="Blanc">
-                            <span class="mt-1 font-medium">Blanc</span>
+                            <span class="mt-1 font-medium text-sm">Blanc</span>
                         </div>
                     </label>
                     <label>
                         <input type="radio" name="color" value="noir" class="hidden">
-                        <div class="flex flex-col items-center border-2 border-gray-200 rounded-lg p-2 transition-all cursor-pointer">
+                        <div class="color-option-display">
                             <img src="https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg" alt="Noir">
-                            <span class="mt-1 font-medium">Noir</span>
+                            <span class="mt-1 font-medium text-sm">Noir</span>
                         </div>
                     </label>
                 </div>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-1">Quantité :</label>
-                <div class="flex items-center justify-center gap-2">
-                    <input type="number" class="w-12 text-center border border-gray-300 rounded bg-gray-100 font-bold" value="1" readonly>
-                    <span class="text-xs text-gray-500">Quantité limitée : une seule pièce par commande</span>
+            <div class="mb-5">
+                <label class="block text-gray-700 font-semibold mb-1 text-center sm:text-left">Quantité :</label>
+                <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2">
+                    <input type="number" class="quantity-input" value="1" readonly>
+                    <span class="text-xs text-gray-500">Quantité limitée : une seule pièce par commande.</span>
                 </div>
             </div>
-            <button id="finalizeBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 mt-2 rounded-lg shadow">
+            <button id="finalizeBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow-md transition hover:shadow-lg text-base sm:text-lg">
                 Finaliser la commande
             </button>
         </div>
     </div>
 
-    <!-- Popup de chargement (redirection paiement) -->
     <div id="loadingPopup" class="modal" style="z-index: 10000;">
-        <div class="modal-content flex flex-col items-center justify-center" style="max-width:340px; min-height:280px;">
+        <div class="modal-content">
             <div class="mb-4">
                 <div class="animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 w-12 h-12 mx-auto"></div>
             </div>
@@ -189,16 +134,15 @@
         </div>
     </div>
 
-    <!-- Features Images Section -->
-    <section id="features-section" class="container mx-auto px-2 py-10">
-        <h2 class="text-3xl font-bold text-center mb-10 text-gray-900">Découvrez ses Atouts</h2>
-        <div class="flex flex-col items-center">
-            <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="feature-img" alt="Atout 1">
-            <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="feature-img" alt="Atout 2">
-            <img src="https://i.ibb.co/KdSv3vr/98cf4677-c95c-4b4e-bdf3-78c6012f2cad-PT0-V1.jpg" class="feature-img" alt="Atout 3">
-            <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="feature-img" alt="Atout 4">
-            <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="feature-img" alt="Atout 5">
-            <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="feature-img" alt="Atout 6">
+    <!-- Détails produit (صور الميزات) ملتصقة بدون فراغ -->
+    <section id="features-section" class="container mx-auto px-4 py-8">
+        <h2 class="text-3xl font-bold text-center mb-6 text-gray-900">Découvrez ses Atouts</h2>
+        <div class="feature-img-list">
+            <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" alt="détail 1">
+            <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" alt="détail 2">
+            <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" alt="détail 3">
+            <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" alt="détail 4">
+            <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" alt="détail 5">
         </div>
     </section>
 
@@ -207,62 +151,70 @@
             <div class="mb-3 space-x-4">
                 <a href="privacy-policy.html" class="hover:text-white">Politique de Confidentialité</a>
                 <a href="terms.html" class="hover:text-white">Conditions</a>
-                <a href="#" class="hover:text-white">Support</a>
+                <a href="support.html" class="hover:text-white">Support</a>
             </div>
-            <div class="text-xs opacity-60 mb-1">&copy; 2025 PromoMagique. Tous droits réservés.</div>
-            <div class="text-xs opacity-70">Ce site est une démo, aucun produit n’est réellement vendu.</div>
+            <div class="text-xs opacity-60 mb-1">&copy; <span id="currentYear"></span> Airpod Pro. Tous droits réservés.</div>
+            <div class="text-xs opacity-70">Notre boutique est spécialisée dans la revente de produits AirPods originaux, à prix réduits, avec garantie de satisfaction !</div>
         </div>
     </footer>
 
     <script>
-        // Timer
-        let totalSeconds = 2*60*60 + 30*60;
+        // Countdown Timer
+        let totalSeconds = (2 * 60 * 60) + (30 * 60);
+        const timerDisplay = document.getElementById('timer');
         function updateTimer() {
-            let h = String(Math.floor(totalSeconds/3600)).padStart(2, "0");
-            let m = String(Math.floor((totalSeconds%3600)/60)).padStart(2, "0");
-            let s = String(totalSeconds%60).padStart(2, "0");
-            document.getElementById('timer').textContent = `${h}:${m}:${s}`;
+            if (timerDisplay) {
+                let h = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+                let m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+                let s = String(totalSeconds % 60).padStart(2, "0");
+                timerDisplay.textContent = `${h}:${m}:${s}`;
+            }
             if (totalSeconds > 0) totalSeconds--;
         }
-        setInterval(updateTimer, 1000);
+        if (timerDisplay) { updateTimer(); setInterval(updateTimer, 1000); }
 
-        // Modal and cart logic
+        // Cart + Modal Logic
         const orderBtn = document.getElementById('orderBtn');
-        const modal = document.getElementById('modal');
-        const closeModal = document.getElementById('closeModal');
+        const mainModal = document.getElementById('modal');
+        const closeModalBtn = document.getElementById('closeModal');
         const cartBar = document.getElementById('cartBar');
+        const cartBarAirpodsImg = document.getElementById('cartBarAirpodsImg');
         const finalizeBtn = document.getElementById('finalizeBtn');
         const colorRadios = document.querySelectorAll('input[name="color"]');
         const popupAirpodsImg = document.getElementById('popupAirpodsImg');
         const loadingPopup = document.getElementById('loadingPopup');
-
-        const colorImgs = {
+        const colorImageSources = {
             blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
             noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
         };
-
-        orderBtn.onclick = function() {
-            modal.style.display = "flex";
-            cartBar.classList.add("show-cart-bar");
-        };
-        closeModal.onclick = function() {
-            modal.style.display = "none";
-        };
-        finalizeBtn.onclick = function() {
-            modal.style.display = "none";
-            loadingPopup.style.display = "flex";
-            setTimeout(() => {
-                window.location.href = "https://www.google.com";
-            }, 3000);
-        };
-        colorRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                popupAirpodsImg.src = colorImgs[this.value];
+        if (orderBtn && mainModal && cartBar && cartBarAirpodsImg) {
+            orderBtn.onclick = function() {
+                mainModal.style.display = "flex";
+                cartBar.classList.add("show-cart-bar");
+                cartBarAirpodsImg.src = colorImageSources['blanc'];
+            };
+        }
+        if (closeModalBtn && mainModal) {
+            closeModalBtn.onclick = function() { mainModal.style.display = "none"; };
+        }
+        if (finalizeBtn && mainModal && loadingPopup) {
+            finalizeBtn.onclick = function() {
+                mainModal.style.display = "none";
+                loadingPopup.style.display = "flex";
+                setTimeout(() => { window.location.href = "https://www.google.com"; }, 3500);
+            };
+        }
+        if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
+            colorRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const selectedValue = this.value;
+                    popupAirpodsImg.src = colorImageSources[selectedValue];
+                    if (cartBar.classList.contains('show-cart-bar')) {
+                        cartBarAirpodsImg.src = colorImageSources[selectedValue];
+                    }
+                });
             });
-        });
-        window.onclick = function(e){
-            if(e.target === modal) modal.style.display = "none";
-        };
-    </script>
-</body>
-</html>
+        }
+        if (mainModal) {
+            window.addEventListener('click', function(event){
+                if(event.target === mainModal) { mainModal.style.display =
