@@ -93,39 +93,35 @@
 
     <!-- Cart bar appears after add to cart -->
     <div id="cartBar" class="cart-bar">
-        <img src="https://i.ibb.co/SjL9pdV/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" alt="AirPods" class="w-10 h-10 rounded-xl mr-3 border border-gray-200">
+        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 rounded-xl mr-3 border border-gray-200">
         <span>🛒 Produit ajouté au panier</span>
     </div>
 
     <!-- Header -->
-    <header class="w-full py-5 px-4 border-b border-gray-100 flex items-center bg-white sticky top-0 z-40">
-        <img src="https://i.ibb.co/SjL9pdV/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" alt="Logo Airpods" class="w-12 h-12 object-cover rounded-lg mr-4 image-shadow">
+    <header class="w-full py-5 px-4 border-b border-gray-100 flex items-center bg-white sticky top-0 z-40 justify-center">
+        <img src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo Airpods" class="w-12 h-12 object-cover rounded-lg mr-4 image-shadow">
         <span class="text-2xl font-extrabold text-gray-900 tracking-tight">AirPods Pro 2</span>
     </header>
 
     <!-- Hero Section -->
-    <section class="container mx-auto px-4 py-10 flex flex-col md:flex-row items-center justify-center">
-        <div class="md:w-1/2 flex flex-col items-start space-y-5">
-            <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight text-gray-900 mb-3">
-                Offre exclusive AirPods Pro 2 !
-            </h1>
-            <p class="text-lg text-gray-600">
-                Plongez dans une expérience sonore exceptionnelle avec réduction de bruit, autonomie prolongée et confort ultime.
-            </p>
-            <div class="flex items-end space-x-4">
-                <span class="text-4xl font-bold text-blue-600">9,99€</span>
-                <span class="text-lg line-through text-gray-400">249€</span>
-            </div>
-            <div class="text-red-600 font-semibold mb-2">
-                Offre se termine dans : <span id="timer" class="ml-2">02:30:00</span>
-            </div>
-            <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2">
-                Commander maintenant
-            </button>
+    <section class="container mx-auto px-4 py-10 flex flex-col items-center justify-center text-center">
+        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods Pro 2" class="max-w-xs sm:max-w-md w-full image-shadow mx-auto mb-6">
+        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight text-gray-900 mb-3">
+            Offre exclusive AirPods Pro 2 !
+        </h1>
+        <p class="text-lg text-gray-600 mb-4">
+            Plongez dans une expérience sonore exceptionnelle avec réduction de bruit, autonomie prolongée et confort ultime.
+        </p>
+        <div class="flex items-end space-x-4 justify-center mb-2">
+            <span class="text-4xl font-bold text-blue-600">9,99€</span>
+            <span class="text-lg line-through text-gray-400">249€</span>
         </div>
-        <div class="md:w-1/2 flex justify-center mt-8 md:mt-0">
-            <img src="https://i.ibb.co/SjL9pdV/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" alt="AirPods Pro 2" class="max-w-xs sm:max-w-md w-full image-shadow">
+        <div class="text-red-600 font-semibold mb-4">
+            Offre se termine dans : <span id="timer" class="ml-2">02:30:00</span>
         </div>
+        <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2">
+            Commander maintenant
+        </button>
     </section>
 
     <!-- Modal Confirm Order -->
@@ -134,12 +130,12 @@
             <span id="closeModal" class="close-btn">&times;</span>
             <div class="flex justify-center items-center mb-3">
                 <span style="font-size:2.1rem; margin-right:8px;">🛒</span>
-                <img id="popupAirpodsImg" src="https://i.ibb.co/SjL9pdV/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" alt="AirPods" class="w-10 h-10 rounded-lg border border-gray-200 mx-1">
+                <img id="popupAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 rounded-lg border border-gray-200 mx-1">
                 <span class="bg-blue-600 text-white text-base rounded-full px-2 py-0.5 ml-1 font-bold">1</span>
             </div>
             <h2 class="text-xl font-bold mb-1">Produit ajouté au panier !</h2>
             <p class="mb-3 text-gray-600">Votre AirPods Pro 2 a été réservé. Finalisez la commande dans les 10 prochaines minutes pour profiter de l'offre.</p>
-
+            
             <!-- Sélection couleur -->
             <div class="select-color text-left mb-3">
                 <label class="block text-gray-700 font-semibold mb-1">Choisissez la couleur :</label>
@@ -147,14 +143,14 @@
                     <label>
                         <input type="radio" name="color" value="blanc" class="hidden" checked>
                         <div class="flex flex-col items-center border-2 border-gray-200 rounded-lg p-2 transition-all cursor-pointer">
-                            <img src="https://i.ibb.co/SjL9pdV/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" alt="Blanc">
+                            <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="Blanc">
                             <span class="mt-1 font-medium">Blanc</span>
                         </div>
                     </label>
                     <label>
                         <input type="radio" name="color" value="noir" class="hidden">
                         <div class="flex flex-col items-center border-2 border-gray-200 rounded-lg p-2 transition-all cursor-pointer">
-                            <img src="https://i.ibb.co/C56crQJM/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" alt="Noir">
+                            <img src="https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg" alt="Noir">
                             <span class="mt-1 font-medium">Noir</span>
                         </div>
                     </label>
@@ -192,7 +188,19 @@
         </div>
     </div>
 
-    <!-- Reviews + features can be added here as above... -->
+    <!-- Features Images Section -->
+    <section class="container mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold text-center mb-10 text-gray-900">Découvrez ses Atouts</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8">
+            <img src="https://i.postimg.cc/3NK191ky/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="w-full h-56 object-cover image-shadow mx-auto" alt="Atout 1">
+            <img src="https://i.postimg.cc/Y0b3PFFd/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="w-full h-56 object-cover image-shadow mx-auto" alt="Atout 2">
+            <img src="https://i.postimg.cc/Wb1Sk9RC/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="w-full h-56 object-cover image-shadow mx-auto" alt="Atout 3">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 md:max-w-4xl md:mx-auto">
+            <img src="https://i.postimg.cc/8kHtc2YL/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="w-full h-56 object-cover image-shadow mx-auto" alt="Atout 4">
+            <img src="https://i.postimg.cc/jd3cQzt5/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="w-full h-56 object-cover image-shadow mx-auto" alt="Atout 5">
+        </div>
+    </section>
 
     <footer class="bg-gray-900 text-gray-300 py-8 mt-8">
         <div class="container mx-auto px-4 text-center">
@@ -229,8 +237,8 @@
         const loadingPopup = document.getElementById('loadingPopup');
 
         const colorImgs = {
-            blanc: "https://i.ibb.co/SjL9pdV/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg",
-            noir: "https://i.ibb.co/C56crQJM/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg"
+            blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
+            noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
         };
 
         orderBtn.onclick = function() {
