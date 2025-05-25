@@ -37,19 +37,16 @@
 </head>
 <body class="bg-white text-gray-800">
 
-    <!-- Cart Bar -->
     <div id="cartBar" class="cart-bar">
         <img id="cartBarAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200">
         <span>🛒 Produit ajouté au panier</span>
     </div>
 
-    <!-- Header -->
     <header class="w-full py-5 px-4 flex flex-col items-center bg-white sticky top-0 z-40">
         <img src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo Airpods" class="w-14 h-14 object-contain mb-2">
         <span class="text-3xl font-extrabold text-gray-900 tracking-tight mb-1" style="letter-spacing:-1px;">AirPods Pro 2</span>
     </header>
 
-    <!-- Hero/Main Section -->
     <section class="container mx-auto px-4 py-7 flex flex-col items-center">
         <h1 class="text-4xl sm:text-5xl font-extrabold text-center leading-tight text-gray-900 mb-3">Offre exclusive sur AirPods Pro 2 !</h1>
         <p class="text-lg text-gray-600 text-center max-w-xl mb-2">
@@ -65,7 +62,6 @@
         <button id="detailsBtn" class="details-btn border-2 border-blue-600 rounded-2xl py-3 px-6 text-blue-700 text-lg font-semibold bg-white hover:bg-blue-50">Voir détails et infos produit ↓</button>
     </section>
 
-    <!-- Modal (Order/Cart) -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span id="closeModal" class="close-btn">&times;</span>
@@ -106,7 +102,6 @@
         </div>
     </div>
 
-    <!-- Loading Popup -->
     <div id="loadingPopup" class="modal">
         <div class="modal-content flex flex-col items-center justify-center">
             <div class="mb-4">
@@ -124,17 +119,15 @@
         </div>
     </div>
 
-    <!-- Section images features -->
     <section id="features-section" class="container mx-auto px-2 pb-12 pt-2">
-        <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="features-img" alt="feature1">
-        <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="features-img" alt="feature2">
-        <img src="https://i.ibb.co/KdSv3vr/98cf4677-c95c-4b4e-bdf3-78c6012f2cad-PT0-V1.jpg" class="features-img" alt="feature3">
-        <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="features-img" alt="feature4">
-        <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="features-img" alt="feature5">
-        <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="features-img" alt="feature6">
+        <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="features-img" alt="feature1" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="features-img" alt="feature2" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/KdSv3vr/98cf4677-c95c-4b4e-bdf3-78c6012f2cad-PT0-V1.jpg" class="features-img" alt="feature3" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="features-img" alt="feature4" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="features-img" alt="feature5" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="features-img" alt="feature6" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
     </section>
 
-    <!-- Footer & Policy Links -->
     <footer class="bg-gray-900 text-gray-300 py-8 mt-4">
         <div class="container mx-auto px-4 text-center">
             <div class="mb-3 space-x-4">
@@ -145,7 +138,6 @@
             <div class="text-xs opacity-60 mb-1">&copy; <span id="currentYear"></span> AirPods Pro 2. Tous droits réservés.</div>
         </div>
     </footer>
-    <!-- Modal Pages -->
     <div id="privacy-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
         <h2 class="font-bold text-xl mb-2">Politique de Confidentialité</h2>
         <p>Ce site respecte votre vie privée. Les informations recueillies sont utilisées uniquement pour le traitement de votre commande AirPods Pro 2. Nous ne partageons pas vos données à des tiers sauf pour la livraison et le paiement.</p>
@@ -159,11 +151,11 @@
         <p>Pour toute question, veuillez nous contacter via le formulaire de contact ou sur nos réseaux sociaux. Nous sommes là pour vous aider concernant vos commandes AirPods Pro 2.</p>
     </div></div>
 
-    <!-- Script Section -->
     <script>
-    // المؤقت
-    let totalSeconds = (2 * 60 * 60) + (30 * 60);
+    // Timer
+    let totalSeconds = (2 * 60 * 60) + (30 * 60); // 2 hours and 30 minutes
     const timerDisplay = document.getElementById('timer');
+
     function updateTimer() {
         if (timerDisplay) {
             let h = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
@@ -171,13 +163,16 @@
             let s = String(totalSeconds % 60).padStart(2, "0");
             timerDisplay.textContent = `${h}:${m}:${s}`;
         }
-        if (totalSeconds > 0) { totalSeconds--; }
+        if (totalSeconds > 0) {
+            totalSeconds--;
+        }
     }
     if (timerDisplay) {
-        updateTimer();
-        setInterval(updateTimer, 1000);
+        updateTimer(); // Initial call to display timer immediately
+        setInterval(updateTimer, 1000); // Update timer every second
     }
-    // الطلب
+
+    // DOM Elements
     const orderBtn = document.getElementById('orderBtn');
     const mainModal = document.getElementById('modal');
     const closeModalBtn = document.getElementById('closeModal');
@@ -187,30 +182,121 @@
     const colorRadios = document.querySelectorAll('input[name="color"]');
     const popupAirpodsImg = document.getElementById('popupAirpodsImg');
     const loadingPopup = document.getElementById('loadingPopup');
+    const detailsBtn = document.getElementById('detailsBtn');
+    const featuresSection = document.getElementById('features-section');
+
+    // Image sources for different colors
     const colorImageSources = {
         blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
         noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
     };
-    if (orderBtn && mainModal && cartBar && cartBarAirpodsImg) {
+
+    // Event Listener for "Order Now" button
+    if (orderBtn && mainModal && cartBar && cartBarAirpodsImg && popupAirpodsImg) {
         orderBtn.onclick = function() {
-            mainModal.style.display = "flex";
-            cartBar.classList.add("show-cart-bar");
+            mainModal.style.display = "flex"; // Show order modal
+            cartBar.classList.add("show-cart-bar"); // Show cart bar
             const selectedColor = document.querySelector('input[name="color"]:checked').value;
+            // Update images based on the currently selected color in the modal
             cartBarAirpodsImg.src = colorImageSources[selectedColor];
             popupAirpodsImg.src = colorImageSources[selectedColor];
         };
     }
+
+    // Event Listener for "Close Modal" button
     if (closeModalBtn && mainModal) {
-        closeModalBtn.onclick = function() { mainModal.style.display = "none"; };
-    }
-    if (finalizeBtn && mainModal && loadingPopup) {
-        finalizeBtn.onclick = function() {
-            mainModal.style.display = "none";
-            loadingPopup.style.display = "flex";
-            setTimeout(() => {
-                window.location.href = "https://www.google.com";
-            }, 3000);
+        closeModalBtn.onclick = function() {
+            mainModal.style.display = "none"; // Hide order modal
         };
     }
+
+    // Event Listener for "Finalize Order" button
+    if (finalizeBtn && mainModal && loadingPopup) {
+        finalizeBtn.onclick = function() {
+            mainModal.style.display = "none"; // Hide order modal
+            loadingPopup.style.display = "flex"; // Show loading popup
+            // Simulate redirection after a delay
+            setTimeout(() => {
+                // Replace with actual payment gateway URL
+                window.location.href = "https://www.google.com"; // Example redirection
+            }, 3000); // 3 seconds delay
+        };
+    }
+
+    // Event Listeners for Color Selection Radio Buttons
     if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
-        color
+        colorRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    const selectedColorValue = this.value;
+                    // Update the image in the modal
+                    if (popupAirpodsImg) {
+                        popupAirpodsImg.src = colorImageSources[selectedColorValue];
+                    }
+                    // Update the image in the cart bar
+                    if (cartBarAirpodsImg) {
+                        cartBarAirpodsImg.src = colorImageSources[selectedColorValue];
+                    }
+                    // Also update the main product image if desired (optional)
+                    // const mainProductImage = document.querySelector('section.container img.max-w-xs');
+                    // if (mainProductImage) {
+                    // mainProductImage.src = colorImageSources[selectedColorValue];
+                    // }
+                }
+            });
+        });
+    }
+
+    // Event Listener for "See details" button
+    if (detailsBtn && featuresSection) {
+        detailsBtn.onclick = function() {
+            featuresSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    // Footer: Set current year
+    const currentYearSpan = document.getElementById('currentYear');
+    if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+    }
+
+    // Footer: Policy Modals
+    const privacyLink = document.getElementById('privacy-link');
+    const termsLink = document.getElementById('terms-link');
+    const supportLink = document.getElementById('support-link');
+    const privacyPage = document.getElementById('privacy-page');
+    const termsPage = document.getElementById('terms-page');
+    const supportPage = document.getElementById('support-page');
+
+    if(privacyLink && privacyPage) {
+        privacyLink.onclick = (e) => { e.preventDefault(); privacyPage.style.display = 'flex'; };
+    }
+    if(termsLink && termsPage) {
+        termsLink.onclick = (e) => { e.preventDefault(); termsPage.style.display = 'flex'; };
+    }
+    if(supportLink && supportPage) {
+        supportLink.onclick = (e) => { e.preventDefault(); supportPage.style.display = 'flex'; };
+    }
+
+    // Close policy modals when clicking outside the content (optional improvement)
+    document.querySelectorAll('.policy-modal').forEach(modal => {
+        modal.addEventListener('click', function(event) {
+            if (event.target === this) { // Check if the click is on the modal backdrop itself
+                this.style.display = 'none';
+            }
+        });
+    });
+
+    // Add onerror fallbacks for feature images
+    const featureImages = document.querySelectorAll('.features-img');
+    featureImages.forEach(img => {
+        img.onerror = function() {
+            this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible';
+            this.alt='Image indisponible';
+        };
+    });
+
+
+    </script>
+</body>
+</html>
