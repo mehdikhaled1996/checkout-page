@@ -15,7 +15,7 @@
             align-items: center; font-weight: 500; font-size: 1rem; gap: 10px;}
         .show-cart-bar { display: flex !important; }
         .modal { display: none; position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.55); align-items: center; justify-content: center; padding: 20px; }
-        #modal .modal-content, #loadingPopup .modal-content { background: #fff; border-radius: 16px; padding: 28px 26px; box-shadow: 0 8px 40px rgba(0,0,0,0.14); width: 100%; max-width: 390px; text-align: center; position: relative; animation: fadeInModal 0.3s ease-out; }
+        .modal-content { background: #fff; border-radius: 16px; padding: 28px 26px; box-shadow: 0 8px 40px rgba(0,0,0,0.14); width: 100%; max-width: 390px; text-align: center; position: relative; animation: fadeInModal 0.3s ease-out; }
         @keyframes fadeInModal { from { opacity: 0; transform: translateY(-20px) scale(0.95);} to { opacity: 1; transform: translateY(0) scale(1);} }
         .close-btn { position: absolute; right: 18px; top: 18px; font-size: 1.5rem; color: #9ca3af; cursor: pointer; line-height: 1; }
         .close-btn:hover { color: #007BFF; }
@@ -28,9 +28,7 @@
         .quantity-input { width: 48px; text-align: center; border: 1px solid #d1d5db; border-radius: 0.375rem; background: #f3f4f6; font-weight: 600; padding: 0.25rem 0;}
         .animate-spin { animation: spin 1s linear infinite;}
         @keyframes spin { to { transform: rotate(360deg); } }
-        /* center header logo and name */
         .header-centered { display: flex; flex-direction: column; align-items: center; justify-content: center;}
-        /* organization for features images */
         .feature-img-list { margin: 0 auto; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 0; }
         .feature-img-list img { width: 100%; max-width: 430px; border-radius: 1.4rem; margin: 0; margin-bottom: 0; display: block; }
         @media (max-width: 500px) {
@@ -140,7 +138,6 @@
         </div>
     </div>
 
-    <!-- Détails produit (صور الميزات) -->
     <section id="features-section" class="container mx-auto px-2 py-8">
         <h2 class="text-3xl font-bold text-center mb-6 text-gray-900">Découvrez ses Atouts</h2>
         <div class="feature-img-list">
@@ -165,7 +162,7 @@
     </footer>
 
     <script>
-        // Countdown Timer
+        // Timer
         let totalSeconds = (2 * 60 * 60) + (30 * 60);
         const timerDisplay = document.getElementById('timer');
         function updateTimer() {
@@ -178,7 +175,8 @@
             if (totalSeconds > 0) totalSeconds--;
         }
         if (timerDisplay) { updateTimer(); setInterval(updateTimer, 1000); }
-        // Cart + Modal Logic
+
+        // Cart + Modal
         const orderBtn = document.getElementById('orderBtn');
         const mainModal = document.getElementById('modal');
         const closeModalBtn = document.getElementById('closeModal');
@@ -213,3 +211,22 @@
             colorRadios.forEach(radio => {
                 radio.addEventListener('change', function() {
                     const selectedValue = this.value;
+                    popupAirpodsImg.src = colorImageSources[selectedValue];
+                    if (cartBar.classList.contains('show-cart-bar')) {
+                        cartBarAirpodsImg.src = colorImageSources[selectedValue];
+                    }
+                });
+            });
+        }
+        if (mainModal) {
+            window.addEventListener('click', function(event){
+                if(event.target === mainModal) { mainModal.style.display = "none"; }
+            });
+        }
+        const currentYearSpan = document.getElementById('currentYear');
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+</html>
