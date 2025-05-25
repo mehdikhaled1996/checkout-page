@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,7 +12,7 @@
             background-color: #fff;
         }
         .image-shadow {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.10);
             border-radius: 1.5rem;
         }
         .cart-bar {
@@ -26,72 +25,72 @@
             border: 2px solid #007BFF;
             color: #1f2937;
             min-width: 320px;
-            padding: 16px 28px;
+            padding: 14px 24px;
             border-radius: 18px;
             z-index: 9999;
             box-shadow: 0 2px 15px rgba(0,123,255,0.1);
             align-items: center;
             font-weight: 500;
-            font-size: 1.13rem;
+            font-size: 1.1rem;
             gap: 12px;
         }
-        .show-cart-bar {
-            display: flex !important;
-        }
+        .show-cart-bar { display: flex !important; }
         .modal {
             display: none;
             position: fixed;
             z-index: 9998;
-            left: 0;
-            top: 0;
-            width: 100vw;
-            height: 100vh;
+            left: 0; top: 0; width: 100vw; height: 100vh;
             background-color: rgba(0,0,0,0.55);
-            align-items: center;
-            justify-content: center;
+            align-items: center; justify-content: center;
         }
         .modal-content {
             background-color: #fff;
             border-radius: 16px;
-            padding: 35px 32px 30px 32px;
+            padding: 32px 22px 25px 22px;
             box-shadow: 0 8px 40px rgba(0,0,0,0.14);
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
-            position: relative;
+            width: 100%; max-width: 380px; text-align: center; position: relative;
         }
-        .close-btn {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            font-size: 1.5rem;
-            color: #bbb;
-            cursor: pointer;
-        }
-        .close-btn:hover {
-            color: #007BFF;
-        }
-        .select-color label {
-            cursor: pointer;
-        }
+        .close-btn { position: absolute; right: 18px; top: 18px; font-size: 1.4rem; color: #bbb; cursor: pointer;}
+        .close-btn:hover { color: #007BFF; }
+        .select-color label { cursor: pointer; }
         .select-color input:checked + div {
+            border-color: #2563eb; box-shadow: 0 0 0 2px #2563eb33;
+        }
+        .select-color img { width: 48px; height: 48px; }
+        .animate-spin { animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .scroll-btn {
+            background: #f3f4f6;
+            color: #1d4ed8;
+            border-radius: 9999px;
+            border: 2px solid #3b82f6;
+            font-weight: 600;
+            padding: 0.55rem 1.6rem;
+            transition: all .2s;
+        }
+        .scroll-btn:active, .scroll-btn:hover {
+            background: #e0e7ef;
             border-color: #2563eb;
-            box-shadow: 0 0 0 2px #2563eb33;
+            color: #2563eb;
         }
-        .select-color img {
-            width: 48px; height: 48px;
+        /* صور معلومات المنتج الطويلة */
+        .feature-img {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            border-radius: 2rem;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+            background: #fff;
+            display: block;
+            object-fit: contain;
         }
-        .animate-spin {
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        @media (max-width: 640px) {
+            .feature-img { max-width: 98vw; border-radius: 1.2rem;}
         }
     </style>
 </head>
 <body class="bg-white text-gray-800">
 
-    <!-- Cart bar appears after add to cart -->
     <div id="cartBar" class="cart-bar">
         <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 rounded-xl mr-3 border border-gray-200">
         <span>🛒 Produit ajouté au panier</span>
@@ -104,8 +103,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="container mx-auto px-4 py-10 flex flex-col items-center justify-center text-center">
-        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods Pro 2" class="max-w-xs sm:max-w-md w-full image-shadow mx-auto mb-6">
+    <section class="container mx-auto px-4 pt-10 pb-2 flex flex-col items-center justify-center text-center">
         <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight text-gray-900 mb-3">
             Offre exclusive AirPods Pro 2 !
         </h1>
@@ -119,9 +117,14 @@
         <div class="text-red-600 font-semibold mb-4">
             Offre se termine dans : <span id="timer" class="ml-2">02:30:00</span>
         </div>
-        <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2">
+        <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2 mb-4">
             Commander maintenant
         </button>
+        <button class="scroll-btn mt-2 mb-3" onclick="document.getElementById('features-section').scrollIntoView({behavior:'smooth'});">
+            Voir détails et infos produit ↓
+        </button>
+        <!-- صورة الايربود الرئيسية تظهر هنا بعد الزر فقط -->
+        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods Pro 2" class="w-56 sm:w-64 image-shadow mx-auto mb-1 mt-2">
     </section>
 
     <!-- Modal Confirm Order -->
@@ -156,7 +159,6 @@
                     </label>
                 </div>
             </div>
-            <!-- Choix quantité -->
             <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-1">Quantité :</label>
                 <div class="flex items-center justify-center gap-2">
@@ -189,16 +191,14 @@
     </div>
 
     <!-- Features Images Section -->
-    <section class="container mx-auto px-4 py-12">
+    <section id="features-section" class="container mx-auto px-2 py-10">
         <h2 class="text-3xl font-bold text-center mb-10 text-gray-900">Découvrez ses Atouts</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-8">
-            <img src="https://i.postimg.cc/3NK191ky/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="w-full h-56 object-cover image-shadow mx-auto" alt="Atout 1">
-            <img src="https://i.postimg.cc/Y0b3PFFd/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="w-full h-56 object-cover image-shadow mx-auto" alt="Atout 2">
-            <img src="https://i.postimg.cc/Wb1Sk9RC/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="w-full h-56 object-cover image-shadow mx-auto" alt="Atout 3">
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 md:max-w-4xl md:mx-auto">
-            <img src="https://i.postimg.cc/8kHtc2YL/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="w-full h-56 object-cover image-shadow mx-auto" alt="Atout 4">
-            <img src="https://i.postimg.cc/jd3cQzt5/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="w-full h-56 object-cover image-shadow mx-auto" alt="Atout 5">
+        <div class="flex flex-col items-center gap-7">
+            <img src="https://i.postimg.cc/3NK191ky/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 1">
+            <img src="https://i.postimg.cc/Y0b3PFFd/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 2">
+            <img src="https://i.postimg.cc/Wb1Sk9RC/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 3">
+            <img src="https://i.postimg.cc/8kHtc2YL/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 4">
+            <img src="https://i.postimg.cc/jd3cQzt5/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="feature-img mb-2" alt="Atout 5">
         </div>
     </section>
 
