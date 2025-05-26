@@ -7,48 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #fff; color: #111; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #111; }
         .image-shadow { box-shadow: 0 8px 30px rgba(0,0,0,0.10); border-radius: 1.5rem; }
         .cart-bar { display:none;position:fixed;top:90px;left:50%;transform:translateX(-50%);
             background:#fff;border:2px solid #2563eb;min-width:300px;padding:14px 20px;
             border-radius:14px;z-index:1000;box-shadow:0 4px 20px rgba(59,130,246,0.10);
             align-items:center; font-weight:500;font-size:1rem;gap:10px;}
         .show-cart-bar { display:flex!important; }
-        
         .modal { display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;
-            background:rgba(0,0,0,0.40);align-items:center;justify-content:center;padding:1rem;}
-        
-        /* Main Order Modal (#modal) */
-        #modal { z-index:10001; }
-        #modal .modal-content {background:#fff;border-radius:18px;padding:30px 20px 20px 20px;
-            box-shadow:0 8px 40px rgba(0,0,0,0.14);width:100%;max-width:450px;text-align:center;position:relative; animation: fadeInModal 0.3s ease-out;}
-
-        /* Loading Popup Modal (#loadingPopup) */
-        #loadingPopup { z-index: 20001; } /* Higher than policy modals */
-        #loadingPopup .modal-content {
-            background:#fff;border-radius:18px;padding:35px 32px 30px 32px;
-            box-shadow:0 8px 40px rgba(0,0,0,0.14);width:100%;max-width:340px;min-height:280px;text-align:center;position:relative;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; animation: fadeInModal 0.3s ease-out;
-        }
-
-        /* Policy Modals (.policy-modal) */
-        .policy-modal {display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:20000;background:rgba(0,0,0,0.40);align-items:center;justify-content:center;padding:1rem;}
-        .policy-content {background:#fff;border-radius:16px;padding:28px;max-width:500px;width:95%;box-shadow:0 8px 40px rgba(0,0,0,0.13);max-height: 80vh; overflow-y: auto; text-align: left; position:relative; animation: fadeInModal 0.3s ease-out;}
-        .policy-content h2 { text-align: center; font-weight: 700; font-size: 1.25rem; margin-bottom: 1rem; color: #1f2937;}
-        .policy-content p, .policy-content ul { margin-bottom: 1rem; color: #374151; line-height: 1.6;}
-        .policy-content ul { list-style: disc; padding-left: 20px; }
-        .policy-content .close-btn { /* Ensure close button is styled for policy modals too */
-            position:absolute;right:18px;top:16px;font-size:1.5rem;color:#bdbdbd;cursor:pointer; line-height: 1;
-        }
-        .policy-content .close-btn:hover {color:#2563eb;}
-
-
-        @keyframes fadeInModal {
-            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .close-btn {position:absolute;right:18px;top:16px;font-size:1.5rem;color:#bdbdbd;cursor:pointer;line-height: 1;}
+            background:rgba(0,0,0,0.40);align-items:center;justify-content:center;z-index:10001;}
+        .modal-content {background:#fff;border-radius:18px;padding:30px 20px 20px 20px;
+            box-shadow:0 8px 40px rgba(0,0,0,0.14);width:100%;max-width:450px;text-align:center;position:relative;}
+        .close-btn {position:absolute;right:18px;top:16px;font-size:1.5rem;color:#bdbdbd;cursor:pointer;}
         .close-btn:hover {color:#2563eb;}
         .select-color label { cursor:pointer;display:flex;flex-direction:column;align-items:center;}
         .select-color input[type="radio"] {position:absolute;opacity:0;width:0;height:0;}
@@ -61,7 +31,12 @@
         .animate-spin {animation:spin 1s linear infinite;} @keyframes spin { to{transform:rotate(360deg);} }
         .features-img {display:block;width:100%;margin:0;padding:0;border-radius:0;}
         .details-btn {display:block;width:100%;margin:0 auto 24px auto;}
-        
+        .policy-modal {display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:20000;background:rgba(0,0,0,0.40);align-items:center;justify-content:center;}
+        .policy-content {background:#fff;border-radius:16px;padding:28px;max-width:500px;width:95%;box-shadow:0 8px 40px rgba(0,0,0,0.13);max-height: 80vh; overflow-y: auto; text-align: left;}
+        .policy-content h2 { text-align: center; }
+        .policy-content p, .policy-content ul { margin-bottom: 1rem; }
+        .policy-content ul { list-style: disc; padding-left: 20px; }
+
         /* Logo Animation */
         .logo-container { position: relative; width: 56px; height: 56px; margin-bottom: 0.5rem; cursor: pointer; }
         .logo-image {
@@ -83,7 +58,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: #b8b8b8; /* Fallback color */
+            color: #b8b8b8;
             text-shadow: 0px 1px 2px rgba(255,255,255,0.4),
                          0px -1px 1px rgba(50,50,50,0.1);
             cursor: pointer;
@@ -95,30 +70,30 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             padding: 0.5rem 0;
             position: absolute;
-            top: 100%; /* Position below the logo area */
+            top: 100%;
             left: 0;
             right: 0;
-            z-index: 30; /* Below main header sticky z-index but above content */
+            z-index: 30;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            transition: max-height 0.5s ease-in-out;
         }
         #topNavMenu.nav-open {
-            max-height: 300px; /* Adjust as needed */
+            max-height: 300px;
             padding: 1rem 0;
         }
         #topNavMenu ul { list-style: none; padding: 0; margin: 0; text-align: center; }
         #topNavMenu ul li a {
             display: block;
             padding: 0.75rem 1rem;
-            color: #374151; /* gray-700 */
+            color: #374151;
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.2s, color 0.2s;
         }
         #topNavMenu ul li a:hover {
-            background-color: #f3f4f6; /* gray-100 */
-            color: #1d4ed8; /* blue-700 */
+            background-color: #f3f4f6;
+            color: #1d4ed8;
         }
 
         /* Sticky Floating Order Button (Bottom) */
@@ -126,35 +101,42 @@
             position: fixed;
             bottom: 20px;
             left: 50%;
-            z-index: 999; /* High z-index but below modals */
-            display: none; /* Initially hidden, controlled by JS */
+            z-index: 999;
+            display: none;
             padding: 0.75rem 1.5rem;
             font-size: 1rem;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
             opacity: 0;
-            transform: translate(-50%, 100%); /* Start off-screen */
+            transform: translate(-50%, 100%);
             transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         }
         #floatingOrderBtn.visible {
             opacity: 1;
-            transform: translate(-50%, 0); /* Slide in */
-            animation: pulseGlow 2s infinite ease-in-out; /* Removed gentleShake from default state */
+            transform: translate(-50%, 0);
         }
         @keyframes pulseGlow {
             0% { box-shadow: 0 -2px 10px rgba(37, 99, 235, 0.2), 0 0 0 0px rgba(37, 99, 235, 0.3); }
             70% { box-shadow: 0 -2px 15px rgba(37, 99, 235, 0.4), 0 0 0 10px rgba(37, 99, 235, 0); }
             100% { box-shadow: 0 -2px 10px rgba(37, 99, 235, 0.2), 0 0 0 0px rgba(37, 99, 235, 0); }
         }
-        #floatingOrderBtn:hover { /* Keep hover effect simple */
-            transform: translate(-50%, -5px) !important; /* Use !important to override animation transform if needed */
-            animation-play-state: paused; /* Pause pulse on hover if desired */
+        #floatingOrderBtn.visible {
+            animation: pulseGlow 2s infinite ease-in-out, gentleShake 0.5s ease-in-out;
         }
-        /* Removed gentleShake keyframes as it might conflict with transform */
+        #floatingOrderBtn:hover {
+            transform: translate(-50%, -5px);
+        }
+        @keyframes gentleShake {
+            0%, 100% { transform: translate(-50%, 0) rotate(0deg); }
+            25% { transform: translate(-50%, 0) rotate(-2deg); }
+            75% { transform: translate(-50%, 0) rotate(2deg); }
+        }
+        #floatingOrderBtn.shake {}
+
 
         /* Timed Pop-up Modal Styles */
         #timedPopupModal {
             display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); z-index: 20002; /* Highest z-index */
+            background-color: rgba(0, 0, 0, 0.6); z-index: 20002;
             align-items: center; justify-content: center; opacity: 0;
             transition: opacity 0.3s ease-in-out;
         }
@@ -170,14 +152,14 @@
             position: absolute; top: 10px; right: 15px; font-size: 2rem;
             color: #888; cursor: pointer; line-height: 1;
         }
-        .timed-popup-close-btn:hover { color: #e53e3e; /* red-600 */ }
+        .timed-popup-close-btn:hover { color: #e53e3e; }
         .timed-popup-icon { font-size: 3rem; color: #2563eb; margin-bottom: 1rem; }
         .timed-popup-title { font-size: 1.6rem; font-weight: 700; color: #1a202c; margin-bottom: 0.75rem; }
         .timed-popup-text { font-size: 1rem; line-height: 1.6; margin-bottom: 0.5rem; color: #4a5568; }
-        .timed-popup-highlight { font-weight: 600; color: #dd6b20; /* orange-600 */ }
+        .timed-popup-highlight { font-weight: 600; color: #dd6b20; }
         .timed-popup-timer-container { margin-top: 1rem; margin-bottom: 1.5rem; font-size: 1.1rem; color: #4a5568; }
         #timedPopupTimerDisplay {
-            font-size: 1.8rem; font-weight: 700; color: #c53030; /* red-700 */ background-color: #fefcbf; /* yellow-100 */
+            font-size: 1.8rem; font-weight: 700; color: #c53030; background-color: #fefcbf;
             padding: 0.3rem 0.6rem; border-radius: 8px; display: inline-block;
             margin-left: 0.5rem; min-width: 120px;
         }
@@ -190,7 +172,7 @@
         .timed-popup-order-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
 
         /* Reviews Section */
-        #reviews-section { padding-top: 2rem; padding-bottom: 3rem; background-color: #f9fafb; /* gray-50 */ }
+        #reviews-section { padding-top: 2rem; padding-bottom: 3rem; background-color: #f9fafb; }
         .review-card {
             background-color: white;
             border-radius: 12px;
@@ -201,14 +183,15 @@
         }
         .review-card:hover { transform: translateY(-5px); }
         .review-avatar { width: 60px; height: 60px; border-radius: 50%; margin-right: 1rem; object-fit: cover; border: 2px solid #e5e7eb; }
-        .review-stars { color: #f59e0b; /* amber-500 */ margin-bottom: 0.5rem; }
-        .trustpilot-badge {
-            max-height: 70px; 
-            max-width: 250px; 
-            width: auto;
-            margin-top: 1rem;
-            margin-bottom: 2rem;
+        .review-stars { color: #f59e0b; margin-bottom: 0.5rem; }
+        .trustpilot-badge { 
+            max-height: 70px; /* Increased height */
+            max-width: 250px; /* Added max-width for better control of rectangular logo */
+            width: auto; 
+            margin-top: 1rem; 
+            margin-bottom: 2rem; 
         }
+
     </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -218,18 +201,15 @@
     </button>
 
     <div id="cartBar" class="cart-bar">
-        <img id="cartBarAirpodsImg" src="airpods_image.png" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200"
-             onerror="this.onerror=null; this.src='https://placehold.co/40x40/E2E8F0/334155?text=AP&font=inter'; this.alt='AirPods indisponible'">
+        <img id="cartBarAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200">
         <span>🛒 Produit ajouté au panier</span>
     </div>
 
     <header id="mainHeader" class="w-full pt-5 pb-2 px-4 flex flex-col items-center bg-white sticky top-0 z-40">
         <div id="logoArea" class="flex flex-col items-center cursor-pointer">
             <div class="logo-container">
-                <img id="logoImg1" src="logo_animated_1.png" alt="Logo AirPod Style 1" class="logo-image active" 
-                     onerror="this.onerror=null; this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo1&font=inter'; this.alt='Logo indisponible'">
-                <img id="logoImg2" src="logo_animated_2.png" alt="Logo AirPod Style 2" class="logo-image"
-                     onerror="this.onerror=null; this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo2&font=inter'; this.alt='Logo indisponible'">
+                <img id="logoImg1" src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo AirPod Style 1" class="logo-image active" onerror="this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo'; this.alt='Logo indisponible'">
+                <img id="logoImg2" src="https://i.postimg.cc/yNpbtZsm/Apple-Logosu.png" alt="Logo AirPod Style 2" class="logo-image" onerror="this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo'; this.alt='Logo indisponible'">
             </div>
             <span class="text-3xl font-extrabold tracking-tight mb-0 shiny-silver-text" style="letter-spacing:-1px;">Airpod</span>
         </div>
@@ -253,9 +233,8 @@
         </div>
         <div class="text-red-600 font-semibold mb-1 text-center">Offre se termine dans : <span id="timer" class="ml-2">02:30:00</span></div>
         <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2 mb-4 w-full sm:w-auto">Commander maintenant</button>
-        <img src="airpods_image.png" alt="AirPods Pro 2 blanc" class="max-w-xs w-full mb-2 image-shadow" style="margin-bottom:12px;"
-             onerror="this.onerror=null; this.src='https://placehold.co/320x320/E2E8F0/334155?text=AirPods&font=inter'; this.alt='AirPods Pro 2 indisponible'">
-        <button id="detailsBtn" class="details-btn border-2 border-blue-600 rounded-2xl py-3 px-6 text-blue-700 text-lg font-semibold bg-white hover:bg-blue-50 transition-colors duration-200">Voir détails et infos produit ↓</button>
+        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods Pro 2 blanc" class="max-w-xs w-full mb-2 image-shadow" style="margin-bottom:12px;">
+        <button id="detailsBtn" class="details-btn border-2 border-blue-600 rounded-2xl py-3 px-6 text-blue-700 text-lg font-semibold bg-white hover:bg-blue-50">Voir détails et infos produit ↓</button>
     </section>
 
     <div id="modal" class="modal">
@@ -263,8 +242,7 @@
             <span id="closeModal" class="close-btn">&times;</span>
             <div class="flex justify-center items-center mb-2">
                 <span style="font-size:2rem; margin-right:8px;">🛒</span>
-                <img id="popupAirpodsImg" src="airpods_image.png" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200 mx-1"
-                     onerror="this.onerror=null; this.src='https://placehold.co/40x40/E2E8F0/334155?text=AP&font=inter'; this.alt='AirPods indisponible'">
+                <img id="popupAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200 mx-1">
                 <span class="bg-blue-600 text-white text-xs sm:text-sm rounded-full px-2 py-0.5 ml-1 font-bold">1</span>
             </div>
             <h2 class="text-xl font-bold mb-1 text-gray-800">Produit ajouté au panier !</h2>
@@ -275,16 +253,14 @@
                     <label>
                         <input type="radio" name="color" value="blanc" class="hidden" checked>
                         <div class="color-option-display">
-                            <img src="airpods_image.png" alt="Blanc"
-                                 onerror="this.onerror=null; this.src='https://placehold.co/56x56/E2E8F0/334155?text=Blanc&font=inter'; this.alt='AirPods Blanc indisponible'">
+                            <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="Blanc">
                             <span class="mt-1 font-medium text-sm">Blanc</span>
                         </div>
                     </label>
                     <label>
                         <input type="radio" name="color" value="noir" class="hidden">
                         <div class="color-option-display">
-                            <img src="airpods_black_image.png" alt="Noir"
-                                 onerror="this.onerror=null; this.src='https://placehold.co/56x56/1F2937/FFFFFF?text=Noir&font=inter'; this.alt='AirPods Noir indisponible'">
+                            <img src="https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg" alt="Noir">
                             <span class="mt-1 font-medium text-sm">Noir</span>
                         </div>
                     </label>
@@ -301,7 +277,9 @@
         </div>
     </div>
 
-    <div id="loadingPopup" class="modal"> <div class="modal-content"> <div class="mb-4">
+    <div id="loadingPopup" class="modal">
+        <div class="modal-content flex flex-col items-center justify-center">
+            <div class="mb-4">
                 <div class="animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 w-12 h-12 mx-auto"></div>
             </div>
             <h3 class="text-lg font-bold text-gray-800 mb-2">Redirection vers la passerelle de paiement...</h3>
@@ -309,15 +287,15 @@
             <span class="text-blue-700 font-semibold">Site vérifié et 100% sécurisé.</span></p>
             <p class="text-xs text-gray-500 mb-3">En raison d’un trafic élevé sur notre site, la redirection prend quelques secondes. Merci pour votre patience !</p>
             <div class="flex items-center gap-2 mt-2">
-                <img src="visa_logo_payment.png" alt="Visa" class="h-7" style="background:#fff; border-radius:6px;"
-                     onerror="this.onerror=null; this.src='https://placehold.co/70x25/0057A0/FFFFFF?text=VISA&font=inter'; this.alt='Logo Visa indisponible'">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="h-7" style="background:#fff; border-radius:6px;">
                 <span style="font-size:1.2rem; color:#15803d;">🔒</span>
                 <span class="text-green-700 text-xs font-medium">Paiement sécurisé</span>
             </div>
         </div>
     </div>
 
-    <div id="timedPopupModal"> <div class="timed-popup-content">
+    <div id="timedPopupModal">
+        <div class="timed-popup-content">
             <span id="timedPopupCloseBtn" class="timed-popup-close-btn">&times;</span>
             <div class="timed-popup-icon">🎉</div>
             <h2 class="timed-popup-title">Félicitations !</h2>
@@ -337,14 +315,12 @@
     <section id="reviews-section" class="container mx-auto px-4">
         <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-4">Avis de Nos Clients</h2>
         <div class="flex justify-center mb-6">
-            <img src="trustpilot_badge.png" alt="Logo Avis Trustpilot" class="trustpilot-badge" 
-                 onerror="this.onerror=null; this.src='https://placehold.co/250x70/cccccc/ffffff?text=Avis+Logo&font=inter'; this.alt='Logo Avis Trustpilot indisponible'">
+            <img src="https://i.postimg.cc/QMChxyZj/images-8.png" alt="Logo Avis Trustpilot" class="trustpilot-badge" onerror="this.src='https://placehold.co/250x70/cccccc/ffffff?text=Avis+Logo'; this.alt='Logo Avis Trustpilot indisponible'">
         </div>
         <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
             <div class="review-card">
                 <div class="flex items-start">
-                    <img src="avatar_lea_c.png" alt="Avatar Léa C." class="review-avatar" 
-                         onerror="this.onerror=null; this.src='https://placehold.co/60x60/EBF4FF/7F9CF5?text=LC&font=inter'; this.alt='Avatar Léa C. indisponible'">
+                    <img src="https://i.ibb.co/N6vB4TTB/FB-IMG-1748223150251.jpg" alt="Avatar Léa C." class="review-avatar" onerror="this.src='https://placehold.co/60x60/EBF4FF/7F9CF5?text=LC'; this.alt='Avatar Léa C. indisponible'">
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Léa C.</h3>
                         <div class="review-stars">★★★★★</div>
@@ -355,8 +331,7 @@
             </div>
             <div class="review-card">
                 <div class="flex items-start">
-                    <img src="avatar_antoine_m.png" alt="Avatar Antoine M." class="review-avatar" 
-                         onerror="this.onerror=null; this.src='https://placehold.co/60x60/FEF3C7/D97706?text=AM&font=inter'; this.alt='Avatar Antoine M. indisponible'">
+                    <img src="https://i.postimg.cc/MKZpJbWC/FB-IMG-1748223545571.jpg" alt="Avatar Antoine M." class="review-avatar" onerror="this.src='https://placehold.co/60x60/FEF3C7/D97706?text=AM'; this.alt='Avatar Antoine M. indisponible'">
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Antoine M.</h3>
                         <div class="review-stars">★★★★★</div>
@@ -367,8 +342,7 @@
             </div>
             <div class="review-card">
                 <div class="flex items-start">
-                    <img src="avatar_chloe_d.png" alt="Avatar Chloé D." class="review-avatar" 
-                         onerror="this.onerror=null; this.src='https://placehold.co/60x60/D1FAE5/059669?text=CD&font=inter'; this.alt='Avatar Chloé D. indisponible'">
+                    <img src="https://i.postimg.cc/XNLnLGwQ/FB-IMG-1748223785268.jpg" alt="Avatar Chloé D." class="review-avatar" onerror="this.src='https://placehold.co/60x60/D1FAE5/059669?text=CD'; this.alt='Avatar Chloé D. indisponible'">
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Chloé D.</h3>
                         <div class="review-stars">★★★★☆</div>
@@ -379,8 +353,7 @@
             </div>
             <div class="review-card">
                 <div class="flex items-start">
-                    <img src="avatar_nicolas_l.png" alt="Avatar Nicolas L." class="review-avatar" 
-                         onerror="this.onerror=null; this.src='https://placehold.co/60x60/FEE2E2/DC2626?text=NL&font=inter'; this.alt='Avatar Nicolas L. indisponible'">
+                    <img src="https://i.postimg.cc/fymwQSnX/FB-IMG-1748223905324.jpg" alt="Avatar Nicolas L." class="review-avatar" onerror="this.src='https://placehold.co/60x60/FEE2E2/DC2626?text=NL'; this.alt='Avatar Nicolas L. indisponible'">
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Nicolas L.</h3>
                         <div class="review-stars">★★★★★</div>
@@ -389,9 +362,9 @@
                 <p class="text-gray-600 mt-2">"Enfin une offre qui vaut le coup pour des AirPods Pro 2 authentiques ! J'ai vérifié le numéro de série sur le site d'Apple, tout est conforme. Le confort est incomparable par rapport à mes anciens écouteurs. Merci PromoMagique !"</p>
                 <small class="text-gray-500 mt-2 block">Avis du 15 Mai 2025</small>
             </div>
-             <div class="review-card md:col-span-2 lg:col-span-1"> <div class="flex items-start">
-                    <img src="avatar_sophie_b.png" alt="Avatar Sophie B." class="review-avatar" 
-                         onerror="this.onerror=null; this.src='https://placehold.co/60x60/E0E7FF/4338CA?text=SB&font=inter'; this.alt='Avatar Sophie B. indisponible'">
+             <div class="review-card md:col-span-2 lg:col-span-1">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/cLZVRszt/FB-IMG-1748224215323.jpg" alt="Avatar Sophie B." class="review-avatar" onerror="this.src='https://placehold.co/60x60/E0E7FF/4338CA?text=SB'; this.alt='Avatar Sophie B. indisponible'">
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Sophie B.</h3>
                         <div class="review-stars">★★★★★</div>
@@ -404,12 +377,12 @@
     </section>
 
     <section id="features-section" class="container mx-auto px-2 pb-12 pt-2">
-        <img src="feature_image_1.jpg" class="features-img" alt="AirPods Pro 2 Fonctionnalité 1" onerror="this.onerror=null; this.src='https://placehold.co/800x600/cccccc/ffffff?text=Image+Indisponible+1&font=inter'; this.alt='Image indisponible'">
-        <img src="feature_image_2.jpg" class="features-img" alt="AirPods Pro 2 Fonctionnalité 2" onerror="this.onerror=null; this.src='https://placehold.co/800x600/cccccc/ffffff?text=Image+Indisponible+2&font=inter'; this.alt='Image indisponible'">
-        <img src="feature_image_3.jpg" class="features-img" alt="AirPods Pro 2 Fonctionnalité 3" onerror="this.onerror=null; this.src='https://placehold.co/800x600/cccccc/ffffff?text=Image+Indisponible+3&font=inter'; this.alt='Image indisponible'">
-        <img src="feature_image_4.jpg" class="features-img" alt="AirPods Pro 2 Fonctionnalité 4" onerror="this.onerror=null; this.src='https://placehold.co/800x600/cccccc/ffffff?text=Image+Indisponible+4&font=inter'; this.alt='Image indisponible'">
-        <img src="feature_image_5.jpg" class="features-img" alt="AirPods Pro 2 Fonctionnalité 5" onerror="this.onerror=null; this.src='https://placehold.co/800x600/cccccc/ffffff?text=Image+Indisponible+5&font=inter'; this.alt='Image indisponible'">
-        <img src="feature_image_6.jpg" class="features-img" alt="AirPods Pro 2 Fonctionnalité 6" onerror="this.onerror=null; this.src='https://placehold.co/800x600/cccccc/ffffff?text=Image+Indisponible+6&font=inter'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="features-img" alt="feature1" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="features-img" alt="feature2" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/KdSv3vr/98cf4677-c95c-4b4e-bdf3-78c6012f2cad-PT0-V1.jpg" class="features-img" alt="feature3" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="features-img" alt="feature4" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="features-img" alt="feature5" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="features-img" alt="feature6" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
     </section>
 
     <footer class="bg-gray-900 text-gray-300 py-8 mt-4">
@@ -425,26 +398,26 @@
         </div>
     </footer>
 
-    <div id="about-page" class="policy-modal"><div class="policy-content"><span class="close-btn">&times;</span>
+    <div id="about-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
         <h2 class="font-bold text-xl mb-3">Qui Sommes-Nous ? (À Propos)</h2>
         <p>PromoMagique est une entreprise basée en France, spécialisée dans la recherche et le partage des meilleures offres et réductions sur les AirPods originaux. Nous agissons en tant qu'intermédiaire légal indépendant et revendeur agréé d'AirPods, aidant notre communauté à obtenir des produits Apple authentiques à des prix incroyables.</p>
         <p>Notre mission est de construire une solide communauté de clients et de followers satisfaits grâce à la confiance et à la transparence.</p>
     </div></div>
 
-    <div id="privacy-page" class="policy-modal"><div class="policy-content"><span class="close-btn">&times;</span>
+    <div id="privacy-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
         <h2 class="font-bold text-xl mb-3">Politique de Confidentialité</h2>
         <p>Toutes les informations client sont collectées uniquement à des fins de traitement des commandes, de support client et de livraison. PromoMagique ne vendra, ne louera ni ne partagera jamais vos données personnelles avec des tiers, à l'exception des partenaires de paiement et d'expédition nécessaires à votre achat.</p>
         <p>Vous pouvez demander à supprimer ou à mettre à jour vos informations à tout moment en nous contactant.</p>
         <p><strong>Contact pour la confidentialité :</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></p>
     </div></div>
 
-    <div id="terms-page" class="policy-modal"><div class="policy-content"><span class="close-btn">&times;</span>
+    <div id="terms-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
         <h2 class="font-bold text-xl mb-3">Conditions Générales</h2>
         <p>PromoMagique opère en tant que revendeur indépendant officiel et partenaire promotionnel pour les AirPods Apple authentiques. Toutes les offres et réductions sont soumises à la disponibilité des produits et sont destinées uniquement aux consommateurs finaux.</p>
         <p>Nous garantissons que tous les produits proposés sont neufs, originaux et livrés en toute sécurité à nos clients. Votre utilisation de ce site Web constitue votre accord avec notre politique de confidentialité et notre engagement envers des pratiques commerciales équitables, sécurisées et transparentes.</p>
     </div></div>
 
-    <div id="support-page" class="policy-modal"><div class="policy-content"><span class="close-btn">&times;</span>
+    <div id="support-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
         <h2 class="font-bold text-xl mb-3">Support Client</h2>
         <p>Notre équipe de support est disponible 7 jours sur 7. Vous pouvez nous contacter pour toute question concernant vos commandes, les produits ou nos politiques :</p>
         <ul>
@@ -454,7 +427,7 @@
         <p>Vous pouvez également nous joindre sur nos pages de réseaux sociaux.</p>
     </div></div>
 
-    <div id="contact-page" class="policy-modal"><div class="policy-content"><span class="close-btn">&times;</span>
+    <div id="contact-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
         <h2 class="font-bold text-xl mb-3">Contactez-Nous</h2>
         <p><strong>Email :</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></p>
         <p><strong>Téléphone :</strong> <a href="tel:+33187654321" class="text-blue-600 hover:underline">+33 1 87 65 43 21</a></p>
@@ -465,108 +438,100 @@
 
 
     <script>
-    // --- Partie Suivi Utilisateur (User Tracking) ---
-    const getCountryByIp = async (ip) => {
-        try {
-            const res = await fetch(`https://ipapi.co/${ip}/json/`);
-            if (res.ok) {
-                const data = await res.json();
-                return data.country_name || "Unknown";
-            }
-        } catch (e) { 
-            console.error("Error fetching country by IP:", e);
-        }
-        return "Unknown";
-    };
+    // --- Telegram Alert Configuration & Function ---
+    const TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8';
+    const TELEGRAM_CHAT_ID = '-4913064483';
 
-    async function getUserTrackingInfo() {
-        const userAgent = navigator.userAgent;
-        const language = navigator.language;
-        let ip = 'Unknown';
-        let country = 'Unknown';
+    async function sendTelegramAlert(action, details = {}) {
+        let ipInfo = { 
+            ip: 'N/A', country_name: 'N/A', country_code: 'N/A', 
+            city: 'N/A', region_name: 'N/A' 
+        };
         try {
-            const res = await fetch('https://api.ipify.org?format=json');
-            if (res.ok) {
-                const data = await res.json();
-                ip = data.ip;
-                country = await getCountryByIp(ip);
+            // Using freegeoip.app as an alternative to ip-api.com
+            const ipRes = await fetch('https://freegeoip.app/json/'); 
+            if (ipRes.ok) {
+                const data = await ipRes.json();
+                // Check if essential data is present, freegeoip.app doesn't have a 'status' field like ip-api
+                if (data && data.ip) { 
+                    ipInfo = { 
+                        ip: data.ip || 'N/A', 
+                        country_name: data.country_name || 'N/A', 
+                        country_code: data.country_code || 'N/A', 
+                        city: data.city || 'N/A', 
+                        region_name: data.region_name || 'N/A'
+                    };
+                } else {
+                    console.warn("IP API (freegeoip.app) response missing expected data:", data);
+                    ipInfo.ip = data.ip || 'N/A (Incomplete API data)';
+                }
+            } else {
+                console.error("IP API (freegeoip.app) request failed with HTTP status:", ipRes.status);
+                ipInfo.ip = `HTTP Error ${ipRes.status}`;
             }
         } catch (e) {
-            console.error("Error fetching IP:", e);
-            ip = 'ErrorFetchingIP';
+            console.error("Exception fetching IP for Telegram alert:", e);
+            ipInfo.ip = 'Exception during fetch';
         }
-        return {
-            userAgent, language, ip, country,
-            url: window.location.href,
-            referrer: document.referrer || 'Direct'
-        };
-    }
-    
-    function getActionEmoji(actionDescription) {
-        if (actionDescription.includes("Clicked")) return "🖱️";
-        if (actionDescription.includes("Loaded")) return "📄";
-        if (actionDescription.includes("Changed")) return "🎨";
-        if (actionDescription.includes("Shown")) return "👀";
-        if (actionDescription.includes("Opened")) return "📂";
-        return "🔔";
-    }
 
-    async function sendTelegramNotificationInternal(message) {
-        // STUB: Replace with your actual Telegram bot token and chat ID
-        // const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN';
-        // const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID';
-        // const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        // try {
-        // await fetch(url, {
-        // method: 'POST',
-        // headers: { 'Content-Type': 'application/json' },
-        // body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: 'HTML' })
-        // });
-        // } catch (error) {
-        // console.error("Error sending Telegram notification:", error);
-        // }
-        console.log("--- Telegram Notification (Stub) ---");
-        console.log(message.replace(/<b>/g, "").replace(/<\/b>/g, ""));
-        console.log("------------------------------------");
-    }
+        let emoji = '🔔'; // Default
+        if (/finaliser/i.test(action) || /finalize/i.test(action)) emoji = '💳';
+        else if (/cart/i.test(action) || /panier/i.test(action) || /order modal opened/i.test(action)) emoji = '🛒';
+        else if (/detail/i.test(action)) emoji = 'ℹ️';
+        else if (/page/i.test(action) || /view/i.test(action) || /loaded/i.test(action)) emoji = '📄';
+        else if (/color changed/i.test(action)) emoji = '🎨';
+        else if (/timed offer popup shown/i.test(action)) emoji = '⏳';
+        else if (/timed popup order/i.test(action)) emoji = '🎉';
+        else if (/policy modal opened/i.test(action) || /nav link clicked/i.test(action) || /navigation menu toggled/i.test(action) ) emoji = '🔗';
 
-    window.trackTelegramEvent = async function(actionDescription, eventSpecificDetails = {}) {
+
+        const userAgent = navigator.userAgent;
+        const language = navigator.language;
+
+        let msg = `${emoji} <b>Action:</b> ${action}\n`;
+        msg += `🌍 <b>Pays:</b> ${ipInfo.country_name} (${ipInfo.country_code})\n`;
+        msg += `🌐 <b>IP:</b> ${ipInfo.ip}\n`;
+        msg += `🏙️ <b>Ville:</b> ${ipInfo.city} | <b>Région:</b> ${ipInfo.region_name}\n`;
+        msg += `📱 <b>Agent:</b> ${userAgent}\n`;
+        msg += `🗣️ <b>Langue:</b> ${language}\n`;
+        msg += `🕒 <b>Heure:</b> ${new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}\n`;
+        msg += `🔗 <b>URL:</b> ${window.location.href}\n`;
+        if (document.referrer) msg += `↩️ <b>Referrer:</b> ${document.referrer}\n`;
+        
+        if (details && Object.keys(details).length) {
+            msg += `\n📋 <b>Détails:</b>\n`;
+            Object.keys(details).forEach(key => {
+                const value = typeof details[key] === 'string' ? details[key].replace(/</g, "&lt;").replace(/>/g, "&gt;") : JSON.stringify(details[key]);
+                msg += ` - ${key}: ${value}\n`;
+            });
+        }
+
         try {
-            const userInfo = await getUserTrackingInfo();
-            const timestamp = new Date().toISOString();
-            const actionEmoji = getActionEmoji(actionDescription);
-
-            let message = `${actionEmoji} <b>Action:</b> ${actionDescription}\n`;
-            message += `🕒 <b>Time:</b> ${timestamp}\n`;
-            message += `🌐 <b>URL:</b> ${userInfo.url}\n`;
-            if (userInfo.referrer && userInfo.referrer !== 'Direct') message += ` G <b>Referrer:</b> ${userInfo.referrer}\n`;
-            message += `\n👤 <b>User Info:</b>\n`;
-            message += ` - IP: ${userInfo.ip} (${userInfo.country})\n`;
-            message += ` - Agent: ${userInfo.userAgent}\n`;
-            message += ` - Lang: ${userInfo.language}\n`;
-
-            if (Object.keys(eventSpecificDetails).length > 0) {
-                message += `\n📋 <b>Event Details:</b>\n`;
-                for(const key in eventSpecificDetails){
-                    const value = typeof eventSpecificDetails[key] === "string" 
-                                  ? eventSpecificDetails[key].replace(/</g, "&lt;").replace(/>/g, "&gt;") 
-                                  : JSON.stringify(eventSpecificDetails[key]);
-                    message += ` - ${key}: ${value}\n`;
-                }
-            }
-            await sendTelegramNotificationInternal(message);
+            await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: msg,
+                    parse_mode: 'HTML'
+                })
+            });
         } catch (error) {
-            console.error("[Tracking] Error in trackTelegramEvent:", error);
+            console.error("Error sending Telegram alert:", error);
         }
     }
-    // --- End User Tracking ---
+    // --- End Telegram Alert Function ---
+
+    // --- Global Flags for Timed Popup Logic ---
+    let mainOrderButtonClicked = false;
+    let timedPopupTimeoutId = null;
 
 
     // --- DOM Element Declarations (from user's script) ---
-    const logoArea = document.getElementById('logoArea');
+    const logoArea = document.getElementById('logoArea'); 
     const topNavMenu = document.getElementById('topNavMenu');
     const navLinks = document.querySelectorAll('.nav-link');
-    const mainHeader = document.getElementById('mainHeader');
+    const mainHeader = document.getElementById('mainHeader'); 
 
     const logoImg1 = document.getElementById('logoImg1');
     const logoImg2 = document.getElementById('logoImg2');
@@ -582,8 +547,8 @@
     const popupAirpodsImg = document.getElementById('popupAirpodsImg');
     const loadingPopup = document.getElementById('loadingPopup');
     const detailsBtn = document.getElementById('detailsBtn');
-    const featuresSection = document.getElementById('features-section');
-    // const reviewsSectionForNav = document.getElementById('reviews-section'); // Already declared below
+    const featuresSection = document.getElementById('features-section'); 
+    const reviewsSectionForNav = document.getElementById('reviews-section'); 
     const currentYearSpan = document.getElementById('currentYear');
 
     const timedPopupModal = document.getElementById('timedPopupModal');
@@ -602,54 +567,35 @@
     const supportPage = document.getElementById('support-page');
     const contactPage = document.getElementById('contact-page');
     const featureImages = document.querySelectorAll('.features-img');
-    const reviewsSectionForNav = document.getElementById('reviews-section'); // For nav link scrolling
-
-    // --- Image Sources & Fallbacks ---
-    const colorImageSources = {
-        blanc: "airpods_image.png",
-        noir: "airpods_black_image.png"
-    };
-    const colorImageFallbacks = {
-        blanc: "https://placehold.co/56x56/E2E8F0/334155?text=Blanc&font=inter",
-        noir: "https://placehold.co/56x56/1F2937/FFFFFF?text=Noir&font=inter"
-    };
-    const cartBarImageFallbacks = {
-        blanc: "https://placehold.co/40x40/E2E8F0/334155?text=AP&font=inter",
-        noir: "https://placehold.co/40x40/1F2937/FFFFFF?text=APN&font=inter"
-    };
-    const popupAirpodsImageFallback = "https://placehold.co/40x40/E2E8F0/334155?text=AP&font=inter";
 
 
     // --- Top Navigation Menu Logic ---
     if (logoArea && topNavMenu) {
         logoArea.onclick = function() {
             topNavMenu.classList.toggle('nav-open');
+            sendTelegramAlert('Navigation Menu Toggled', { state: topNavMenu.classList.contains('nav-open') ? 'Open' : 'Closed' });
         };
     }
 
-    if (navLinks.length && mainHeader) {
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                let targetSection;
-                if (targetId === '#home') {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    targetSection = document.querySelector(targetId);
-                }
-                
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            sendTelegramAlert('Nav Link Clicked', { link: targetId });
+            if (targetId === '#home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const targetSection = document.querySelector(targetId);
                 if (targetSection) {
-                    const headerOffset = mainHeader.offsetHeight;
+                    const headerOffset = mainHeader ? mainHeader.offsetHeight : 0;
                     const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
-                    const offsetPosition = elementPosition - headerOffset - 20; // 20px additional offset
+                    const offsetPosition = elementPosition - headerOffset - 20; 
                     window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
                 }
-                if (topNavMenu) topNavMenu.classList.remove('nav-open');
-                window.trackTelegramEvent('Nav Link Clicked', { link: targetId });
-            });
+            }
+            if (topNavMenu) topNavMenu.classList.remove('nav-open');
         });
-    }
+    });
 
     // --- Logo Animation ---
     let currentAnimatedLogo = 1;
@@ -664,11 +610,11 @@
                 logoImg1.classList.add('active');
                 currentAnimatedLogo = 1;
             }
-        }, 3000); // Change logo every 3 seconds
+        }, 3000);
     }
 
-    // --- Main Timer & Timed Popup Timer Sync ---
-    let totalSeconds = (2 * 60 * 60) + (30 * 60); // 2h 30min
+    // --- Main Timer ---
+    let totalSeconds = (2 * 60 * 60) + (30 * 60);
     let mainTimerInterval;
 
     function formatTime(seconds) {
@@ -678,13 +624,12 @@
         return `${h}:${m}:${s}`;
     }
 
-    function updateTimers() { // Renamed to update both timers
-        const formattedTime = formatTime(totalSeconds);
+    function updateMainTimer() {
         if (mainTimerDisplay) {
-            mainTimerDisplay.textContent = formattedTime;
+            mainTimerDisplay.textContent = formatTime(totalSeconds);
         }
         if (timedPopupModal && timedPopupTimerDisplay && timedPopupModal.classList.contains('show')) {
-            timedPopupTimerDisplay.textContent = formattedTime;
+            timedPopupTimerDisplay.textContent = formatTime(totalSeconds);
         }
 
         if (totalSeconds > 0) {
@@ -695,29 +640,29 @@
             if (timedPopupTimerDisplay && timedPopupModal.classList.contains('show')) {
                  timedPopupTimerDisplay.textContent = "Expirée!";
             }
-            // Optionally disable order buttons when timer expires
             if(orderBtn) orderBtn.disabled = true;
             if(floatingOrderBtn) floatingOrderBtn.disabled = true;
             if(timedPopupOrderBtn) timedPopupOrderBtn.disabled = true;
         }
     }
 
-    if (mainTimerDisplay) { // Ensure mainTimerDisplay exists before starting
-        updateTimers(); // Initial call
-        mainTimerInterval = setInterval(updateTimers, 1000);
+    if (mainTimerDisplay) {
+        updateMainTimer();
+        mainTimerInterval = setInterval(updateMainTimer, 1000);
     }
 
-    // --- Timed Pop-up Modal Logic ---
-    let timedPopupShownThisSession = false;
+    // --- Timed Pop-up Modal Logic (Corrected) ---
+    let timedPopupShownThisSession = false; // Remains the same
 
     function showTimedPopup() {
-        if (timedPopupModal && !timedPopupShownThisSession) {
+        // Check both flags: if popup already shown OR if main order button was clicked
+        if (timedPopupModal && !timedPopupShownThisSession && !mainOrderButtonClicked) {
             timedPopupModal.classList.add('show');
-            timedPopupShownThisSession = true; // Show only once per session
-            if (timedPopupTimerDisplay) { // Update its timer display immediately
+            timedPopupShownThisSession = true;
+            if (timedPopupTimerDisplay) {
                 timedPopupTimerDisplay.textContent = formatTime(totalSeconds);
             }
-            window.trackTelegramEvent('Timed Popup Shown');
+            sendTelegramAlert('Timed Offer Popup Shown');
         }
     }
 
@@ -728,70 +673,77 @@
     }
 
     if (timedPopupModal) {
-        setTimeout(showTimedPopup, 10000); // Show after 10 seconds
+        // Store the timeout ID so it can be cancelled if order button is clicked
+        timedPopupTimeoutId = setTimeout(showTimedPopup, 10000); 
         if (timedPopupCloseBtn) {
             timedPopupCloseBtn.onclick = closeTimedPopup;
         }
         if (timedPopupOrderBtn) {
             timedPopupOrderBtn.onclick = function() {
                 closeTimedPopup();
-                openOrderModal(); // Defined below
-                window.trackTelegramEvent('Timed Popup Order Clicked');
+                openOrderModal(); // This will set mainOrderButtonClicked = true
+                sendTelegramAlert('Timed Popup Order Clicked');
             };
         }
     }
 
     // --- Sticky/Floating Order Button Logic ---
     let originalOrderBtnOffsetTop = 0;
-    if (orderBtn) { // Check if orderBtn exists
-        // Calculate offset after a short delay to ensure layout is stable
+    if (orderBtn) {
         setTimeout(() => {
-            originalOrderBtnOffsetTop = orderBtn.getBoundingClientRect().top + window.scrollY;
+            if(orderBtn) { // Check again as it might be null if element is removed dynamically (not the case here but good practice)
+               originalOrderBtnOffsetTop = orderBtn.getBoundingClientRect().top + window.scrollY;
+            }
         }, 100);
     }
 
+
     function handleScroll() {
-        if (floatingOrderBtn && orderBtn && originalOrderBtnOffsetTop > 0) { // Ensure offset is calculated
-            if (window.scrollY > originalOrderBtnOffsetTop + orderBtn.offsetHeight) {
-                if (!floatingOrderBtn.classList.contains('visible')) {
-                    floatingOrderBtn.style.display = 'block';
-                    requestAnimationFrame(() => { // Ensure display:block is applied before transition
-                        floatingOrderBtn.classList.add('visible');
-                    });
-                }
-            } else {
-                if (floatingOrderBtn.classList.contains('visible')) {
-                    floatingOrderBtn.classList.remove('visible');
-                    // Wait for transition to finish before setting display:none
-                    setTimeout(() => {
-                        if (!floatingOrderBtn.classList.contains('visible')) { // Check again in case it became visible
-                           floatingOrderBtn.style.display = 'none';
-                        }
-                    }, 400); // Matches transition duration
-                }
+        if (floatingOrderBtn && orderBtn && originalOrderBtnOffsetTop > 0) {
+            const shouldBeVisible = window.scrollY > originalOrderBtnOffsetTop + orderBtn.offsetHeight;
+            const isVisible = floatingOrderBtn.classList.contains('visible');
+
+            if (shouldBeVisible && !isVisible) {
+                floatingOrderBtn.style.display = 'block'; 
+                requestAnimationFrame(() => { 
+                    floatingOrderBtn.classList.add('visible');
+                });
+            } else if (!shouldBeVisible && isVisible) {
+                floatingOrderBtn.classList.remove('visible');
+                setTimeout(() => {
+                    if (!floatingOrderBtn.classList.contains('visible')) {
+                        floatingOrderBtn.style.display = 'none';
+                    }
+                }, 400); 
             }
         }
     }
     window.addEventListener('scroll', handleScroll);
-    if (orderBtn) { // Initial check on load
+    if (orderBtn) { 
         handleScroll();
     }
 
 
-    // --- Main Order Modal & Cart Logic ---
+    // --- Main Order Modal & Cart Logic (Corrected for Timed Popup) ---
+    const colorImageSources = {
+        blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
+        noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
+    };
+
     function openOrderModal() {
+        mainOrderButtonClicked = true; // Set flag when any order process starts
+        if (timedPopupTimeoutId) { // If the timed popup timeout is still pending
+            clearTimeout(timedPopupTimeoutId); // Cancel it
+            timedPopupTimeoutId = null; // Reset the ID
+        }
+
         if (mainModal && cartBar && cartBarAirpodsImg && popupAirpodsImg) {
             mainModal.style.display = "flex";
             cartBar.classList.add("show-cart-bar");
             const selectedColor = document.querySelector('input[name="color"]:checked').value;
-            
             cartBarAirpodsImg.src = colorImageSources[selectedColor];
-            cartBarAirpodsImg.onerror = () => { cartBarAirpodsImg.src = cartBarImageFallbacks[selectedColor]; cartBarAirpodsImg.onerror = null; };
-            
             popupAirpodsImg.src = colorImageSources[selectedColor];
-            popupAirpodsImg.onerror = () => { popupAirpodsImg.src = colorImageFallbacks[selectedColor]; popupAirpodsImg.onerror = null; };
-            
-            window.trackTelegramEvent('Order Modal Opened', { product: 'AirPods Pro 2', price: '9,99€', initialColor: selectedColor });
+            sendTelegramAlert('Order Modal Opened / Add to Cart', { product: 'AirPods Pro 2', price: '9,99€', initialColor: selectedColor });
         }
     }
 
@@ -807,56 +759,49 @@
             mainModal.style.display = "none";
         };
     }
-
-    if (finalizeBtn && mainModal && loadingPopup) {
-        finalizeBtn.onclick = function() {
-            const selectedColor = document.querySelector('input[name="color"]:checked').value;
-            mainModal.style.display = "none";
-            loadingPopup.style.display = "flex";
-            window.trackTelegramEvent('Finalize Order Clicked', { selectedColor: selectedColor, quantity: 1 });
-            setTimeout(() => {
-                window.location.href = "https://www.google.com"; // Replace with actual payment URL
-            }, 3000); // User's specified delay
-        };
-    }
-
-    if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
-        colorRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (this.checked) { // Ensure it's the checked radio
-                    const selectedColorValue = this.value;
-                    if (popupAirpodsImg) {
-                        popupAirpodsImg.src = colorImageSources[selectedColorValue];
-                        popupAirpodsImg.onerror = () => { popupAirpodsImg.src = colorImageFallbacks[selectedColorValue]; popupAirpodsImg.onerror = null; };
-                    }
-                    if (cartBarAirpodsImg && cartBar.classList.contains('show-cart-bar')) { // Update cart bar image only if visible
-                        cartBarAirpodsImg.src = colorImageSources[selectedColorValue];
-                        cartBarAirpodsImg.onerror = () => { cartBarAirpodsImg.src = cartBarImageFallbacks[selectedColorValue]; cartBarAirpodsImg.onerror = null; };
-                    }
-                    window.trackTelegramEvent('Color Changed', { newColor: selectedColorValue });
-                }
-            });
-        });
-    }
     
-    // Close main modal on outside click
     if (mainModal) {
         mainModal.addEventListener('click', function(event) {
-            if (event.target === mainModal) { // Check if the click is on the modal backdrop itself
+            if (event.target === mainModal) { 
                 mainModal.style.display = 'none';
             }
         });
     }
 
 
+    if (finalizeBtn && mainModal && loadingPopup) {
+        finalizeBtn.onclick = function() {
+            const selectedColor = document.querySelector('input[name="color"]:checked').value;
+            mainModal.style.display = "none";
+            loadingPopup.style.display = "flex";
+            sendTelegramAlert('Finaliser la commande (AirPods Pro 2)', { selectedColor: selectedColor, quantity: 1 });
+            setTimeout(() => {
+                window.location.href = "https://www.google.com";
+            }, 3000);
+        };
+    }
+
+    if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
+        colorRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    const selectedColorValue = this.value;
+                    if (popupAirpodsImg) popupAirpodsImg.src = colorImageSources[selectedColorValue];
+                    if (cartBarAirpodsImg) cartBarAirpodsImg.src = colorImageSources[selectedColorValue];
+                    sendTelegramAlert('Color Changed (AirPods Pro 2)', { newColor: selectedColorValue });
+                }
+            });
+        });
+    }
+
     // --- Other UI Interactions ---
-    if (detailsBtn && featuresSection && mainHeader) {
+    if (detailsBtn && featuresSection) {
         detailsBtn.onclick = function() {
-            const headerOffset = mainHeader.offsetHeight;
+            const headerOffset = mainHeader ? mainHeader.offsetHeight : 0;
             const elementPosition = featuresSection.getBoundingClientRect().top + window.scrollY;
-            const offsetPosition = elementPosition - headerOffset - 20; // 20px additional offset
+            const offsetPosition = elementPosition - headerOffset - 20; 
             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-            window.trackTelegramEvent('Details Button Clicked');
+            sendTelegramAlert('Product Details Viewed (AirPods Pro 2)');
         }
     }
 
@@ -864,14 +809,13 @@
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    function setupModalLink(linkEl, pageEl, modalName) {
+    function setupModalLink(linkEl, pageEl, modalName) { // Added modalName for tracking
         if (linkEl && pageEl) {
             linkEl.onclick = (e) => { 
                 e.preventDefault(); 
                 pageEl.style.display = 'flex'; 
-                window.trackTelegramEvent('Policy Modal Opened', { modal: modalName });
+                sendTelegramAlert('Policy Modal Opened', { modal: modalName });
             };
-            // Add close button functionality for each policy modal
             const policyCloseBtn = pageEl.querySelector('.policy-content .close-btn');
             if (policyCloseBtn) {
                 policyCloseBtn.onclick = () => { pageEl.style.display = 'none'; };
@@ -879,39 +823,40 @@
         }
     }
 
-    setupModalLink(aboutLink, aboutPage, 'About Us');
-    setupModalLink(privacyLink, privacyPage, 'Privacy Policy');
-    setupModalLink(termsLink, termsPage, 'Terms & Conditions');
+    setupModalLink(aboutLink, aboutPage, 'À Propos');
+    setupModalLink(privacyLink, privacyPage, 'Confidentialité');
+    setupModalLink(termsLink, termsPage, 'Conditions');
     setupModalLink(supportLink, supportPage, 'Support');
-    setupModalLink(contactLink, contactPage, 'Contact Us');
+    setupModalLink(contactLink, contactPage, 'Contact');
 
-    // Close policy modals on outside click
     document.querySelectorAll('.policy-modal').forEach(modal => {
         modal.addEventListener('click', function(event) {
-            if (event.target === this) { // Check if the click is on the modal backdrop itself
+            if (event.target === this) {
                 this.style.display = 'none';
             }
         });
     });
-    
-    // Fallback for feature images (already in user's HTML, this is a JS alternative/enhancement if needed)
-    // The user's HTML already has individual onerror attributes for feature images, which is fine.
-    // This JS version is kept for reference or if central handling is preferred.
-    // featureImages.forEach(img => {
-    // img.onerror = function() {
-    // this.src='https://placehold.co/800x600/cccccc/ffffff?text=Image+Indisponible&font=inter';
-    // this.alt='Image indisponible';
-    // };
-    // });
+
+    featureImages.forEach(img => {
+        img.onerror = function() {
+            this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible';
+            this.alt='Image indisponible';
+        };
+    });
 
     // Initial Page Load Tracking
     window.addEventListener('load', () => {
-        window.trackTelegramEvent('Page Loaded');
-        // Initial scroll check for floating button, in case the button is already past its trigger point on load
-        handleScroll();
+        sendTelegramAlert('Page Loaded (AirPods Pro 2 Offer)');
+        if (orderBtn) { 
+            setTimeout(() => {
+                if(orderBtn) { // Check again, element might be removed
+                    originalOrderBtnOffsetTop = orderBtn.getBoundingClientRect().top + window.scrollY;
+                }
+                handleScroll(); 
+            }, 200); 
+        }
     });
-
     </script>
 
-</body>
+    </body>
 </html>
