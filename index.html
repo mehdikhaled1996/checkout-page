@@ -7,90 +7,710 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* ... (نفس الاستايل الذي أرسلته) ... */
-        /* أضف هنا كل الستايل من كودك السابق كما هو بلا تغيير */
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #111; }
+        .image-shadow { box-shadow: 0 8px 30px rgba(0,0,0,0.10); border-radius: 1.5rem; }
+        .cart-bar { display:none;position:fixed;top:90px;left:50%;transform:translateX(-50%);
+            background:#fff;border:2px solid #2563eb;min-width:300px;padding:14px 20px;
+            border-radius:14px;z-index:1000;box-shadow:0 4px 20px rgba(59,130,246,0.10);
+            align-items:center; font-weight:500;font-size:1rem;gap:10px;}
+        .show-cart-bar { display:flex!important; }
+        .modal { display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;
+            background:rgba(0,0,0,0.40);align-items:center;justify-content:center;z-index:10001;}
+        .modal-content {background:#fff;border-radius:18px;padding:30px 20px 20px 20px;
+            box-shadow:0 8px 40px rgba(0,0,0,0.14);width:100%;max-width:450px;text-align:center;position:relative;}
+        .close-btn {position:absolute;right:18px;top:16px;font-size:1.5rem;color:#bdbdbd;cursor:pointer;}
+        .close-btn:hover {color:#2563eb;}
+        .select-color label { cursor:pointer;display:flex;flex-direction:column;align-items:center;}
+        .select-color input[type="radio"] {position:absolute;opacity:0;width:0;height:0;}
+        .select-color input[type="radio"]:checked + div { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb90; }
+        .select-color .color-option-display {border:2px solid #e5e7eb;border-radius:0.75rem;padding:0.5rem;
+            transition:all 0.2s;display:flex;flex-direction:column;align-items:center;background:#fafbff;}
+        .select-color img { width:56px; height:56px; object-fit:contain; margin-bottom:0.25rem; }
+        .quantity-input {width:48px;text-align:center;border:1px solid #d1d5db;
+            border-radius:0.375rem;background:#f3f4f6;font-weight:700;padding:0.25rem 0;}
+        .animate-spin {animation:spin 1s linear infinite;} @keyframes spin { to{transform:rotate(360deg);} }
+        .features-img {display:block;width:100%;margin:0;padding:0;border-radius:0;}
+        .details-btn {display:block;width:100%;margin:0 auto 24px auto;}
+        .policy-modal {display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:20000;background:rgba(0,0,0,0.40);align-items:center;justify-content:center;}
+        .policy-content {background:#fff;border-radius:16px;padding:28px;max-width:500px;width:95%;box-shadow:0 8px 40px rgba(0,0,0,0.13);max-height: 80vh; overflow-y: auto; text-align: left;}
+        .policy-content h2 { text-align: center; }
+        .policy-content p, .policy-content ul { margin-bottom: 1rem; }
+        .policy-content ul { list-style: disc; padding-left: 20px; }
+
+        /* Logo Animation */
+        .logo-container { position: relative; width: 56px; height: 56px; margin-bottom: 0.5rem; cursor: pointer; }
+        .logo-image {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.75s ease-in-out, transform 0.75s ease-in-out;
+        }
+        .logo-image.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Shiny Silver Text Effect */
+        .shiny-silver-text {
+            background: linear-gradient(170deg, #f8f8f8 5%, #d8d8d8 30%, #b8b8b8 50%, #a0a0a0 70%, #c0c0c0 95%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #b8b8b8;
+            text-shadow: 0px 1px 2px rgba(255,255,255,0.4),
+                         0px -1px 1px rgba(50,50,50,0.1);
+            cursor: pointer;
+        }
+
+        /* Top Navigation Menu */
+        #topNavMenu {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0.5rem 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 30;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        #topNavMenu.nav-open {
+            max-height: 300px;
+            padding: 1rem 0;
+        }
+        #topNavMenu ul { list-style: none; padding: 0; margin: 0; text-align: center; }
+        #topNavMenu ul li a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        #topNavMenu ul li a:hover {
+            background-color: #f3f4f6;
+            color: #1d4ed8;
+        }
+
+        /* Sticky Floating Order Button (Bottom) */
+        #floatingOrderBtn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            z-index: 999;
+            display: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+            opacity: 0;
+            transform: translate(-50%, 100%);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+        #floatingOrderBtn.visible {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 -2px 10px rgba(37, 99, 235, 0.2), 0 0 0 0px rgba(37, 99, 235, 0.3); }
+            70% { box-shadow: 0 -2px 15px rgba(37, 99, 235, 0.4), 0 0 0 10px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 -2px 10px rgba(37, 99, 235, 0.2), 0 0 0 0px rgba(37, 99, 235, 0); }
+        }
+        #floatingOrderBtn.visible {
+            animation: pulseGlow 2s infinite ease-in-out, gentleShake 0.5s ease-in-out;
+        }
+        #floatingOrderBtn:hover {
+            transform: translate(-50%, -5px);
+        }
+        @keyframes gentleShake {
+            0%, 100% { transform: translate(-50%, 0) rotate(0deg); }
+            25% { transform: translate(-50%, 0) rotate(-2deg); }
+            75% { transform: translate(-50%, 0) rotate(2deg); }
+        }
+        #floatingOrderBtn.shake {}
+
+
+        /* Timed Pop-up Modal Styles */
+        #timedPopupModal {
+            display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); z-index: 20002;
+            align-items: center; justify-content: center; opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        #timedPopupModal.show { display: flex; opacity: 1; }
+        .timed-popup-content {
+            background: linear-gradient(145deg, #ffffff, #f0f4ff); color: #333;
+            padding: 25px 30px; border-radius: 16px; width: 90%; max-width: 480px;
+            text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative; transform: scale(0.95); transition: transform 0.3s ease-out;
+        }
+        #timedPopupModal.show .timed-popup-content { transform: scale(1); }
+        .timed-popup-close-btn {
+            position: absolute; top: 10px; right: 15px; font-size: 2rem;
+            color: #888; cursor: pointer; line-height: 1;
+        }
+        .timed-popup-close-btn:hover { color: #e53e3e; }
+        .timed-popup-icon { font-size: 3rem; color: #2563eb; margin-bottom: 1rem; }
+        .timed-popup-title { font-size: 1.6rem; font-weight: 700; color: #1a202c; margin-bottom: 0.75rem; }
+        .timed-popup-text { font-size: 1rem; line-height: 1.6; margin-bottom: 0.5rem; color: #4a5568; }
+        .timed-popup-highlight { font-weight: 600; color: #dd6b20; }
+        .timed-popup-timer-container { margin-top: 1rem; margin-bottom: 1.5rem; font-size: 1.1rem; color: #4a5568; }
+        #timedPopupTimerDisplay {
+            font-size: 1.8rem; font-weight: 700; color: #c53030; background-color: #fefcbf;
+            padding: 0.3rem 0.6rem; border-radius: 8px; display: inline-block;
+            margin-left: 0.5rem; min-width: 120px;
+        }
+        .timed-popup-order-btn {
+            background-color: #2563eb; color: white; font-weight: bold; padding: 0.8rem 1.8rem;
+            border-radius: 10px; text-transform: uppercase; letter-spacing: 0.05em;
+            transition: background-color 0.2s, transform 0.2s; display: inline-block;
+            border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        .timed-popup-order-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
+
+        /* Reviews Section */
+        #reviews-section { padding-top: 2rem; padding-bottom: 3rem; background-color: #f9fafb; }
+        .review-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s ease-in-out;
+        }
+        .review-card:hover { transform: translateY(-5px); }
+        .review-avatar { width: 60px; height: 60px; border-radius: 50%; margin-right: 1rem; object-fit: cover; border: 2px solid #e5e7eb; }
+        .review-stars { color: #f59e0b; margin-bottom: 0.5rem; }
+        .trustpilot-badge { 
+            max-height: 70px; /* Increased height */
+            max-width: 250px; /* Added max-width for better control of rectangular logo */
+            width: auto; 
+            margin-top: 1rem; 
+            margin-bottom: 2rem; 
+        }
+
     </style>
 </head>
 <body class="bg-white text-gray-800">
 
-<!-- كل محتوى الصفحة هنا نفسه من كودك السابق -->
+    <button id="floatingOrderBtn" class="bg-blue-600 hover:bg-blue-700 transition rounded-xl text-white font-bold">
+        Commander maintenant
+    </button>
 
-<!-- ... انسخ كل عناصر الـ body من الكود السابق بدون تغيير ... -->
+    <div id="cartBar" class="cart-bar">
+        <img id="cartBarAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200">
+        <span>🛒 Produit ajouté au panier</span>
+    </div>
 
-<!-- عند نهاية الصفحة أضف السكريبتات مصححة: -->
-<script>
-/* كل سكريبت الجافاسكريبت من الكود السابق نفسه، مع تعديلين رئيسيين: 
-1. تصحيح الترميز.
-2. إضافة اسم الدولة بجانب الـ IP في تليجرام.
-*/
+    <header id="mainHeader" class="w-full pt-5 pb-2 px-4 flex flex-col items-center bg-white sticky top-0 z-40">
+        <div id="logoArea" class="flex flex-col items-center cursor-pointer">
+            <div class="logo-container">
+                <img id="logoImg1" src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo AirPod Style 1" class="logo-image active" onerror="this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo'; this.alt='Logo indisponible'">
+                <img id="logoImg2" src="https://i.postimg.cc/yNpbtZsm/Apple-Logosu.png" alt="Logo AirPod Style 2" class="logo-image" onerror="this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo'; this.alt='Logo indisponible'">
+            </div>
+            <span class="text-3xl font-extrabold tracking-tight mb-0 shiny-silver-text" style="letter-spacing:-1px;">Airpod</span>
+        </div>
+        <nav id="topNavMenu">
+            <ul>
+                <li><a href="#home" class="nav-link">Accueil</a></li>
+                <li><a href="#reviews-section" class="nav-link">Avis Clients</a></li>
+                <li><a href="#features-section" class="nav-link">Infos Produit</a></li>
+            </ul>
+        </nav>
+    </header>
 
-const getCountryByIp = async (ip) => {
-    try {
-        const res = await fetch(`https://ipapi.co/${ip}/json/`);
-        if (res.ok) {
-            const data = await res.json();
-            return data.country_name || "Unknown";
-        }
-    } catch (e) { }
-    return "Unknown";
-};
+    <section id="home" class="container mx-auto px-4 pt-4 pb-7 flex flex-col items-center">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-center leading-tight text-gray-900 mb-3">Offre exclusive sur AirPods Pro 2 !</h1>
+        <p class="text-lg text-gray-600 text-center max-w-xl mb-2">
+            Profitez d'une remise incroyable sur les AirPods Pro 2 – confort, qualité sonore, et style à prix magique.
+        </p>
+        <div class="flex items-end space-x-4 mx-auto mb-2">
+            <span class="text-4xl font-bold text-blue-600">9,99€</span>
+            <span class="text-lg line-through text-gray-400">249€</span>
+        </div>
+        <div class="text-red-600 font-semibold mb-1 text-center">Offre se termine dans : <span id="timer" class="ml-2">02:30:00</span></div>
+        <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2 mb-4 w-full sm:w-auto">Commander maintenant</button>
+        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods Pro 2 blanc" class="max-w-xs w-full mb-2 image-shadow" style="margin-bottom:12px;">
+        <button id="detailsBtn" class="details-btn border-2 border-blue-600 rounded-2xl py-3 px-6 text-blue-700 text-lg font-semibold bg-white hover:bg-blue-50">Voir détails et infos produit ↓</button>
+    </section>
 
-async function getUserTrackingInfo() {
-    const userAgent = navigator.userAgent;
-    const language = navigator.language;
-    let ip = 'Unknown';
-    let country = 'Unknown';
-    try {
-        const res = await fetch('https://api.ipify.org?format=json');
-        if (res.ok) {
-            const data = await res.json();
-            ip = data.ip;
-            country = await getCountryByIp(ip);
-        }
-    } catch (e) {
-        ip = 'ErrorFetchingIP';
-        country = "Unknown";
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close-btn">&times;</span>
+            <div class="flex justify-center items-center mb-2">
+                <span style="font-size:2rem; margin-right:8px;">🛒</span>
+                <img id="popupAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200 mx-1">
+                <span class="bg-blue-600 text-white text-xs sm:text-sm rounded-full px-2 py-0.5 ml-1 font-bold">1</span>
+            </div>
+            <h2 class="text-xl font-bold mb-1 text-gray-800">Produit ajouté au panier !</h2>
+            <p class="mb-4 text-gray-600 text-sm sm:text-base">Votre AirPods Pro 2 a été réservé. Finalisez la commande dans les 10 prochaines minutes pour profiter de l'offre.</p>
+            <div class="select-color text-left mb-4">
+                <label class="block text-gray-700 font-semibold mb-2 text-center">Choisissez la couleur :</label>
+                <div class="flex gap-3 justify-center">
+                    <label>
+                        <input type="radio" name="color" value="blanc" class="hidden" checked>
+                        <div class="color-option-display">
+                            <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="Blanc">
+                            <span class="mt-1 font-medium text-sm">Blanc</span>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" name="color" value="noir" class="hidden">
+                        <div class="color-option-display">
+                            <img src="https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg" alt="Noir">
+                            <span class="mt-1 font-medium text-sm">Noir</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-5">
+                <label class="block text-gray-700 font-semibold mb-1 text-center">Quantité :</label>
+                <div class="flex flex-col items-center gap-2">
+                    <input type="number" class="quantity-input" value="1" readonly>
+                    <span class="text-xs text-gray-500">Quantité limitée : une seule pièce par commande.</span>
+                </div>
+            </div>
+            <button id="finalizeBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow-md transition hover:shadow-lg text-base sm:text-lg">Finaliser la commande</button>
+        </div>
+    </div>
+
+    <div id="loadingPopup" class="modal">
+        <div class="modal-content flex flex-col items-center justify-center">
+            <div class="mb-4">
+                <div class="animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 w-12 h-12 mx-auto"></div>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-2">Redirection vers la passerelle de paiement...</h3>
+            <p class="text-gray-600 text-sm mb-2">Vous allez être redirigé(e) vers notre passerelle de paiement sécurisée VISA.<br>
+            <span class="text-blue-700 font-semibold">Site vérifié et 100% sécurisé.</span></p>
+            <p class="text-xs text-gray-500 mb-3">En raison d’un trafic élevé sur notre site, la redirection prend quelques secondes. Merci pour votre patience !</p>
+            <div class="flex items-center gap-2 mt-2">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="h-7" style="background:#fff; border-radius:6px;">
+                <span style="font-size:1.2rem; color:#15803d;">🔒</span>
+                <span class="text-green-700 text-xs font-medium">Paiement sécurisé</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="timedPopupModal">
+        <div class="timed-popup-content">
+            <span id="timedPopupCloseBtn" class="timed-popup-close-btn">&times;</span>
+            <div class="timed-popup-icon">🎉</div>
+            <h2 class="timed-popup-title">Félicitations !</h2>
+            <p class="timed-popup-text">
+                Vous avez découvert une offre à durée limitée – cette promotion est disponible <span class="timed-popup-highlight">aujourd'hui seulement</span> et se termine bientôt !
+            </p>
+            <p class="timed-popup-text timed-popup-highlight">
+                Vous avez de la chance de voir cette offre – ne manquez pas votre chance !
+            </p>
+            <div class="timed-popup-timer-container">
+                L'offre se termine dans : <span id="timedPopupTimerDisplay">00:00:00</span>
+            </div>
+            <button id="timedPopupOrderBtn" class="timed-popup-order-btn">Commander Maintenant</button>
+        </div>
+    </div>
+
+    <section id="reviews-section" class="container mx-auto px-4">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-4">Avis de Nos Clients</h2>
+        <div class="flex justify-center mb-6">
+            <img src="https://i.postimg.cc/QMChxyZj/images-8.png" alt="Logo Avis Trustpilot" class="trustpilot-badge" onerror="this.src='https://placehold.co/250x70/cccccc/ffffff?text=Avis+Logo'; this.alt='Logo Avis Trustpilot indisponible'">
+        </div>
+        <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.ibb.co/N6vB4TTB/FB-IMG-1748223150251.jpg" alt="Avatar Léa C." class="review-avatar" onerror="this.src='https://placehold.co/60x60/EBF4FF/7F9CF5?text=LC'; this.alt='Avatar Léa C. indisponible'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Léa C.</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mt-2">"Incroyable ! J'ai reçu mes AirPods Pro 2 en 48h. La qualité sonore est top, et la réduction de bruit est bluffante pour ce prix. Je recommande vivement PromoMagique !"</p>
+                <small class="text-gray-500 mt-2 block">Avis du 22 Mai 2025</small>
+            </div>
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/MKZpJbWC/FB-IMG-1748223545571.jpg" alt="Avatar Antoine M." class="review-avatar" onerror="this.src='https://placehold.co/60x60/FEF3C7/D97706?text=AM'; this.alt='Avatar Antoine M. indisponible'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Antoine M.</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mt-2">"Au début, j'étais un peu sceptique vu le prix, mais tout est parfait. Produit original, scellé, et une livraison super rapide. Le service client a aussi été très réactif pour répondre à ma question avant l'achat."</p>
+                <small class="text-gray-500 mt-2 block">Avis du 20 Mai 2025</small>
+            </div>
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/XNLnLGwQ/FB-IMG-1748223785268.jpg" alt="Avatar Chloé D." class="review-avatar" onerror="this.src='https://placehold.co/60x60/D1FAE5/059669?text=CD'; this.alt='Avatar Chloé D. indisponible'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Chloé D.</h3>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mt-2">"Très satisfaite de mon achat. Les AirPods sont géniaux. Seul petit bémol, la boîte était légèrement abîmée sur un coin, mais les écouteurs étaient intacts. Le son est super, et ils tiennent bien dans les oreilles."</p>
+                <small class="text-gray-500 mt-2 block">Avis du 18 Mai 2025</small>
+            </div>
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/fymwQSnX/FB-IMG-1748223905324.jpg" alt="Avatar Nicolas L." class="review-avatar" onerror="this.src='https://placehold.co/60x60/FEE2E2/DC2626?text=NL'; this.alt='Avatar Nicolas L. indisponible'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Nicolas L.</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mt-2">"Enfin une offre qui vaut le coup pour des AirPods Pro 2 authentiques ! J'ai vérifié le numéro de série sur le site d'Apple, tout est conforme. Le confort est incomparable par rapport à mes anciens écouteurs. Merci PromoMagique !"</p>
+                <small class="text-gray-500 mt-2 block">Avis du 15 Mai 2025</small>
+            </div>
+             <div class="review-card md:col-span-2 lg:col-span-1">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/cLZVRszt/FB-IMG-1748224215323.jpg" alt="Avatar Sophie B." class="review-avatar" onerror="this.src='https://placehold.co/60x60/E0E7FF/4338CA?text=SB'; this.alt='Avatar Sophie B. indisponible'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Sophie B.</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mt-2">"J'ai commandé pour mon fils, il est ravi ! L'appairage avec son iPhone a été instantané. La qualité audio pour la musique et les appels est excellente. Je vais sûrement en commander une paire pour moi aussi."</p>
+                <small class="text-gray-500 mt-2 block">Avis du 12 Mai 2025</small>
+            </div>
+        </div>
+    </section>
+
+    <section id="features-section" class="container mx-auto px-2 pb-12 pt-2">
+        <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="features-img" alt="feature1" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="features-img" alt="feature2" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/KdSv3vr/98cf4677-c95c-4b4e-bdf3-78c6012f2cad-PT0-V1.jpg" class="features-img" alt="feature3" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="features-img" alt="feature4" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="features-img" alt="feature5" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+        <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="features-img" alt="feature6" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible'; this.alt='Image indisponible'">
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-8 mt-4">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-3 space-x-2 sm:space-x-4 text-sm">
+                <a href="#" id="about-link" class="hover:text-white">À Propos</a>
+                <a href="#" id="privacy-link" class="hover:text-white">Confidentialité</a>
+                <a href="#" id="terms-link" class="hover:text-white">Conditions</a>
+                <a href="#" id="support-link" class="hover:text-white">Support</a>
+                <a href="#" id="contact-link" class="hover:text-white">Contact</a>
+            </div>
+            <div class="text-xs opacity-60 mb-1">&copy; <span id="currentYear"></span> PromoMagique. Tous droits réservés.</div>
+        </div>
+    </footer>
+
+    <div id="about-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Qui Sommes-Nous ? (À Propos)</h2>
+        <p>PromoMagique est une entreprise basée en France, spécialisée dans la recherche et le partage des meilleures offres et réductions sur les AirPods originaux. Nous agissons en tant qu'intermédiaire légal indépendant et revendeur agréé d'AirPods, aidant notre communauté à obtenir des produits Apple authentiques à des prix incroyables.</p>
+        <p>Notre mission est de construire une solide communauté de clients et de followers satisfaits grâce à la confiance et à la transparence.</p>
+    </div></div>
+
+    <div id="privacy-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Politique de Confidentialité</h2>
+        <p>Toutes les informations client sont collectées uniquement à des fins de traitement des commandes, de support client et de livraison. PromoMagique ne vendra, ne louera ni ne partagera jamais vos données personnelles avec des tiers, à l'exception des partenaires de paiement et d'expédition nécessaires à votre achat.</p>
+        <p>Vous pouvez demander à supprimer ou à mettre à jour vos informations à tout moment en nous contactant.</p>
+        <p><strong>Contact pour la confidentialité :</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></p>
+    </div></div>
+
+    <div id="terms-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Conditions Générales</h2>
+        <p>PromoMagique opère en tant que revendeur indépendant officiel et partenaire promotionnel pour les AirPods Apple authentiques. Toutes les offres et réductions sont soumises à la disponibilité des produits et sont destinées uniquement aux consommateurs finaux.</p>
+        <p>Nous garantissons que tous les produits proposés sont neufs, originaux et livrés en toute sécurité à nos clients. Votre utilisation de ce site Web constitue votre accord avec notre politique de confidentialité et notre engagement envers des pratiques commerciales équitables, sécurisées et transparentes.</p>
+    </div></div>
+
+    <div id="support-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Support Client</h2>
+        <p>Notre équipe de support est disponible 7 jours sur 7. Vous pouvez nous contacter pour toute question concernant vos commandes, les produits ou nos politiques :</p>
+        <ul>
+            <li><strong>Email :</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></li>
+            <li><strong>Téléphone :</strong> <a href="tel:+33187654321" class="text-blue-600 hover:underline">+33 1 87 65 43 21</a></li>
+        </ul>
+        <p>Vous pouvez également nous joindre sur nos pages de réseaux sociaux.</p>
+    </div></div>
+
+    <div id="contact-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Contactez-Nous</h2>
+        <p><strong>Email :</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></p>
+        <p><strong>Téléphone :</strong> <a href="tel:+33187654321" class="text-blue-600 hover:underline">+33 1 87 65 43 21</a></p>
+        <p><strong>Adresse :</strong></p>
+        <p>PromoMagique<br>8 Rue de la Promotion<br>75010 Paris, France</p>
+        <p><strong>Réseaux Sociaux :</strong> @PromoMagique (Facebook, Instagram, Twitter)</p>
+    </div></div>
+
+
+    <script>
+    // --- DOM Element Declarations ---
+    const logoArea = document.getElementById('logoArea'); 
+    const topNavMenu = document.getElementById('topNavMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mainHeader = document.getElementById('mainHeader'); 
+
+    const logoImg1 = document.getElementById('logoImg1');
+    const logoImg2 = document.getElementById('logoImg2');
+    const mainTimerDisplay = document.getElementById('timer');
+    const orderBtn = document.getElementById('orderBtn');
+    const floatingOrderBtn = document.getElementById('floatingOrderBtn');
+    const mainModal = document.getElementById('modal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const cartBar = document.getElementById('cartBar');
+    const cartBarAirpodsImg = document.getElementById('cartBarAirpodsImg');
+    const finalizeBtn = document.getElementById('finalizeBtn');
+    const colorRadios = document.querySelectorAll('input[name="color"]');
+    const popupAirpodsImg = document.getElementById('popupAirpodsImg');
+    const loadingPopup = document.getElementById('loadingPopup');
+    const detailsBtn = document.getElementById('detailsBtn');
+    const featuresSection = document.getElementById('features-section'); 
+    const reviewsSectionForNav = document.getElementById('reviews-section'); 
+    const currentYearSpan = document.getElementById('currentYear');
+
+    const timedPopupModal = document.getElementById('timedPopupModal');
+    const timedPopupCloseBtn = document.getElementById('timedPopupCloseBtn');
+    const timedPopupOrderBtn = document.getElementById('timedPopupOrderBtn');
+    const timedPopupTimerDisplay = document.getElementById('timedPopupTimerDisplay');
+
+    const aboutLink = document.getElementById('about-link');
+    const privacyLink = document.getElementById('privacy-link');
+    const termsLink = document.getElementById('terms-link');
+    const supportLink = document.getElementById('support-link');
+    const contactLink = document.getElementById('contact-link');
+    const aboutPage = document.getElementById('about-page');
+    const privacyPage = document.getElementById('privacy-page');
+    const termsPage = document.getElementById('terms-page');
+    const supportPage = document.getElementById('support-page');
+    const contactPage = document.getElementById('contact-page');
+    const featureImages = document.querySelectorAll('.features-img');
+
+
+    // --- Top Navigation Menu Logic ---
+    if (logoArea && topNavMenu) {
+        logoArea.onclick = function() {
+            topNavMenu.classList.toggle('nav-open');
+        };
     }
-    return {
-        userAgent,
-        language,
-        ip,
-        country,
-        url: window.location.href,
-        referrer: document.referrer || 'Direct'
-    };
-}
 
-// ثم في سكريبت تليجرام:
-window.trackTelegramEvent = async function(actionDescription, eventSpecificDetails = {}) {
-    try {
-        const userInfo = await getUserTrackingInfo();
-        const timestamp = new Date().toISOString();
-        const actionEmoji = getActionEmoji(actionDescription);
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    const headerOffset = mainHeader ? mainHeader.offsetHeight : 0;
+                    const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
+                    const offsetPosition = elementPosition - headerOffset - 20; 
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            }
+            if (topNavMenu) topNavMenu.classList.remove('nav-open');
+        });
+    });
 
-        let message = `${actionEmoji} <b>Action:</b> ${actionDescription}\n`;
-        message += `🕒 <b>Time:</b> ${timestamp}\n`;
-        message += `🌐 <b>URL:</b> ${userInfo.url}\n`;
-        if (userInfo.referrer) message += ` G <b>Referrer:</b> ${userInfo.referrer}\n`;
-        message += `\n`;
-        message += `👤 <b>User Info:</b>\n`;
-        message += ` - IP: ${userInfo.ip} (${userInfo.country})\n`;
-        message += ` - Agent: ${userInfo.userAgent}\n`;
-        message += ` - Lang: ${userInfo.language}\n`;
+    // --- Logo Animation ---
+    let currentAnimatedLogo = 1;
+    if (logoImg1 && logoImg2) {
+        setInterval(() => {
+            if (currentAnimatedLogo === 1) {
+                logoImg1.classList.remove('active');
+                logoImg2.classList.add('active');
+                currentAnimatedLogo = 2;
+            } else {
+                logoImg2.classList.remove('active');
+                logoImg1.classList.add('active');
+                currentAnimatedLogo = 1;
+            }
+        }, 3000);
+    }
 
-        if (Object.keys(eventSpecificDetails).length > 0) {
-            message += `\n📋 <b>Event Details:</b>\n`;
-            for(const key in eventSpecificDetails){
-                const value = typeof eventSpecificDetails[key] === "string" ? eventSpecificDetails[key].replace(/</g, "&lt;").replace(/>/g, "&gt;") : JSON.stringify(eventSpecificDetails[key]);
-                message += ` - ${key}: ${value}\n`;
+    // --- Main Timer ---
+    let totalSeconds = (2 * 60 * 60) + (30 * 60);
+    let mainTimerInterval;
+
+    function formatTime(seconds) {
+        let h = String(Math.floor(seconds / 3600)).padStart(2, "0");
+        let m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+        let s = String(seconds % 60).padStart(2, "0");
+        return `${h}:${m}:${s}`;
+    }
+
+    function updateMainTimer() {
+        if (mainTimerDisplay) {
+            mainTimerDisplay.textContent = formatTime(totalSeconds);
+        }
+        if (timedPopupModal && timedPopupTimerDisplay && timedPopupModal.classList.contains('show')) {
+            timedPopupTimerDisplay.textContent = formatTime(totalSeconds);
+        }
+
+        if (totalSeconds > 0) {
+            totalSeconds--;
+        } else {
+            clearInterval(mainTimerInterval);
+            if (mainTimerDisplay) mainTimerDisplay.textContent = "Expirée!";
+            if (timedPopupTimerDisplay && timedPopupModal.classList.contains('show')) {
+                 timedPopupTimerDisplay.textContent = "Expirée!";
             }
         }
-        await sendTelegramNotificationInternal(message);
-    } catch (error) {
-        console.error("[Tracking] Error in trackTelegramEvent:", error);
     }
-}
-// باقي السكريبت كما هو من كودك السابق.
-</script>
-</body>
+
+    if (mainTimerDisplay) {
+        updateMainTimer();
+        mainTimerInterval = setInterval(updateMainTimer, 1000);
+    }
+
+    // --- Timed Pop-up Modal Logic ---
+    let timedPopupShownThisSession = false;
+
+    function showTimedPopup() {
+        if (timedPopupModal && !timedPopupShownThisSession) {
+            timedPopupModal.classList.add('show');
+            timedPopupShownThisSession = true;
+            if (timedPopupTimerDisplay) {
+                timedPopupTimerDisplay.textContent = formatTime(totalSeconds);
+            }
+        }
+    }
+
+    function closeTimedPopup() {
+        if (timedPopupModal) {
+            timedPopupModal.classList.remove('show');
+        }
+    }
+
+    if (timedPopupModal) {
+        setTimeout(showTimedPopup, 10000);
+        if (timedPopupCloseBtn) {
+            timedPopupCloseBtn.onclick = closeTimedPopup;
+        }
+        if (timedPopupOrderBtn) {
+            timedPopupOrderBtn.onclick = function() {
+                closeTimedPopup();
+                openOrderModal();
+            };
+        }
+    }
+
+    // --- Sticky/Floating Order Button Logic ---
+    let originalOrderBtnOffsetTop = 0;
+    if (orderBtn) {
+        originalOrderBtnOffsetTop = orderBtn.getBoundingClientRect().top + window.scrollY;
+    }
+
+    function handleScroll() {
+        if (floatingOrderBtn && orderBtn) {
+            if (window.scrollY > originalOrderBtnOffsetTop + orderBtn.offsetHeight) {
+                if (!floatingOrderBtn.classList.contains('visible')) {
+                    floatingOrderBtn.style.display = 'block'; 
+                    requestAnimationFrame(() => { 
+                        floatingOrderBtn.classList.add('visible');
+                    });
+                }
+            } else {
+                floatingOrderBtn.classList.remove('visible');
+                setTimeout(() => {
+                    if (!floatingOrderBtn.classList.contains('visible')) {
+                        floatingOrderBtn.style.display = 'none';
+                    }
+                }, 400); 
+            }
+        }
+    }
+    window.addEventListener('scroll', handleScroll);
+    if (orderBtn) {
+        handleScroll();
+    }
+
+    // --- Main Order Modal & Cart Logic ---
+    const colorImageSources = {
+        blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
+        noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
+    };
+
+    function openOrderModal() {
+        if (mainModal && cartBar && cartBarAirpodsImg && popupAirpodsImg) {
+            mainModal.style.display = "flex";
+            cartBar.classList.add("show-cart-bar");
+            const selectedColor = document.querySelector('input[name="color"]:checked').value;
+            cartBarAirpodsImg.src = colorImageSources[selectedColor];
+            popupAirpodsImg.src = colorImageSources[selectedColor];
+        }
+    }
+
+    if (orderBtn) {
+        orderBtn.onclick = openOrderModal;
+    }
+    if (floatingOrderBtn) {
+        floatingOrderBtn.onclick = openOrderModal;
+    }
+
+    if (closeModalBtn && mainModal) {
+        closeModalBtn.onclick = function() {
+            mainModal.style.display = "none";
+        };
+    }
+
+    if (finalizeBtn && mainModal && loadingPopup) {
+        finalizeBtn.onclick = function() {
+            mainModal.style.display = "none";
+            loadingPopup.style.display = "flex";
+            setTimeout(() => {
+                window.location.href = "https://www.google.com";
+            }, 3000);
+        };
+    }
+
+    if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
+        colorRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    const selectedColorValue = this.value;
+                    if (popupAirpodsImg) popupAirpodsImg.src = colorImageSources[selectedColorValue];
+                    if (cartBarAirpodsImg) cartBarAirpodsImg.src = colorImageSources[selectedColorValue];
+                }
+            });
+        });
+    }
+
+    // --- Other UI Interactions ---
+    if (detailsBtn && featuresSection) {
+        detailsBtn.onclick = function() {
+            const headerOffset = mainHeader ? mainHeader.offsetHeight : 0;
+            const elementPosition = featuresSection.getBoundingClientRect().top + window.scrollY;
+            const offsetPosition = elementPosition - headerOffset - 20; 
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+    }
+
+    if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+    }
+
+    function setupModalLink(linkEl, pageEl) {
+        if (linkEl && pageEl) {
+            linkEl.onclick = (e) => { e.preventDefault(); pageEl.style.display = 'flex'; };
+        }
+    }
+
+    setupModalLink(aboutLink, aboutPage);
+    setupModalLink(privacyLink, privacyPage);
+    setupModalLink(termsLink, termsPage);
+    setupModalLink(supportLink, supportPage);
+    setupModalLink(contactLink, contactPage);
+
+    document.querySelectorAll('.policy-modal').forEach(modal => {
+        modal.addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    });
+
+    featureImages.forEach(img => {
+        img.onerror = function() {
+            this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image+Indisponible';
+            this.alt='Image indisponible';
+        };
+    });
+    </script>
+
+    </body>
 </html>
