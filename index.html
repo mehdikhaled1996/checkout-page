@@ -38,7 +38,7 @@
         .policy-content ul { list-style: disc; padding-left: 20px; }
 
         /* Logo Animation */
-        .logo-container { position: relative; width: 56px; height: 56px; margin-bottom: 0.5rem; cursor: pointer; /* Make logo clickable for nav */ }
+        .logo-container { position: relative; width: 56px; height: 56px; margin-bottom: 0.5rem; cursor: pointer; }
         .logo-image {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -61,7 +61,7 @@
             color: #b8b8b8;
             text-shadow: 0px 1px 2px rgba(255,255,255,0.4),
                          0px -1px 1px rgba(50,50,50,0.1);
-            cursor: pointer; /* Make logo text clickable for nav */
+            cursor: pointer;
         }
 
         /* Top Navigation Menu */
@@ -69,33 +69,32 @@
             background-color: #ffffff;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             padding: 0.5rem 0;
-            position: absolute; /* Positioned relative to header or fixed if header isn't sticky */
-            top: 100%; /* Position below the header */
+            position: absolute;
+            top: 100%;
             left: 0;
             right: 0;
-            z-index: 30; /* Below header (40) but above hero */
+            z-index: 30;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease-in-out;
         }
         #topNavMenu.nav-open {
-            max-height: 300px; /* Adjust as needed for content height */
+            max-height: 300px;
             padding: 1rem 0;
         }
         #topNavMenu ul { list-style: none; padding: 0; margin: 0; text-align: center; }
         #topNavMenu ul li a {
             display: block;
             padding: 0.75rem 1rem;
-            color: #374151; /* Gray-700 */
+            color: #374151;
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.2s, color 0.2s;
         }
         #topNavMenu ul li a:hover {
-            background-color: #f3f4f6; /* Gray-100 */
-            color: #1d4ed8; /* Blue-700 */
+            background-color: #f3f4f6;
+            color: #1d4ed8;
         }
-
 
         /* Sticky Floating Order Button (Bottom) */
         #floatingOrderBtn {
@@ -108,10 +107,10 @@
             font-size: 1rem;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
             opacity: 0;
-            transform: translate(-50%, 100%); /* Initially off-screen at bottom and centered */
+            transform: translate(-50%, 100%);
             transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         }
-        #floatingOrderBtn.visible { /* Class to trigger slide-in */
+        #floatingOrderBtn.visible {
             opacity: 1;
             transform: translate(-50%, 0);
         }
@@ -120,22 +119,18 @@
             70% { box-shadow: 0 -2px 15px rgba(37, 99, 235, 0.4), 0 0 0 10px rgba(37, 99, 235, 0); }
             100% { box-shadow: 0 -2px 10px rgba(37, 99, 235, 0.2), 0 0 0 0px rgba(37, 99, 235, 0); }
         }
-        #floatingOrderBtn.visible { /* Apply pulse when visible */
-            animation: pulseGlow 2s infinite ease-in-out, gentleShake 0.5s ease-in-out; /* Keep shake on appearance */
+        #floatingOrderBtn.visible {
+            animation: pulseGlow 2s infinite ease-in-out, gentleShake 0.5s ease-in-out;
         }
         #floatingOrderBtn:hover {
-            transform: translate(-50%, -5px); /* Slight lift on hover */
-            animation-play-state: paused; /* Pause pulse on hover if desired, or adjust */
+            transform: translate(-50%, -5px);
         }
-        @keyframes gentleShake { /* Keep translateX for centering */
+        @keyframes gentleShake {
             0%, 100% { transform: translate(-50%, 0) rotate(0deg); }
             25% { transform: translate(-50%, 0) rotate(-2deg); }
             75% { transform: translate(-50%, 0) rotate(2deg); }
         }
-         /* This shake is applied via JS when button becomes visible */
-        #floatingOrderBtn.shake {
-           /* animation: gentleShake 0.5s ease-in-out; */ /* This is now part of the .visible class animation */
-        }
+        #floatingOrderBtn.shake {}
 
 
         /* Timed Pop-up Modal Styles */
@@ -177,7 +172,7 @@
         .timed-popup-order-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
 
         /* Reviews Section */
-        #reviews-section { padding-top: 2rem; padding-bottom: 3rem; background-color: #f9fafb; /* Light gray background */ }
+        #reviews-section { padding-top: 2rem; padding-bottom: 3rem; background-color: #f9fafb; }
         .review-card {
             background-color: white;
             border-radius: 12px;
@@ -188,8 +183,14 @@
         }
         .review-card:hover { transform: translateY(-5px); }
         .review-avatar { width: 60px; height: 60px; border-radius: 50%; margin-right: 1rem; object-fit: cover; border: 2px solid #e5e7eb; }
-        .review-stars { color: #f59e0b; /* Amber-500 */ margin-bottom: 0.5rem; }
-        .trustpilot-badge { max-width: 150px; margin-top: 1rem; margin-bottom: 2rem; }
+        .review-stars { color: #f59e0b; margin-bottom: 0.5rem; }
+        .trustpilot-badge { 
+            max-height: 70px; /* Increased height */
+            max-width: 250px; /* Added max-width for better control of rectangular logo */
+            width: auto; 
+            margin-top: 1rem; 
+            margin-bottom: 2rem; 
+        }
 
     </style>
 </head>
@@ -314,12 +315,12 @@
     <section id="reviews-section" class="container mx-auto px-4">
         <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-4">Avis de Nos Clients</h2>
         <div class="flex justify-center mb-6">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Trustpilot_logo.png" alt="Trustpilot Logo" class="trustpilot-badge">
+            <img src="https://i.postimg.cc/QMChxyZj/images-8.png" alt="Logo Avis Trustpilot" class="trustpilot-badge" onerror="this.src='https://placehold.co/250x70/cccccc/ffffff?text=Avis+Logo'; this.alt='Logo Avis Trustpilot indisponible'">
         </div>
         <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
             <div class="review-card">
                 <div class="flex items-start">
-                    <img src="https://placehold.co/60x60/EBF4FF/7F9CF5?text=LC" alt="Avatar Léa C." class="review-avatar">
+                    <img src="https://i.ibb.co/N6vB4TTB/FB-IMG-1748223150251.jpg" alt="Avatar Léa C." class="review-avatar" onerror="this.src='https://placehold.co/60x60/EBF4FF/7F9CF5?text=LC'; this.alt='Avatar Léa C. indisponible'">
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Léa C.</h3>
                         <div class="review-stars">★★★★★</div>
@@ -330,7 +331,7 @@
             </div>
             <div class="review-card">
                 <div class="flex items-start">
-                    <img src="https://placehold.co/60x60/FEF3C7/D97706?text=AM" alt="Avatar Antoine M." class="review-avatar">
+                    <img src="https://i.postimg.cc/MKZpJbWC/FB-IMG-1748223545571.jpg" alt="Avatar Antoine M." class="review-avatar" onerror="this.src='https://placehold.co/60x60/FEF3C7/D97706?text=AM'; this.alt='Avatar Antoine M. indisponible'">
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Antoine M.</h3>
                         <div class="review-stars">★★★★★</div>
@@ -341,7 +342,7 @@
             </div>
             <div class="review-card">
                 <div class="flex items-start">
-                    <img src="https://placehold.co/60x60/D1FAE5/059669?text=CD" alt="Avatar Chloé D." class="review-avatar">
+                    <img src="https://i.postimg.cc/XNLnLGwQ/FB-IMG-1748223785268.jpg" alt="Avatar Chloé D." class="review-avatar" onerror="this.src='https://placehold.co/60x60/D1FAE5/059669?text=CD'; this.alt='Avatar Chloé D. indisponible'">
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Chloé D.</h3>
                         <div class="review-stars">★★★★☆</div>
@@ -352,7 +353,7 @@
             </div>
             <div class="review-card">
                 <div class="flex items-start">
-                    <img src="https://placehold.co/60x60/FEE2E2/DC2626?text=NL" alt="Avatar Nicolas L." class="review-avatar">
+                    <img src="https://i.postimg.cc/fymwQSnX/FB-IMG-1748223905324.jpg" alt="Avatar Nicolas L." class="review-avatar" onerror="this.src='https://placehold.co/60x60/FEE2E2/DC2626?text=NL'; this.alt='Avatar Nicolas L. indisponible'">
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Nicolas L.</h3>
                         <div class="review-stars">★★★★★</div>
@@ -361,8 +362,9 @@
                 <p class="text-gray-600 mt-2">"Enfin une offre qui vaut le coup pour des AirPods Pro 2 authentiques ! J'ai vérifié le numéro de série sur le site d'Apple, tout est conforme. Le confort est incomparable par rapport à mes anciens écouteurs. Merci PromoMagique !"</p>
                 <small class="text-gray-500 mt-2 block">Avis du 15 Mai 2025</small>
             </div>
-             <div class="review-card md:col-span-2 lg:col-span-1"> <div class="flex items-start">
-                    <img src="https://placehold.co/60x60/E0E7FF/4338CA?text=SB" alt="Avatar Sophie B." class="review-avatar">
+             <div class="review-card md:col-span-2 lg:col-span-1">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/cLZVRszt/FB-IMG-1748224215323.jpg" alt="Avatar Sophie B." class="review-avatar" onerror="this.src='https://placehold.co/60x60/E0E7FF/4338CA?text=SB'; this.alt='Avatar Sophie B. indisponible'">
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Sophie B.</h3>
                         <div class="review-stars">★★★★★</div>
@@ -437,10 +439,10 @@
 
     <script>
     // --- DOM Element Declarations ---
-    const logoArea = document.getElementById('logoArea'); // Clickable area for nav
+    const logoArea = document.getElementById('logoArea'); 
     const topNavMenu = document.getElementById('topNavMenu');
     const navLinks = document.querySelectorAll('.nav-link');
-    const mainHeader = document.getElementById('mainHeader'); // For positioning nav menu
+    const mainHeader = document.getElementById('mainHeader'); 
 
     const logoImg1 = document.getElementById('logoImg1');
     const logoImg2 = document.getElementById('logoImg2');
@@ -456,8 +458,8 @@
     const popupAirpodsImg = document.getElementById('popupAirpodsImg');
     const loadingPopup = document.getElementById('loadingPopup');
     const detailsBtn = document.getElementById('detailsBtn');
-    const featuresSection = document.getElementById('features-section'); // Target for "Product Info"
-    const reviewsSectionForNav = document.getElementById('reviews-section'); // Target for "Reviews"
+    const featuresSection = document.getElementById('features-section'); 
+    const reviewsSectionForNav = document.getElementById('reviews-section'); 
     const currentYearSpan = document.getElementById('currentYear');
 
     const timedPopupModal = document.getElementById('timedPopupModal');
@@ -494,21 +496,15 @@
             } else {
                 const targetSection = document.querySelector(targetId);
                 if (targetSection) {
-                    // Calculate offset considering the sticky header height
                     const headerOffset = mainHeader ? mainHeader.offsetHeight : 0;
                     const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
-                    const offsetPosition = elementPosition - headerOffset - 20; // Extra 20px padding
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
+                    const offsetPosition = elementPosition - headerOffset - 20; 
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
                 }
             }
-            if (topNavMenu) topNavMenu.classList.remove('nav-open'); // Close menu after click
+            if (topNavMenu) topNavMenu.classList.remove('nav-open');
         });
     });
-
 
     // --- Logo Animation ---
     let currentAnimatedLogo = 1;
@@ -601,21 +597,20 @@
 
     function handleScroll() {
         if (floatingOrderBtn && orderBtn) {
-            // Show floating button if user has scrolled past the original button's initial position + its height
             if (window.scrollY > originalOrderBtnOffsetTop + orderBtn.offsetHeight) {
                 if (!floatingOrderBtn.classList.contains('visible')) {
-                    floatingOrderBtn.style.display = 'block'; // Make it block first for transition
-                    requestAnimationFrame(() => { // Ensure display:block is applied before adding class for transition
+                    floatingOrderBtn.style.display = 'block'; 
+                    requestAnimationFrame(() => { 
                         floatingOrderBtn.classList.add('visible');
-                        floatingOrderBtn.classList.add('shake'); // Add shake on appearance
-                        setTimeout(() => {
-                            if (floatingOrderBtn) floatingOrderBtn.classList.remove('shake');
-                        }, 500); // Duration of shake animation
                     });
                 }
             } else {
                 floatingOrderBtn.classList.remove('visible');
-                // Optional: could add a timeout to set display:none after transition if opacity alone isn't enough
+                setTimeout(() => {
+                    if (!floatingOrderBtn.classList.contains('visible')) {
+                        floatingOrderBtn.style.display = 'none';
+                    }
+                }, 400); 
             }
         }
     }
@@ -623,7 +618,6 @@
     if (orderBtn) {
         handleScroll();
     }
-
 
     // --- Main Order Modal & Cart Logic ---
     const colorImageSources = {
@@ -679,10 +673,9 @@
     // --- Other UI Interactions ---
     if (detailsBtn && featuresSection) {
         detailsBtn.onclick = function() {
-             // Calculate offset considering the sticky header height
             const headerOffset = mainHeader ? mainHeader.offsetHeight : 0;
             const elementPosition = featuresSection.getBoundingClientRect().top + window.scrollY;
-            const offsetPosition = elementPosition - headerOffset - 20; // Extra 20px padding
+            const offsetPosition = elementPosition - headerOffset - 20; 
             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
         }
     }
