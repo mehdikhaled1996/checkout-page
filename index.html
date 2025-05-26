@@ -17,7 +17,7 @@
         .modal { display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;
             background:rgba(0,0,0,0.40);align-items:center;justify-content:center;z-index:10001;}
         .modal-content {background:#fff;border-radius:18px;padding:30px 20px 20px 20px;
-            box-shadow:0 8px 40px rgba(0,0,0,0.14);width:100%;max-width:370px;text-align:center;position:relative;}
+            box-shadow:0 8px 40px rgba(0,0,0,0.14);width:100%;max-width:450px;text-align:center;position:relative;}
         .close-btn {position:absolute;right:18px;top:16px;font-size:1.5rem;color:#bdbdbd;cursor:pointer;}
         .close-btn:hover {color:#2563eb;}
         .select-color label { cursor:pointer;display:flex;flex-direction:column;align-items:center;}
@@ -32,22 +32,68 @@
         .features-img {display:block;width:100%;margin:0;padding:0;border-radius:0;}
         .details-btn {display:block;width:100%;margin:0 auto 24px auto;}
         .policy-modal {display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:20000;background:rgba(0,0,0,0.40);align-items:center;justify-content:center;}
-        .policy-content {background:#fff;border-radius:16px;padding:28px;max-width:450px;width:95%;box-shadow:0 8px 40px rgba(0,0,0,0.13);}
+        .policy-content {background:#fff;border-radius:16px;padding:28px;max-width:500px;width:95%;box-shadow:0 8px 40px rgba(0,0,0,0.13);max-height: 80vh; overflow-y: auto; text-align: left;}
+        .policy-content h2 { text-align: center; }
+        .policy-content p, .policy-content ul { margin-bottom: 1rem; }
+        .policy-content ul { list-style: disc; padding-left: 20px; }
+
+        /* Logo Animation */
+        .logo-container { position: relative; width: 56px; height: 56px; margin-bottom: 0.5rem; }
+        .logo-image {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.75s ease-in-out, transform 0.75s ease-in-out;
+        }
+        .logo-image.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sticky Floating Order Button (Top) */
+        #floatingOrderBtn {
+            position: fixed;
+            top: 20px; /* Position from top */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999; /* High z-index */
+            display: none; /* Hidden by default */
+            padding: 0.5rem 1rem; /* Smaller padding */
+            font-size: 0.9rem; /* Smaller font */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        @keyframes gentleShake {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(-2deg); }
+            75% { transform: translateX(-50%) rotate(2deg); }
+        }
+        #floatingOrderBtn.shake {
+            animation: gentleShake 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-white text-gray-800">
+
+    <button id="floatingOrderBtn" class="bg-blue-600 hover:bg-blue-700 transition rounded-xl text-white font-bold">
+        Commander maintenant
+    </button>
 
     <div id="cartBar" class="cart-bar">
         <img id="cartBarAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200">
         <span>🛒 Produit ajouté au panier</span>
     </div>
 
-    <header class="w-full py-5 px-4 flex flex-col items-center bg-white sticky top-0 z-40">
-        <img src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo Airpods" class="w-14 h-14 object-contain mb-2">
-        <span class="text-3xl font-extrabold text-gray-900 tracking-tight mb-1" style="letter-spacing:-1px;">AirPods Pro 2</span>
+    <header class="w-full pt-5 pb-2 px-4 flex flex-col items-center bg-white sticky top-0 z-40">
+        <div class="logo-container">
+            <img id="logoImg1" src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo AirPod Style 1" class="logo-image active" onerror="this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo'; this.alt='Logo indisponible'">
+            <img id="logoImg2" src="https://i.postimg.cc/yNpbtZsm/Apple-Logosu.png" alt="Logo AirPod Style 2" class="logo-image" onerror="this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo'; this.alt='Logo indisponible'">
+        </div>
+        <span class="text-3xl font-extrabold text-gray-500 tracking-tight mb-0" style="letter-spacing:-1px;">Airpod</span>
     </header>
 
-    <section class="container mx-auto px-4 py-7 flex flex-col items-center">
+    <section class="container mx-auto px-4 pt-4 pb-7 flex flex-col items-center">
         <h1 class="text-4xl sm:text-5xl font-extrabold text-center leading-tight text-gray-900 mb-3">Offre exclusive sur AirPods Pro 2 !</h1>
         <p class="text-lg text-gray-600 text-center max-w-xl mb-2">
             Profitez d'une remise incroyable sur les AirPods Pro 2 – confort, qualité sonore, et style à prix magique.
@@ -130,29 +176,93 @@
 
     <footer class="bg-gray-900 text-gray-300 py-8 mt-4">
         <div class="container mx-auto px-4 text-center">
-            <div class="mb-3 space-x-4">
-                <a href="#" id="privacy-link" class="hover:text-white">Politique de Confidentialité</a>
+            <div class="mb-3 space-x-2 sm:space-x-4 text-sm">
+                <a href="#" id="about-link" class="hover:text-white">À Propos</a>
+                <a href="#" id="privacy-link" class="hover:text-white">Confidentialité</a>
                 <a href="#" id="terms-link" class="hover:text-white">Conditions</a>
                 <a href="#" id="support-link" class="hover:text-white">Support</a>
+                <a href="#" id="contact-link" class="hover:text-white">Contact</a>
             </div>
-            <div class="text-xs opacity-60 mb-1">&copy; <span id="currentYear"></span> AirPods Pro 2. Tous droits réservés.</div>
+            <div class="text-xs opacity-60 mb-1">&copy; <span id="currentYear"></span> PromoMagique. Tous droits réservés.</div>
         </div>
     </footer>
-    <div id="privacy-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-        <h2 class="font-bold text-xl mb-2">Politique de Confidentialité</h2>
-        <p>Ce site respecte votre vie privée. Les informations recueillies sont utilisées uniquement pour le traitement de votre commande AirPods Pro 2. Nous ne partageons pas vos données à des tiers sauf pour la livraison et le paiement.</p>
-    </div></div>
-    <div id="terms-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-        <h2 class="font-bold text-xl mb-2">Conditions Générales</h2>
-        <p>PromoMagique agit en tant que revendeur indépendant d’AirPods Pro 2. Toutes les offres sont limitées et sous réserve de disponibilité. Le site a pour but de partager de vraies promotions et offres à la communauté.</p>
-    </div></div>
-    <div id="support-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-        <h2 class="font-bold text-xl mb-2">Support</h2>
-        <p>Pour toute question, veuillez nous contacter via le formulaire de contact ou sur nos réseaux sociaux. Nous sommes là pour vous aider concernant vos commandes AirPods Pro 2.</p>
+
+    <div id="about-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Qui Sommes-Nous ? (À Propos)</h2>
+        <p>PromoMagique est une entreprise basée en France, spécialisée dans la recherche et le partage des meilleures offres et réductions sur les AirPods originaux. Nous agissons en tant qu'intermédiaire légal indépendant et revendeur agréé d'AirPods, aidant notre communauté à obtenir des produits Apple authentiques à des prix incroyables.</p>
+        <p>Notre mission est de construire une solide communauté de clients et de followers satisfaits grâce à la confiance et à la transparence.</p>
     </div></div>
 
+    <div id="privacy-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Politique de Confidentialité</h2>
+        <p>Toutes les informations client sont collectées uniquement à des fins de traitement des commandes, de support client et de livraison. PromoMagique ne vendra, ne louera ni ne partagera jamais vos données personnelles avec des tiers, à l'exception des partenaires de paiement et d'expédition nécessaires à votre achat.</p>
+        <p>Vous pouvez demander à supprimer ou à mettre à jour vos informations à tout moment en nous contactant.</p>
+        <p><strong>Contact pour la confidentialité :</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></p>
+    </div></div>
+
+    <div id="terms-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Conditions Générales</h2>
+        <p>PromoMagique opère en tant que revendeur indépendant officiel et partenaire promotionnel pour les AirPods Apple authentiques. Toutes les offres et réductions sont soumises à la disponibilité des produits et sont destinées uniquement aux consommateurs finaux.</p>
+        <p>Nous garantissons que tous les produits proposés sont neufs, originaux et livrés en toute sécurité à nos clients. Votre utilisation de ce site Web constitue votre accord avec notre politique de confidentialité et notre engagement envers des pratiques commerciales équitables, sécurisées et transparentes.</p>
+    </div></div>
+
+    <div id="support-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Support Client</h2>
+        <p>Notre équipe de support est disponible 7 jours sur 7. Vous pouvez nous contacter pour toute question concernant vos commandes, les produits ou nos politiques :</p>
+        <ul>
+            <li><strong>Email :</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></li>
+            <li><strong>Téléphone :</strong> <a href="tel:+33187654321" class="text-blue-600 hover:underline">+33 1 87 65 43 21</a></li>
+        </ul>
+        <p>Vous pouvez également nous joindre sur nos pages de réseaux sociaux.</p>
+    </div></div>
+
+    <div id="contact-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Contactez-Nous</h2>
+        <p><strong>Email :</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></p>
+        <p><strong>Téléphone :</strong> <a href="tel:+33187654321" class="text-blue-600 hover:underline">+33 1 87 65 43 21</a></p>
+        <p><strong>Adresse :</strong></p>
+        <p>PromoMagique<br>8 Rue de la Promotion<br>75010 Paris, France</p>
+        <p><strong>Réseaux Sociaux :</strong> @PromoMagique (Facebook, Instagram, Twitter)</p>
+    </div></div>
+
+
     <script>
-    // Timer
+    // --- Exit Intent Alert ---
+    const exitMessage = "⚡ WAIT! You are about to miss an exclusive deal on AirPods Pro 2! This discount is extremely limited in both time and quantity. Don’t miss out – order now before the offer is gone!";
+    let orderFinalized = false; // Flag to track if order was finalized
+
+    window.addEventListener('beforeunload', function (e) {
+        // Do not show the alert if the order was finalized (i.e., user is being redirected to payment)
+        if (orderFinalized) {
+            return undefined;
+        }
+        // For modern browsers:
+        e.returnValue = exitMessage;
+        // For older browsers:
+        return exitMessage;
+    });
+
+
+    // --- Logo Animation ---
+    const logoImg1 = document.getElementById('logoImg1');
+    const logoImg2 = document.getElementById('logoImg2');
+    let currentAnimatedLogo = 1;
+
+    if (logoImg1 && logoImg2) {
+        setInterval(() => {
+            if (currentAnimatedLogo === 1) {
+                logoImg1.classList.remove('active');
+                logoImg2.classList.add('active');
+                currentAnimatedLogo = 2;
+            } else {
+                logoImg2.classList.remove('active');
+                logoImg1.classList.add('active');
+                currentAnimatedLogo = 1;
+            }
+        }, 3000); // Switch every 3 seconds
+    }
+
+    // --- Timer ---
     let totalSeconds = (2 * 60 * 60) + (30 * 60); // 2 hours and 30 minutes
     const timerDisplay = document.getElementById('timer');
 
@@ -165,15 +275,18 @@
         }
         if (totalSeconds > 0) {
             totalSeconds--;
+        } else {
+             // Optional: Handle timer end
         }
     }
     if (timerDisplay) {
-        updateTimer(); // Initial call to display timer immediately
-        setInterval(updateTimer, 1000); // Update timer every second
+        updateTimer();
+        setInterval(updateTimer, 1000);
     }
 
-    // DOM Elements
+    // --- DOM Elements ---
     const orderBtn = document.getElementById('orderBtn');
+    const floatingOrderBtn = document.getElementById('floatingOrderBtn');
     const mainModal = document.getElementById('modal');
     const closeModalBtn = document.getElementById('closeModal');
     const cartBar = document.getElementById('cartBar');
@@ -185,109 +298,134 @@
     const detailsBtn = document.getElementById('detailsBtn');
     const featuresSection = document.getElementById('features-section');
 
+    // --- Sticky/Floating Order Button Logic ---
+    let originalOrderBtnOffsetTop = 0;
+    if (orderBtn) {
+        originalOrderBtnOffsetTop = orderBtn.offsetTop + orderBtn.offsetHeight;
+    }
+
+    function handleScroll() {
+        if (floatingOrderBtn && orderBtn) {
+            const originalButtonBottom = orderBtn.getBoundingClientRect().bottom;
+            if (originalButtonBottom < 0) {
+                floatingOrderBtn.style.display = 'block';
+                if (!floatingOrderBtn.classList.contains('shake-animated')) {
+                    floatingOrderBtn.classList.add('shake');
+                    floatingOrderBtn.classList.add('shake-animated');
+                    setTimeout(() => {
+                        if (floatingOrderBtn) floatingOrderBtn.classList.remove('shake');
+                    }, 500);
+                }
+            } else {
+                floatingOrderBtn.style.display = 'none';
+                floatingOrderBtn.classList.remove('shake-animated');
+            }
+        }
+    }
+    window.addEventListener('scroll', handleScroll);
+    if (orderBtn) {
+        handleScroll();
+    }
+
     // Image sources for different colors
     const colorImageSources = {
         blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
         noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
     };
 
-    // Event Listener for "Order Now" button
-    if (orderBtn && mainModal && cartBar && cartBarAirpodsImg && popupAirpodsImg) {
-        orderBtn.onclick = function() {
-            mainModal.style.display = "flex"; // Show order modal
-            cartBar.classList.add("show-cart-bar"); // Show cart bar
+    function openOrderModal() {
+        if (mainModal && cartBar && cartBarAirpodsImg && popupAirpodsImg) {
+            mainModal.style.display = "flex";
+            cartBar.classList.add("show-cart-bar");
             const selectedColor = document.querySelector('input[name="color"]:checked').value;
-            // Update images based on the currently selected color in the modal
             cartBarAirpodsImg.src = colorImageSources[selectedColor];
             popupAirpodsImg.src = colorImageSources[selectedColor];
-        };
+        }
     }
 
-    // Event Listener for "Close Modal" button
+    if (orderBtn) {
+        orderBtn.onclick = openOrderModal;
+    }
+    if (floatingOrderBtn) {
+        floatingOrderBtn.onclick = openOrderModal;
+    }
+
     if (closeModalBtn && mainModal) {
         closeModalBtn.onclick = function() {
-            mainModal.style.display = "none"; // Hide order modal
+            mainModal.style.display = "none";
         };
     }
 
-    // Event Listener for "Finalize Order" button
     if (finalizeBtn && mainModal && loadingPopup) {
         finalizeBtn.onclick = function() {
-            mainModal.style.display = "none"; // Hide order modal
-            loadingPopup.style.display = "flex"; // Show loading popup
-            // Simulate redirection after a delay
+            orderFinalized = true; // Set flag before redirection
+            mainModal.style.display = "none";
+            loadingPopup.style.display = "flex";
             setTimeout(() => {
-                // Replace with actual payment gateway URL
                 window.location.href = "https://www.google.com"; // Example redirection
-            }, 3000); // 3 seconds delay
+            }, 3000);
         };
     }
 
-    // Event Listeners for Color Selection Radio Buttons
     if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
         colorRadios.forEach(radio => {
             radio.addEventListener('change', function() {
                 if (this.checked) {
                     const selectedColorValue = this.value;
-                    // Update the image in the modal
                     if (popupAirpodsImg) {
                         popupAirpodsImg.src = colorImageSources[selectedColorValue];
                     }
-                    // Update the image in the cart bar
                     if (cartBarAirpodsImg) {
                         cartBarAirpodsImg.src = colorImageSources[selectedColorValue];
                     }
-                    // Also update the main product image if desired (optional)
-                    // const mainProductImage = document.querySelector('section.container img.max-w-xs');
-                    // if (mainProductImage) {
-                    // mainProductImage.src = colorImageSources[selectedColorValue];
-                    // }
                 }
             });
         });
     }
 
-    // Event Listener for "See details" button
     if (detailsBtn && featuresSection) {
         detailsBtn.onclick = function() {
             featuresSection.scrollIntoView({ behavior: 'smooth' });
         }
     }
 
-    // Footer: Set current year
     const currentYearSpan = document.getElementById('currentYear');
     if (currentYearSpan) {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    // Footer: Policy Modals
+    const aboutLink = document.getElementById('about-link');
     const privacyLink = document.getElementById('privacy-link');
     const termsLink = document.getElementById('terms-link');
     const supportLink = document.getElementById('support-link');
+    const contactLink = document.getElementById('contact-link');
+
+    const aboutPage = document.getElementById('about-page');
     const privacyPage = document.getElementById('privacy-page');
     const termsPage = document.getElementById('terms-page');
     const supportPage = document.getElementById('support-page');
+    const contactPage = document.getElementById('contact-page');
 
-    if(privacyLink && privacyPage) {
-        privacyLink.onclick = (e) => { e.preventDefault(); privacyPage.style.display = 'flex'; };
-    }
-    if(termsLink && termsPage) {
-        termsLink.onclick = (e) => { e.preventDefault(); termsPage.style.display = 'flex'; };
-    }
-    if(supportLink && supportPage) {
-        supportLink.onclick = (e) => { e.preventDefault(); supportPage.style.display = 'flex'; };
+    function setupModalLink(linkEl, pageEl) {
+        if (linkEl && pageEl) {
+            linkEl.onclick = (e) => { e.preventDefault(); pageEl.style.display = 'flex'; };
+        }
     }
 
-    // Close policy modals when clicking outside the content (optional improvement)
+    setupModalLink(aboutLink, aboutPage);
+    setupModalLink(privacyLink, privacyPage);
+    setupModalLink(termsLink, termsPage);
+    setupModalLink(supportLink, supportPage);
+    setupModalLink(contactLink, contactPage);
+
     document.querySelectorAll('.policy-modal').forEach(modal => {
         modal.addEventListener('click', function(event) {
-            if (event.target === this) { // Check if the click is on the modal backdrop itself
+            if (event.target === this) {
                 this.style.display = 'none';
             }
         });
     });
 
-    // Add onerror fallbacks for feature images
     const featureImages = document.querySelectorAll('.features-img');
     featureImages.forEach(img => {
         img.onerror = function() {
@@ -295,8 +433,7 @@
             this.alt='Image indisponible';
         };
     });
-
-
     </script>
 </body>
 </html>
+
