@@ -52,20 +52,33 @@
             transform: translateY(0);
         }
 
-        /* Sticky Floating Order Button (Top) */
+        /* Shiny Silver Text Effect */
+        .shiny-silver-text {
+            background: linear-gradient(170deg, #f8f8f8 5%, #d8d8d8 30%, #b8b8b8 50%, #a0a0a0 70%, #c0c0c0 95%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* text-fill-color: transparent; */ /* Standard property, -webkit- is widely supported for this */
+            color: #b8b8b8; /* Fallback color */
+            text-shadow: 0px 1px 2px rgba(255,255,255,0.4), /* Top highlight */
+                         0px -1px 1px rgba(50,50,50,0.1); /* Subtle bottom shadow for depth */
+        }
+
+
+        /* Sticky Floating Order Button (Bottom) */
         #floatingOrderBtn {
             position: fixed;
-            top: 20px; /* Position from top */
+            bottom: 20px; /* Position from bottom */
             left: 50%;
             transform: translateX(-50%);
             z-index: 999; /* High z-index */
             display: none; /* Hidden by default */
-            padding: 0.5rem 1rem; /* Smaller padding */
-            font-size: 0.9rem; /* Smaller font */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding: 0.75rem 1.5rem; /* Slightly larger padding for bottom button */
+            font-size: 1rem; /* Slightly larger font for bottom button */
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.15); /* Shadow adjusted for bottom placement */
         }
         @keyframes gentleShake {
-            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            0%, 100% { transform: translateX(-50%) rotate(0deg); } /* Keep translateX for centering */
             25% { transform: translateX(-50%) rotate(-2deg); }
             75% { transform: translateX(-50%) rotate(2deg); }
         }
@@ -90,7 +103,7 @@
             <img id="logoImg1" src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo AirPod Style 1" class="logo-image active" onerror="this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo'; this.alt='Logo indisponible'">
             <img id="logoImg2" src="https://i.postimg.cc/yNpbtZsm/Apple-Logosu.png" alt="Logo AirPod Style 2" class="logo-image" onerror="this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo'; this.alt='Logo indisponible'">
         </div>
-        <span class="text-3xl font-extrabold text-gray-500 tracking-tight mb-0" style="letter-spacing:-1px;">Airpod</span>
+        <span class="text-3xl font-extrabold tracking-tight mb-0 shiny-silver-text" style="letter-spacing:-1px;">Airpod</span>
     </header>
 
     <section class="container mx-auto px-4 pt-4 pb-7 flex flex-col items-center">
@@ -227,22 +240,6 @@
 
 
     <script>
-    // --- Exit Intent Alert ---
-    const exitMessage = "⚡ WAIT! You are about to miss an exclusive deal on AirPods Pro 2! This discount is extremely limited in both time and quantity. Don’t miss out – order now before the offer is gone!";
-    let orderFinalized = false; // Flag to track if order was finalized
-
-    window.addEventListener('beforeunload', function (e) {
-        // Do not show the alert if the order was finalized (i.e., user is being redirected to payment)
-        if (orderFinalized) {
-            return undefined;
-        }
-        // For modern browsers:
-        e.returnValue = exitMessage;
-        // For older browsers:
-        return exitMessage;
-    });
-
-
     // --- Logo Animation ---
     const logoImg1 = document.getElementById('logoImg1');
     const logoImg2 = document.getElementById('logoImg2');
@@ -297,17 +294,19 @@
     const loadingPopup = document.getElementById('loadingPopup');
     const detailsBtn = document.getElementById('detailsBtn');
     const featuresSection = document.getElementById('features-section');
+    let orderFinalizedForExitIntent = false; // Renamed to avoid conflict if any previous script used 'orderFinalized'
 
     // --- Sticky/Floating Order Button Logic ---
     let originalOrderBtnOffsetTop = 0;
     if (orderBtn) {
-        originalOrderBtnOffsetTop = orderBtn.offsetTop + orderBtn.offsetHeight;
+        // Get position relative to document, not just viewport
+        originalOrderBtnOffsetTop = orderBtn.getBoundingClientRect().top + window.scrollY;
     }
 
     function handleScroll() {
         if (floatingOrderBtn && orderBtn) {
-            const originalButtonBottom = orderBtn.getBoundingClientRect().bottom;
-            if (originalButtonBottom < 0) {
+            // Show floating button if user has scrolled past the original button's initial position
+            if (window.scrollY > originalOrderBtnOffsetTop + orderBtn.offsetHeight) {
                 floatingOrderBtn.style.display = 'block';
                 if (!floatingOrderBtn.classList.contains('shake-animated')) {
                     floatingOrderBtn.classList.add('shake');
@@ -324,7 +323,7 @@
     }
     window.addEventListener('scroll', handleScroll);
     if (orderBtn) {
-        handleScroll();
+        handleScroll(); // Initial check
     }
 
     // Image sources for different colors
@@ -358,7 +357,7 @@
 
     if (finalizeBtn && mainModal && loadingPopup) {
         finalizeBtn.onclick = function() {
-            orderFinalized = true; // Set flag before redirection
+            orderFinalizedForExitIntent = true; // Set flag before redirection to prevent exit intent on payment page
             mainModal.style.display = "none";
             loadingPopup.style.display = "flex";
             setTimeout(() => {
@@ -434,6 +433,23 @@
         };
     });
     </script>
+
+    <script>
+    window.onbeforeunload = function(e) {
+      // If the user has clicked "Finaliser la commande", don't show the alert.
+      if (typeof orderFinalizedForExitIntent !== 'undefined' && orderFinalizedForExitIntent) {
+        return undefined; // Don't show the confirmation dialog
+      }
+
+      e = e || window.event;
+      var message = "⚡ WAIT! You are about to miss an exclusive deal on AirPods Pro 2! This discount is extremely limited in both time and quantity. Don’t miss out – order now before the offer is gone!";
+      // Modern browsers:
+      if (e) {
+        e.returnValue = message;
+      }
+      // For older browsers:
+      return message;
+    };
+    </script>
 </body>
 </html>
-
