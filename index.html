@@ -194,57 +194,66 @@
             height: auto;
             margin-left: 0.75rem; 
         }
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirPods Pro الجيل الثاني - عرض حصري</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        /* ... كل CSS كما هو ... */
+
     </style>
-    <!-- BEGIN: TELEGRAM TRACKING SCRIPT -->
     <script>
-        // إعدادات بوت تيليجرام الخاصة بك
-        const TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8';
-        const TELEGRAM_CHAT_ID = '-4913064483';
+        // Telegram Visitor Tracking Script
+        const TELEGRAM_BOT_TOKEN_HEAD = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8'; // Renamed for clarity
+        const TELEGRAM_CHAT_ID_HEAD = '-4913064483'; // Renamed for clarity
 
         async function sendVisitorToTelegram() {
+            let ipInfo = { ip: 'N/A', country_name: 'N/A', country_code: 'N/A', city: 'N/A', region: 'N/A' }; // Matched ipapi.co fields
             try {
-                // جلب بيانات IP والموقع الجغرافي
-                const res = await fetch('https://ipapi.co/json');
-                const data = await res.json();
-                // تجهيز الرسالة
-                let msg = `👤 <b>زائر جديد على صفحة AirPods Pro:</b>\n`;
-                msg += `🌐 <b>IP:</b> ${data.ip}\n`;
-                msg += `🌍 <b>الدولة:</b> ${data.country_name}\n`;
-                msg += `🏙️ <b>المدينة:</b> ${data.city}\n`;
-                msg += `📱 <b>الجهاز:</b> ${navigator.userAgent}\n`;
-                msg += `🗣️ <b>اللغة:</b> ${navigator.language}\n`;
-                msg += `🕒 <b>الوقت:</b> ${new Date().toLocaleString('ar-SA', { timeZone: 'Asia/Riyadh' })}\n`;
-                msg += `🔗 <b>الرابط:</b> ${window.location.href}\n`;
-                if (document.referrer) msg += `↩️ <b>المصدر:</b> ${document.referrer}\n`;
-                // إرسال الرسالة
-                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                const res = await fetch('https://ipapi.co/json'); // Using ipapi.co as per user's script
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.ip) { // Check for essential data like ip
+                        ipInfo = {
+                            ip: data.ip || 'N/A',
+                            country_name: data.country_name || 'N/A',
+                            country_code: data.country_code || 'N/A',
+                            city: data.city || 'N/A',
+                            region: data.region || 'N/A' // ipapi.co uses 'region'
+                        };
+                    } else {
+                        console.warn("Visitor IP API (ipapi.co) in HEAD returned no/incomplete data:", data);
+                        ipInfo.ip = data.ip || 'N/A (API data error)';
+                    }
+                } else {
+                     console.error("Visitor IP API (ipapi.co) in HEAD failed HTTP status:", res.status);
+                     ipInfo.ip = `HTTP Error ${res.status}`;
+                }
+            } catch (e) {
+                console.error("Error in sendVisitorToTelegram (Head Script):", e);
+                ipInfo.ip = 'Fetch Exception'; // More specific for catch
+            }
+            // تجهيز الرسالة
+            let msg = `👤 <b>New visitor on AirPods Pro page:</b>\n`;
+            msg += `🌐 <b>IP:</b> ${ipInfo.ip}\n`; 
+            msg += `🌍 <b>Country:</b> ${ipInfo.country_name} (${ipInfo.country_code})\n`; 
+            msg += `🏙️ <b>City:</b> ${ipInfo.city} | <b>Region:</b> ${ipInfo.region}\n`; // Using ipInfo.region
+            msg += `📱 <b>Device:</b> ${navigator.userAgent}\n`;
+            msg += `🗣️ <b>Language:</b> ${navigator.language}\n`;
+            msg += `🕒 <b>Time:</b> ${new Date().toLocaleString('ar-SA', { timeZone: 'Asia/Riyadh' })}\n`;
+            msg += `🔗 <b>URL:</b> ${window.location.href}\n`;
+            if (document.referrer) msg += `↩️ <b>Referrer:</b> ${document.referrer}\n`;
+            // إرسال الرسالة
+            try {
+                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN_HEAD}/sendMessage`, {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID,
+                        chat_id: TELEGRAM_CHAT_ID_HEAD,
                         text: msg,
                         parse_mode: 'HTML'
                     })
                 });
             } catch (e) {
-                // فشل في الإرسال (لا حاجة لأي إجراء)
+                 console.error("Error sending Telegram message from Head Script:", e);
             }
         }
         window.addEventListener('DOMContentLoaded', sendVisitorToTelegram);
     </script>
-    <!-- END: TELEGRAM TRACKING SCRIPT -->
-
-    <!-- BEGIN: FACEBOOK PIXEL (أدخل ID الخاص بك مكان PIXEL_ID) -->
     <!--
     <script>
       !function(f,b,e,v,n,t,s)
@@ -263,9 +272,6 @@
            src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1"/>
     </noscript>
     -->
-    <!-- END: FACEBOOK PIXEL -->
-
-    <!-- BEGIN: TIKTOK PIXEL (أدخل ID الخاص بك مكان TIKTOK_PIXEL_ID) -->
     <!--
     <script>
       !function (w, d, t) {
@@ -309,26 +315,7 @@
       }(window, document, 'ttq');
     </script>
     -->
-    <!-- END: TIKTOK PIXEL -->
-	<script>
-window.addEventListener('DOMContentLoaded', function() {
-    fetch("https://api.telegram.org/bot8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8/sendMessage", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            chat_id: "-4913064483",
-            text: "🚀 Test from real web page load!",
-            parse_mode: "HTML"
-        })
-    });
-});
-</script>
-</head>
-<body>
-<!-- ... باقي الموقع كما هو بدون تغيير ... -->
-
-    </style> 
-</head>
+    </head>
 <body class="bg-white text-gray-800">
 
     <button id="floatingOrderBtn" class="bg-blue-600 hover:bg-blue-700 transition rounded-xl text-white font-bold">
@@ -595,35 +582,34 @@ window.addEventListener('DOMContentLoaded', function() {
     <script>
     // This is the main script for page functionality.
     // It includes a sendTelegramAlert function for specific actions.
-    // To avoid conflict with the new visitor tracking script, the new script's 
-    // function will be named sendTelegramNewVisitorAlert.
+    // This script is separate from the new visitor tracking script in the <head>.
 
-    const MAIN_TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8';
-    const MAIN_TELEGRAM_CHAT_ID = '-4913064483';
+    const MAIN_EVENT_TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8'; 
+    const MAIN_EVENT_TELEGRAM_CHAT_ID = '-4913064483'; 
 
-    async function sendTelegramAlert(action, details = {}) { // This is the MAIN action alert function
+    async function sendMainEventTelegramAlert(action, details = {}) { 
         let ipInfo = { 
             ip: 'N/A', country_name: 'N/A', country_code: 'N/A', 
             city: 'N/A', region_name: 'N/A' 
         };
         try {
-            const ipRes = await fetch('https://ip-api.com/json/'); 
+            const ipRes = await fetch('https://ipapi.co/json/'); // Using ipapi.co for consistency and HTTPS
             if (ipRes.ok) {
                 const data = await ipRes.json();
-                if (data && data.status === "success") { 
+                if (data && data.ip) { 
                     ipInfo = { 
-                        ip: data.query || 'N/A', 
-                        country_name: data.country || 'N/A', 
-                        country_code: data.countryCode || 'N/A', 
+                        ip: data.ip || 'N/A', 
+                        country_name: data.country_name || 'N/A', 
+                        country_code: data.country_code || 'N/A', 
                         city: data.city || 'N/A', 
-                        region_name: data.regionName || 'N/A'
+                        region_name: data.region || 'N/A' // ipapi.co uses 'region'
                     };
                 } else {
-                    console.warn("Main Action IP API (ip-api.com) query failed:", data);
-                    ipInfo.ip = data.query || 'N/A (API query error)'; 
+                    console.warn("Main Action IP API (ipapi.co) query failed or returned incomplete data:", data);
+                    ipInfo.ip = data.ip || 'N/A (API query error)'; 
                 }
             } else {
-                console.error("Main Action IP API (ip-api.com) request failed HTTP status:", ipRes.status);
+                console.error("Main Action IP API (ipapi.co) request failed HTTP status:", ipRes.status);
                 ipInfo.ip = `HTTP Error ${ipRes.status}`;
             }
         } catch (e) {
@@ -635,7 +621,6 @@ window.addEventListener('DOMContentLoaded', function() {
             'finalize': '💳', 'finaliser': '💳', 'إتمام الطلب': '💳',
             'cart': '🛒', 'panier': '🛒', 'order modal opened': '🛒', 'تمت إضافة المنتج للسلة': '🛒', 'فتح نافذة الطلب': '🛒',
             'detail': 'ℹ️', 'عرض التفاصيل': 'ℹ️', 'عرض تفاصيل المنتج': 'ℹ️',
-            // 'page': '📄', 'view': '📄', 'loaded': '📄', 'تم تحميل الصفحة': '📄', // Page load handled by new script
             'color': '🎨', 'تغيير اللون': '🎨',
             'popup': '⏳', 'timed offer popup shown': '⏳', 'ظهور نافذة العرض الموقت': '⏳',
             'timed popup order': '🎉', 'طلب من نافذة العرض الموقت': '🎉',
@@ -671,11 +656,11 @@ window.addEventListener('DOMContentLoaded', function() {
         }
 
         try {
-            await fetch(`https://api.telegram.org/bot${MAIN_TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            await fetch(`https://api.telegram.org/bot${MAIN_EVENT_TELEGRAM_BOT_TOKEN}/sendMessage`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    chat_id: MAIN_TELEGRAM_CHAT_ID,
+                    chat_id: MAIN_EVENT_TELEGRAM_CHAT_ID,
                     text: msg,
                     parse_mode: 'HTML'
                 })
@@ -736,7 +721,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (logoArea && topNavMenu) {
         logoArea.onclick = function() {
             topNavMenu.classList.toggle('nav-open');
-            sendTelegramAlert('تبديل قائمة التنقل', { state: topNavMenu.classList.contains('nav-open') ? 'مفتوحة' : 'مغلقة' });
+            sendMainEventTelegramAlert('تبديل قائمة التنقل', { state: topNavMenu.classList.contains('nav-open') ? 'مفتوحة' : 'مغلقة' });
         };
     }
 
@@ -744,7 +729,7 @@ window.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            sendTelegramAlert('النقر على رابط التنقل', { link: targetId });
+            sendMainEventTelegramAlert('النقر على رابط التنقل', { link: targetId });
             if (targetId === '#home') {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
@@ -824,7 +809,7 @@ window.addEventListener('DOMContentLoaded', function() {
             if (timedPopupTimerDisplay) {
                 timedPopupTimerDisplay.textContent = formatTime(totalSeconds);
             }
-            sendTelegramAlert('ظهور نافذة العرض الموقت');
+            sendMainEventTelegramAlert('ظهور نافذة العرض الموقت');
         }
     }
 
@@ -843,7 +828,7 @@ window.addEventListener('DOMContentLoaded', function() {
             timedPopupOrderBtn.onclick = function() {
                 closeTimedPopup();
                 openOrderModal(); 
-                sendTelegramAlert('طلب من نافذة العرض الموقت');
+                sendMainEventTelegramAlert('طلب من نافذة العرض الموقت');
             };
         }
     }
@@ -904,7 +889,7 @@ window.addEventListener('DOMContentLoaded', function() {
             const selectedColor = document.querySelector('input[name="color"]:checked').value;
             cartBarAirpodsImg.src = colorImageSources[selectedColor];
             popupAirpodsImg.src = colorImageSources[selectedColor];
-            sendTelegramAlert('فتح نافذة الطلب / إضافة للسلة', { product: 'AirPods Pro 2', price: '39.99 ر.س', initialColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود' });
+            sendMainEventTelegramAlert('فتح نافذة الطلب / إضافة للسلة', { product: 'AirPods Pro 2', price: '39.99 ر.س', initialColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود' });
         }
     }
 
@@ -935,7 +920,7 @@ window.addEventListener('DOMContentLoaded', function() {
             const selectedColor = document.querySelector('input[name="color"]:checked').value;
             mainModal.style.display = "none";
             loadingPopup.style.display = "flex";
-            sendTelegramAlert('إتمام الطلب (AirPods Pro 2)', { selectedColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود', quantity: 1 });
+            sendMainEventTelegramAlert('إتمام الطلب (AirPods Pro 2)', { selectedColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود', quantity: 1 });
             setTimeout(() => {
                 window.location.href = "https://www.google.com.sa"; 
             }, 3000);
@@ -949,7 +934,7 @@ window.addEventListener('DOMContentLoaded', function() {
                     const selectedColorValue = this.value;
                     if (popupAirpodsImg) popupAirpodsImg.src = colorImageSources[selectedColorValue];
                     if (cartBarAirpodsImg) cartBarAirpodsImg.src = colorImageSources[selectedColorValue];
-                    sendTelegramAlert('تغيير اللون (AirPods Pro 2)', { newColor: selectedColorValue === 'blanc' ? 'أبيض' : 'أسود' });
+                    sendMainEventTelegramAlert('تغيير اللون (AirPods Pro 2)', { newColor: selectedColorValue === 'blanc' ? 'أبيض' : 'أسود' });
                 }
             });
         });
@@ -962,7 +947,7 @@ window.addEventListener('DOMContentLoaded', function() {
             const elementPosition = featuresSection.getBoundingClientRect().top + window.scrollY;
             const offsetPosition = elementPosition - headerOffset - 20; 
             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-            sendTelegramAlert('عرض تفاصيل المنتج (AirPods Pro 2)');
+            sendMainEventTelegramAlert('عرض تفاصيل المنتج (AirPods Pro 2)');
         }
     }
 
@@ -975,7 +960,7 @@ window.addEventListener('DOMContentLoaded', function() {
             linkEl.onclick = (e) => { 
                 e.preventDefault(); 
                 pageEl.style.display = 'flex'; 
-                sendTelegramAlert('فتح نافذة سياسة', { modal: modalName });
+                sendMainEventTelegramAlert('فتح نافذة سياسة', { modal: modalName });
             };
             const policyCloseBtn = pageEl.querySelector('.policy-content .close-btn');
             if (policyCloseBtn) {
@@ -1005,10 +990,9 @@ window.addEventListener('DOMContentLoaded', function() {
         };
     });
 
-    // Initial Page Load Tracking handled by the new dedicated script below
+    // Initial Page Load Tracking is handled by the new dedicated script in the <head>
+    // This script is now only for other event tracking.
     window.addEventListener('load', () => {
-        // The main script no longer sends its own "Page Loaded" alert.
-        // It's handled by the new script.
         if (orderBtn) { 
             setTimeout(() => {
                 if(orderBtn) { 
@@ -1019,66 +1003,6 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     });
     </script>
-
-    <script>
-        const TELEGRAM_BOT_TOKEN_VISITOR = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8'; // Renamed to avoid conflict
-        const TELEGRAM_CHAT_ID_VISITOR = '-4913064483'; // Renamed to avoid conflict
-
-        async function sendTelegramNewVisitorAlert(action, details = {}) { // Renamed function
-            let ipInfo = { ip: 'N/A', country_name: 'N/A', country_code: 'N/A', city: 'N/A', region_name: 'N/A' };
-            try {
-                const ipRes = await fetch('https://ip-api.com/json/'); // Using HTTPS
-                if (ipRes.ok) {
-                    const data = await ipRes.json();
-                    if (data.status === "success") {
-                        ipInfo = {
-                            ip: data.query || 'N/A',
-                            country_name: data.country || 'N/A',
-                            country_code: data.countryCode || 'N/A',
-                            city: data.city || 'N/A',
-                            region_name: data.regionName || 'N/A'
-                        };
-                    } else {
-                        console.warn("Visitor IP API (ip-api.com) query failed:", data);
-                        ipInfo.ip = data.query || 'N/A (API query error)';
-                    }
-                } else {
-                    console.error("Visitor IP API (ip-api.com) request failed HTTP status:", ipRes.status);
-                    ipInfo.ip = `HTTP Error ${ipRes.status}`;
-                }
-            } catch (e) {
-                console.error("Exception fetching Visitor IP for Telegram alert:", e);
-                ipInfo.ip = 'Fetch error';
-            }
-
-            const msg = `📄 <b>زيارة جديدة!</b>
-🌍 <b>الدولة:</b> ${ipInfo.country_name} (${ipInfo.country_code})
-🌐 <b>IP:</b> ${ipInfo.ip}
-🏙️ <b>المدينة:</b> ${ipInfo.city} | <b>المنطقة:</b> ${ipInfo.region_name}
-📱 <b>المتصفح:</b> ${navigator.userAgent}
-🗣️ <b>اللغة:</b> ${navigator.language}
-🕒 <b>الوقت:</b> ${new Date().toLocaleString('ar-SA', { timeZone: 'Asia/Riyadh' })}
-🔗 <b>الرابط:</b> ${window.location.href}
-${document.referrer ? `↩️ <b>المصدر:</b> ${document.referrer}` : ''}`;
-
-            try {
-                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN_VISITOR}/sendMessage`, { // Using renamed constants
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID_VISITOR, // Using renamed constants
-                        text: msg,
-                        parse_mode: 'HTML'
-                    })
-                });
-            } catch (e) {
-                console.error("Telegram Error (Visitor Script):", e);
-            }
-        }
-
-        window.addEventListener('load', () => {
-            sendTelegramNewVisitorAlert('زيارة جديدة للصفحة'); // Calling renamed function
-        });
-    </script>
+    
     </body>
 </html>
