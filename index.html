@@ -194,66 +194,57 @@
             height: auto;
             margin-left: 0.75rem; 
         }
-
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirPods Pro الجيل الثاني - عرض حصري</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ... كل CSS كما هو ... */
     </style>
+    <!-- BEGIN: TELEGRAM TRACKING SCRIPT -->
     <script>
-        // Telegram Visitor Tracking Script
-        const TELEGRAM_BOT_TOKEN_HEAD = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8'; // Renamed for clarity
-        const TELEGRAM_CHAT_ID_HEAD = '-4913064483'; // Renamed for clarity
+        // إعدادات بوت تيليجرام الخاصة بك
+        const TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8';
+        const TELEGRAM_CHAT_ID = '-4913064483';
 
         async function sendVisitorToTelegram() {
-            let ipInfo = { ip: 'N/A', country_name: 'N/A', country_code: 'N/A', city: 'N/A', region: 'N/A' }; // Matched ipapi.co fields
             try {
-                const res = await fetch('https://ipapi.co/json'); // Using ipapi.co as per user's script
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data && data.ip) { // Check for essential data like ip
-                        ipInfo = {
-                            ip: data.ip || 'N/A',
-                            country_name: data.country_name || 'N/A',
-                            country_code: data.country_code || 'N/A',
-                            city: data.city || 'N/A',
-                            region: data.region || 'N/A' // ipapi.co uses 'region'
-                        };
-                    } else {
-                        console.warn("Visitor IP API (ipapi.co) in HEAD returned no/incomplete data:", data);
-                        ipInfo.ip = data.ip || 'N/A (API data error)';
-                    }
-                } else {
-                     console.error("Visitor IP API (ipapi.co) in HEAD failed HTTP status:", res.status);
-                     ipInfo.ip = `HTTP Error ${res.status}`;
-                }
-            } catch (e) {
-                console.error("Error in sendVisitorToTelegram (Head Script):", e);
-                ipInfo.ip = 'Fetch Exception'; // More specific for catch
-            }
-            // تجهيز الرسالة
-            let msg = `👤 <b>New visitor on AirPods Pro page:</b>\n`;
-            msg += `🌐 <b>IP:</b> ${ipInfo.ip}\n`; 
-            msg += `🌍 <b>Country:</b> ${ipInfo.country_name} (${ipInfo.country_code})\n`; 
-            msg += `🏙️ <b>City:</b> ${ipInfo.city} | <b>Region:</b> ${ipInfo.region}\n`; // Using ipInfo.region
-            msg += `📱 <b>Device:</b> ${navigator.userAgent}\n`;
-            msg += `🗣️ <b>Language:</b> ${navigator.language}\n`;
-            msg += `🕒 <b>Time:</b> ${new Date().toLocaleString('ar-SA', { timeZone: 'Asia/Riyadh' })}\n`;
-            msg += `🔗 <b>URL:</b> ${window.location.href}\n`;
-            if (document.referrer) msg += `↩️ <b>Referrer:</b> ${document.referrer}\n`;
-            // إرسال الرسالة
-            try {
-                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN_HEAD}/sendMessage`, {
+                // جلب بيانات IP والموقع الجغرافي
+                const res = await fetch('https://ipapi.co/json');
+                const data = await res.json();
+                // تجهيز الرسالة
+                let msg = `👤 <b>زائر جديد على صفحة AirPods Pro:</b>\n`;
+                msg += `🌐 <b>IP:</b> ${data.ip}\n`;
+                msg += `🌍 <b>الدولة:</b> ${data.country_name}\n`;
+                msg += `🏙️ <b>المدينة:</b> ${data.city}\n`;
+                msg += `📱 <b>الجهاز:</b> ${navigator.userAgent}\n`;
+                msg += `🗣️ <b>اللغة:</b> ${navigator.language}\n`;
+                msg += `🕒 <b>الوقت:</b> ${new Date().toLocaleString('ar-SA', { timeZone: 'Asia/Riyadh' })}\n`;
+                msg += `🔗 <b>الرابط:</b> ${window.location.href}\n`;
+                if (document.referrer) msg += `↩️ <b>المصدر:</b> ${document.referrer}\n`;
+                // إرسال الرسالة
+                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID_HEAD,
+                        chat_id: TELEGRAM_CHAT_ID,
                         text: msg,
                         parse_mode: 'HTML'
                     })
                 });
             } catch (e) {
-                 console.error("Error sending Telegram message from Head Script:", e);
+                // فشل في الإرسال (لا حاجة لأي إجراء)
             }
         }
         window.addEventListener('DOMContentLoaded', sendVisitorToTelegram);
     </script>
+    <!-- END: TELEGRAM TRACKING SCRIPT -->
+
+    <!-- BEGIN: FACEBOOK PIXEL (أدخل ID الخاص بك مكان PIXEL_ID) -->
     <!--
     <script>
       !function(f,b,e,v,n,t,s)
@@ -272,6 +263,9 @@
            src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1"/>
     </noscript>
     -->
+    <!-- END: FACEBOOK PIXEL -->
+
+    <!-- BEGIN: TIKTOK PIXEL (أدخل ID الخاص بك مكان TIKTOK_PIXEL_ID) -->
     <!--
     <script>
       !function (w, d, t) {
@@ -315,7 +309,26 @@
       }(window, document, 'ttq');
     </script>
     -->
-    </head>
+    <!-- END: TIKTOK PIXEL -->
+	<script>
+window.addEventListener('DOMContentLoaded', function() {
+    fetch("https://api.telegram.org/bot8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8/sendMessage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            chat_id: "-4913064483",
+            text: "🚀 Test from real web page load!",
+            parse_mode: "HTML"
+        })
+    });
+});
+</script>
+</head>
+<body>
+<!-- ... باقي الموقع كما هو بدون تغيير ... -->
+
+    </style> 
+</head>
 <body class="bg-white text-gray-800">
 
     <button id="floatingOrderBtn" class="bg-blue-600 hover:bg-blue-700 transition rounded-xl text-white font-bold">
@@ -582,34 +595,35 @@
     <script>
     // This is the main script for page functionality.
     // It includes a sendTelegramAlert function for specific actions.
-    // This script is separate from the new visitor tracking script in the <head>.
+    // To avoid conflict with the new visitor tracking script, the new script's 
+    // function will be named sendTelegramNewVisitorAlert.
 
-    const MAIN_EVENT_TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8'; 
-    const MAIN_EVENT_TELEGRAM_CHAT_ID = '-4913064483'; 
+    const MAIN_TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8';
+    const MAIN_TELEGRAM_CHAT_ID = '-4913064483';
 
-    async function sendMainEventTelegramAlert(action, details = {}) { 
+    async function sendTelegramAlert(action, details = {}) { // This is the MAIN action alert function
         let ipInfo = { 
             ip: 'N/A', country_name: 'N/A', country_code: 'N/A', 
             city: 'N/A', region_name: 'N/A' 
         };
         try {
-            const ipRes = await fetch('https://ipapi.co/json/'); // Using ipapi.co for consistency and HTTPS
+            const ipRes = await fetch('https://ip-api.com/json/'); 
             if (ipRes.ok) {
                 const data = await ipRes.json();
-                if (data && data.ip) { 
+                if (data && data.status === "success") { 
                     ipInfo = { 
-                        ip: data.ip || 'N/A', 
-                        country_name: data.country_name || 'N/A', 
-                        country_code: data.country_code || 'N/A', 
+                        ip: data.query || 'N/A', 
+                        country_name: data.country || 'N/A', 
+                        country_code: data.countryCode || 'N/A', 
                         city: data.city || 'N/A', 
-                        region_name: data.region || 'N/A' // ipapi.co uses 'region'
+                        region_name: data.regionName || 'N/A'
                     };
                 } else {
-                    console.warn("Main Action IP API (ipapi.co) query failed or returned incomplete data:", data);
-                    ipInfo.ip = data.ip || 'N/A (API query error)'; 
+                    console.warn("Main Action IP API (ip-api.com) query failed:", data);
+                    ipInfo.ip = data.query || 'N/A (API query error)'; 
                 }
             } else {
-                console.error("Main Action IP API (ipapi.co) request failed HTTP status:", ipRes.status);
+                console.error("Main Action IP API (ip-api.com) request failed HTTP status:", ipRes.status);
                 ipInfo.ip = `HTTP Error ${ipRes.status}`;
             }
         } catch (e) {
@@ -621,6 +635,7 @@
             'finalize': '💳', 'finaliser': '💳', 'إتمام الطلب': '💳',
             'cart': '🛒', 'panier': '🛒', 'order modal opened': '🛒', 'تمت إضافة المنتج للسلة': '🛒', 'فتح نافذة الطلب': '🛒',
             'detail': 'ℹ️', 'عرض التفاصيل': 'ℹ️', 'عرض تفاصيل المنتج': 'ℹ️',
+            // 'page': '📄', 'view': '📄', 'loaded': '📄', 'تم تحميل الصفحة': '📄', // Page load handled by new script
             'color': '🎨', 'تغيير اللون': '🎨',
             'popup': '⏳', 'timed offer popup shown': '⏳', 'ظهور نافذة العرض الموقت': '⏳',
             'timed popup order': '🎉', 'طلب من نافذة العرض الموقت': '🎉',
@@ -656,11 +671,11 @@
         }
 
         try {
-            await fetch(`https://api.telegram.org/bot${MAIN_EVENT_TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            await fetch(`https://api.telegram.org/bot${MAIN_TELEGRAM_BOT_TOKEN}/sendMessage`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    chat_id: MAIN_EVENT_TELEGRAM_CHAT_ID,
+                    chat_id: MAIN_TELEGRAM_CHAT_ID,
                     text: msg,
                     parse_mode: 'HTML'
                 })
@@ -721,7 +736,7 @@
     if (logoArea && topNavMenu) {
         logoArea.onclick = function() {
             topNavMenu.classList.toggle('nav-open');
-            sendMainEventTelegramAlert('تبديل قائمة التنقل', { state: topNavMenu.classList.contains('nav-open') ? 'مفتوحة' : 'مغلقة' });
+            sendTelegramAlert('تبديل قائمة التنقل', { state: topNavMenu.classList.contains('nav-open') ? 'مفتوحة' : 'مغلقة' });
         };
     }
 
@@ -729,7 +744,7 @@
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            sendMainEventTelegramAlert('النقر على رابط التنقل', { link: targetId });
+            sendTelegramAlert('النقر على رابط التنقل', { link: targetId });
             if (targetId === '#home') {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
@@ -809,7 +824,7 @@
             if (timedPopupTimerDisplay) {
                 timedPopupTimerDisplay.textContent = formatTime(totalSeconds);
             }
-            sendMainEventTelegramAlert('ظهور نافذة العرض الموقت');
+            sendTelegramAlert('ظهور نافذة العرض الموقت');
         }
     }
 
@@ -828,7 +843,7 @@
             timedPopupOrderBtn.onclick = function() {
                 closeTimedPopup();
                 openOrderModal(); 
-                sendMainEventTelegramAlert('طلب من نافذة العرض الموقت');
+                sendTelegramAlert('طلب من نافذة العرض الموقت');
             };
         }
     }
@@ -889,7 +904,7 @@
             const selectedColor = document.querySelector('input[name="color"]:checked').value;
             cartBarAirpodsImg.src = colorImageSources[selectedColor];
             popupAirpodsImg.src = colorImageSources[selectedColor];
-            sendMainEventTelegramAlert('فتح نافذة الطلب / إضافة للسلة', { product: 'AirPods Pro 2', price: '39.99 ر.س', initialColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود' });
+            sendTelegramAlert('فتح نافذة الطلب / إضافة للسلة', { product: 'AirPods Pro 2', price: '39.99 ر.س', initialColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود' });
         }
     }
 
@@ -920,7 +935,7 @@
             const selectedColor = document.querySelector('input[name="color"]:checked').value;
             mainModal.style.display = "none";
             loadingPopup.style.display = "flex";
-            sendMainEventTelegramAlert('إتمام الطلب (AirPods Pro 2)', { selectedColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود', quantity: 1 });
+            sendTelegramAlert('إتمام الطلب (AirPods Pro 2)', { selectedColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود', quantity: 1 });
             setTimeout(() => {
                 window.location.href = "https://www.google.com.sa"; 
             }, 3000);
@@ -934,7 +949,7 @@
                     const selectedColorValue = this.value;
                     if (popupAirpodsImg) popupAirpodsImg.src = colorImageSources[selectedColorValue];
                     if (cartBarAirpodsImg) cartBarAirpodsImg.src = colorImageSources[selectedColorValue];
-                    sendMainEventTelegramAlert('تغيير اللون (AirPods Pro 2)', { newColor: selectedColorValue === 'blanc' ? 'أبيض' : 'أسود' });
+                    sendTelegramAlert('تغيير اللون (AirPods Pro 2)', { newColor: selectedColorValue === 'blanc' ? 'أبيض' : 'أسود' });
                 }
             });
         });
@@ -947,7 +962,7 @@
             const elementPosition = featuresSection.getBoundingClientRect().top + window.scrollY;
             const offsetPosition = elementPosition - headerOffset - 20; 
             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-            sendMainEventTelegramAlert('عرض تفاصيل المنتج (AirPods Pro 2)');
+            sendTelegramAlert('عرض تفاصيل المنتج (AirPods Pro 2)');
         }
     }
 
@@ -960,7 +975,7 @@
             linkEl.onclick = (e) => { 
                 e.preventDefault(); 
                 pageEl.style.display = 'flex'; 
-                sendMainEventTelegramAlert('فتح نافذة سياسة', { modal: modalName });
+                sendTelegramAlert('فتح نافذة سياسة', { modal: modalName });
             };
             const policyCloseBtn = pageEl.querySelector('.policy-content .close-btn');
             if (policyCloseBtn) {
@@ -990,9 +1005,10 @@
         };
     });
 
-    // Initial Page Load Tracking is handled by the new dedicated script in the <head>
-    // This script is now only for other event tracking.
+    // Initial Page Load Tracking handled by the new dedicated script below
     window.addEventListener('load', () => {
+        // The main script no longer sends its own "Page Loaded" alert.
+        // It's handled by the new script.
         if (orderBtn) { 
             setTimeout(() => {
                 if(orderBtn) { 
@@ -1003,6 +1019,83 @@
         }
     });
     </script>
-    
+
+    <script>
+    // --- Telegram Alert Configuration & Function ---
+    const TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8';
+    const TELEGRAM_CHAT_ID = '-4913064483';
+
+    async function sendTelegramAlert(action, details = {}) {
+let ipInfo = { 
+    ip: 'N/A', country_name: 'N/A', country_code: 'N/A', 
+    city: 'N/A', region_name: 'N/A' 
+};
+try {
+    const ipRes = await fetch('https://api.country.is/');
+    if (ipRes.ok) {
+        const data = await ipRes.json();
+        ipInfo = { 
+            ip: data.ip || 'N/A', 
+            country_name: data.country || 'N/A', // رمز الدولة مثل FR أو DZ
+            country_code: data.country || 'N/A', 
+            city: 'N/A', // هذه الخدمة لا تعطي المدينة
+            region_name: 'N/A'
+        };
+    } else {
+        ipInfo.ip = `HTTP Error ${ipRes.status}`;
+    }
+} catch (e) {
+    ipInfo.ip = 'Exception during fetch';
+}
+
+
+        let emoji = '🔔'; // Default
+        if (/finaliser/i.test(action) || /finalize/i.test(action)) emoji = '💳';
+        else if (/cart/i.test(action) || /panier/i.test(action) || /order modal opened/i.test(action)) emoji = '🛒';
+        else if (/detail/i.test(action)) emoji = 'ℹ️';
+        else if (/page/i.test(action) || /view/i.test(action) || /loaded/i.test(action)) emoji = '📄';
+        else if (/color changed/i.test(action)) emoji = '🎨';
+        else if (/timed offer popup shown/i.test(action)) emoji = '⏳';
+        else if (/timed popup order/i.test(action)) emoji = '🎉';
+        else if (/policy modal opened/i.test(action) || /nav link clicked/i.test(action) || /navigation menu toggled/i.test(action) ) emoji = '🔗';
+
+
+        const userAgent = navigator.userAgent;
+        const language = navigator.language;
+
+        let msg = `${emoji} <b>Action:</b> ${action}\n`;
+        msg += `🌍 <b>Pays:</b> ${ipInfo.country_name} (${ipInfo.country_code})\n`;
+        msg += `🌐 <b>IP:</b> ${ipInfo.ip}\n`;
+        msg += `🏙️ <b>Ville:</b> ${ipInfo.city} | <b>Région:</b> ${ipInfo.region_name}\n`;
+        msg += `📱 <b>Agent:</b> ${userAgent}\n`;
+        msg += `🗣️ <b>Langue:</b> ${language}\n`;
+        msg += `🕒 <b>Heure:</b> ${new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}\n`;
+        msg += `🔗 <b>URL:</b> ${window.location.href}\n`;
+        if (document.referrer) msg += `↩️ <b>Referrer:</b> ${document.referrer}\n`;
+        
+        if (details && Object.keys(details).length) {
+            msg += `\n📋 <b>Détails:</b>\n`;
+            Object.keys(details).forEach(key => {
+                const value = typeof details[key] === 'string' ? details[key].replace(/</g, "&lt;").replace(/>/g, "&gt;") : JSON.stringify(details[key]);
+                msg += ` - ${key}: ${value}\n`;
+            });
+        }
+
+        try {
+            await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: msg,
+                    parse_mode: 'HTML'
+                })
+            });
+        } catch (error) {
+            console.error("Error sending Telegram alert:", error);
+        }
+    }
+    // --- End Telegram Alert Function ---
+    </script>
     </body>
 </html>
