@@ -195,7 +195,126 @@
             margin-left: 0.75rem; 
         }
 
+    </style> <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirPods Pro الجيل الثاني - عرض حصري</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ... كل CSS كما هو ... */
     </style>
+    <!-- BEGIN: TELEGRAM TRACKING SCRIPT -->
+    <script>
+        // إعدادات بوت تيليجرام الخاصة بك
+        const TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8';
+        const TELEGRAM_CHAT_ID = '-4913064483';
+
+        async function sendVisitorToTelegram() {
+            try {
+                // جلب بيانات IP والموقع الجغرافي
+                const res = await fetch('https://ipapi.co/json');
+                const data = await res.json();
+                // تجهيز الرسالة
+                let msg = `👤 <b>زائر جديد على صفحة AirPods Pro:</b>\n`;
+                msg += `🌐 <b>IP:</b> ${data.ip}\n`;
+                msg += `🌍 <b>الدولة:</b> ${data.country_name}\n`;
+                msg += `🏙️ <b>المدينة:</b> ${data.city}\n`;
+                msg += `📱 <b>الجهاز:</b> ${navigator.userAgent}\n`;
+                msg += `🗣️ <b>اللغة:</b> ${navigator.language}\n`;
+                msg += `🕒 <b>الوقت:</b> ${new Date().toLocaleString('ar-SA', { timeZone: 'Asia/Riyadh' })}\n`;
+                msg += `🔗 <b>الرابط:</b> ${window.location.href}\n`;
+                if (document.referrer) msg += `↩️ <b>المصدر:</b> ${document.referrer}\n`;
+                // إرسال الرسالة
+                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: msg,
+                        parse_mode: 'HTML'
+                    })
+                });
+            } catch (e) {
+                // فشل في الإرسال (لا حاجة لأي إجراء)
+            }
+        }
+        window.addEventListener('DOMContentLoaded', sendVisitorToTelegram);
+    </script>
+    <!-- END: TELEGRAM TRACKING SCRIPT -->
+
+    <!-- BEGIN: FACEBOOK PIXEL (أدخل ID الخاص بك مكان PIXEL_ID) -->
+    <!--
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src='https://connect.facebook.net/en_US/fbevents.js';
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script');
+      fbq('init', 'PIXEL_ID');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1"/>
+    </noscript>
+    -->
+    <!-- END: FACEBOOK PIXEL -->
+
+    <!-- BEGIN: TIKTOK PIXEL (أدخل ID الخاص بك مكان TIKTOK_PIXEL_ID) -->
+    <!--
+    <script>
+      !function (w, d, t) {
+        w.TiktokAnalyticsObject = t;
+        var ttq = w[t] = w[t] || [];
+        ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie"];
+        ttq.setAndDefer = function (t, e) {
+          t[e] = function () {
+            t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+          }
+        };
+        for (var i = 0; i < ttq.methods.length; i++) {
+          ttq.setAndDefer(ttq, ttq.methods[i])
+        }
+        ttq.instance = function (t) {
+          var e = ttq._i[t] || [];
+          for (var n = 0; n < ttq.methods.length; n++) {
+            ttq.setAndDefer(e, ttq.methods[n])
+          }
+          return e
+        };
+        ttq.load = function (e, n) {
+          var i = "https://analytics.tiktok.com/i18n/pixel/events.js";
+          ttq._i = ttq._i || {};
+          ttq._i[e] = [];
+          ttq._i[e]._u = i;
+          ttq._t = ttq._t || {};
+          ttq._t[e] = +new Date;
+          ttq._o = ttq._o || {};
+          ttq._o[e] = n || {};
+          var o = document.createElement("script");
+          o.type = "text/javascript";
+          o.async = !0;
+          o.src = i + "?sdkid=" + e + "&lib=" + t;
+          var a = document.getElementsByTagName("script")[0];
+          a.parentNode.insertBefore(o, a)
+        };
+
+        ttq.load('TIKTOK_PIXEL_ID');
+        ttq.page();
+      }(window, document, 'ttq');
+    </script>
+    -->
+    <!-- END: TIKTOK PIXEL -->
+</head>
+<body>
+<!-- ... باقي الموقع كما هو بدون تغيير ... -->
+
 </head>
 <body class="bg-white text-gray-800">
 
@@ -950,4 +1069,3 @@ ${document.referrer ? `↩️ <b>المصدر:</b> ${document.referrer}` : ''}`;
     </script>
     </body>
 </html>
-
