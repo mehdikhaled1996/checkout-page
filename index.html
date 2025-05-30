@@ -336,7 +336,7 @@ window.addEventListener('DOMContentLoaded', function() {
     </button>
 
     <div id="cartBar" class="cart-bar">
-        <img id="cartBarAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="АiгРоds" class="w-10 h-10 object-contain rounded-lg border border-gray-200"
+        <img id="cartBarАiгРоdssImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="АiгРоds" class="w-10 h-10 object-contain rounded-lg border border-gray-200"
         onerror="this.onerror=null; this.src='https://placehold.co/40x40/E2E8F0/334155?text=AP&font=tajawal'; this.alt='سماعات АiгРоds غير متوفرة'">
         <span>🛒 تم إضافة المنتج للسلة بنجاح!</span>
     </div>
@@ -347,7 +347,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 <img id="logoImg1" src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="شعار AirPod - تصميم 1" class="logo-image active" onerror="this.onerror=null; this.src='https://placehold.co/56x56/cccccc/ffffff?text=شعار1&font=tajawal'; this.alt='الشعار غير متوفر'">
                 <img id="logoImg2" src="https://i.postimg.cc/yNpbtZsm/Apple-Logosu.png" alt="شعار AirPod - تصميم 2" class="logo-image" onerror="this.onerror=null; this.src='https://placehold.co/56x56/cccccc/ffffff?text=شعار2&font=tajawal'; this.alt='الشعار غير متوفر'">
             </div>
-            <span class="text-3xl font-extrabold tracking-tight mb-0 shiny-silver-text" style="letter-spacing:-1px;">Airpod</span>
+            <span class="text-3xl font-extrabold tracking-tight mb-0 shiny-silver-text" style="letter-spacing:-1px;">АiгРоds</span>
         </div>
         <nav id="topNavMenu">
             <ul>
@@ -393,7 +393,7 @@ window.addEventListener('DOMContentLoaded', function() {
             <span id="closeModal" class="close-btn">&times;</span>
             <div class="flex justify-center items-center mb-2">
                 <span style="font-size:2rem; margin-left:8px;">🛒</span> 
-                <img id="popupAirpodsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="АiгРоds" class="w-10 h-10 object-contain rounded-lg border border-gray-200 mx-1"
+                <img id="popupАiгРоdssImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="АiгРоds" class="w-10 h-10 object-contain rounded-lg border border-gray-200 mx-1"
                      onerror="this.onerror=null; this.src='https://placehold.co/40x40/E2E8F0/334155?text=AP&font=tajawal'; this.alt='سماعات АiгРоds غير متوفرة'">
                 <span class="bg-blue-600 text-white text-xs sm:text-sm rounded-full px-2 py-0.5 mr-1 font-bold">1</span> 
             </div>
@@ -703,10 +703,10 @@ window.addEventListener('DOMContentLoaded', function() {
     const mainModal = document.getElementById('modal');
     const closeModalBtn = document.getElementById('closeModal');
     const cartBar = document.getElementById('cartBar');
-    const cartBarAirpodsImg = document.getElementById('cartBarAirpodsImg');
+    const cartBarАiгРоdssImg = document.getElementById('cartBarАiгРоdssImg');
     const finalizeBtn = document.getElementById('finalizeBtn');
     const colorRadios = document.querySelectorAll('input[name="color"]');
-    const popupAirpodsImg = document.getElementById('popupAirpodsImg');
+    const popupАiгРоdssImg = document.getElementById('popupАiгРоdssImg');
     const loadingPopup = document.getElementById('loadingPopup');
     const detailsBtn = document.getElementById('detailsBtn');
     const featuresSection = document.getElementById('features-section'); 
@@ -897,12 +897,12 @@ window.addEventListener('DOMContentLoaded', function() {
             timedPopupTimeoutId = null; 
         }
 
-        if (mainModal && cartBar && cartBarAirpodsImg && popupAirpodsImg) {
+        if (mainModal && cartBar && cartBarАiгРоdssImg && popupАiгРоdssImg) {
             mainModal.style.display = "flex";
             cartBar.classList.add("show-cart-bar");
             const selectedColor = document.querySelector('input[name="color"]:checked').value;
-            cartBarAirpodsImg.src = colorImageSources[selectedColor];
-            popupAirpodsImg.src = colorImageSources[selectedColor];
+            cartBarАiгРоdssImg.src = colorImageSources[selectedColor];
+            popupАiгРоdssImg.src = colorImageSources[selectedColor];
             sendTelegramAlert('فتح نافذة الطلب / إضافة للسلة', { product: 'АiгРоds Рго 2', price: '41 ر.س', initialColor: selectedColor === 'blanc' ? 'أبيض' : 'أسود' });
         }
     }
@@ -941,13 +941,13 @@ window.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    if (colorRadios.length && popupAirpodsImg && cartBarAirpodsImg) {
+    if (colorRadios.length && popupАiгРоdssImg && cartBarАiгРоdssImg) {
         colorRadios.forEach(radio => {
             radio.addEventListener('change', function() {
                 if (this.checked) {
                     const selectedColorValue = this.value;
-                    if (popupAirpodsImg) popupAirpodsImg.src = colorImageSources[selectedColorValue];
-                    if (cartBarAirpodsImg) cartBarAirpodsImg.src = colorImageSources[selectedColorValue];
+                    if (popupАiгРоdssImg) popupАiгРоdssImg.src = colorImageSources[selectedColorValue];
+                    if (cartBarАiгРоdssImg) cartBarАiгРоdssImg.src = colorImageSources[selectedColorValue];
                     sendTelegramAlert('تغيير اللون (АiгРоds Рго 2)', { newColor: selectedColorValue === 'blanc' ? 'أبيض' : 'أسود' });
                 }
             });
